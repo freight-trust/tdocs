@@ -1,0 +1,41 @@
+{
+  "name": "@freight-trust/tdocs",
+  "version": "1.8.0",
+  "description": "tradedocs publishing tools",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "release-it"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freight-trust/tdocs.git"
+  },
+  "keywords": [
+    "trade",
+    "docs",
+    "freight",
+    "logistics",
+    "supply",
+    "chain",
+    "publishing"
+  ],
+  "author": "sam <sam@freighttrust.com>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/freight-trust/tdocs/issues"
+  },
+  "homepage": "https://github.com/freight-trust/tdocs#readme",
+  "release-it": {
+    "github": {
+      "release": true
+    }
+  },
+  "devDependencies": {
+    "release-it": "^13.6.6"
+  }
+}

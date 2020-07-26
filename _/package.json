@@ -1,0 +1,42 @@
+{
+  "name": "@tradedocs/core",
+  "version": "0.1.4",
+  "scripts": {
+    "lint:text": "textlint '**/*.md'",
+    "prettier": "prettier --write '**/*.md'",
+    "build": "textlint-scripts build",
+    "test": "textlint-scripts test",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.md": [
+      "prettier --parser markdown --write",
+      "git add"
+    ]
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.1.0",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "proselint": "^0.1.7",
+    "stylelint-prettier": "^1.1.2",
+    "textlint": "^11.6.3",
+    "textlint-rule-common-misspellings": "^1.0.1",
+    "textlint-rule-no-dead-link": "^4.6.2",
+    "textlint-rule-terminology": "^2.1.4",
+    "textlint-rule-write-good": "^1.6.2"
+  },
+  "dependencies": {
+    "@wikipathways/cxsd": "^0.2.10",
+    "chai": "^4.2.0",
+    "data-cli": "^0.9.6",
+    "mocha": "^7.2.0",
+    "moddle": "^5.0.1",
+    "moddle-xml": "^9.0.2",
+    "typescript": "^3.9.3",
+    "xsd2jsonschema": "^0.3.4"
+  }
+}
