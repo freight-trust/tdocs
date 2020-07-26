@@ -16,19 +16,18 @@
 
 # Overview
 
-`tdocs` is a file format for enabling seamless generation of `shipping documents of title` such as `bills of lading` while also providing an interface for physical interaction.
+`tdocs` is a file format for enabling seamless generation of
+`shipping documents of title` such as `bills of lading` while also providing an
+interface for physical interaction.
 
+## Usage
 
-## Usage 
+\*see [freight trust documentation](https://ft-docs.netlify.app)
 
-*see [freight trust documentation](https://ft-docs.netlify.app)
+## Example
 
-## Example 
+\*see [freight trust documentation](https://ft-docs.netlify.app)
 
-*see [freight trust documentation](https://ft-docs.netlify.app)
+## License
 
-
-## License 
-(C) 2020 FreightTrust and Clearing Corporation 
-<br>
-Apache 2.0 License 
+(C) 2020 FreightTrust and Clearing Corporation <br> Apache 2.0 License
