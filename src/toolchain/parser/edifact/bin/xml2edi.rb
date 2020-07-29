@@ -24,25 +24,24 @@
 # DESCRIPTION:
 #
 # This script turns XML files into EDI (EDIFACT or SAP IDOC) documents.
-# 
+#
 
-require "rubygems"
-require_gem "edi4r"
-require "edi4r/edifact"
-require "edi4r/rexml"
+require 'rubygems'
+require_gem 'edi4r'
+require 'edi4r/edifact'
+require 'edi4r/rexml'
 
-def to_edi( xdoc )
+def to_edi(xdoc)
   ic = EDI::Interchange.parse_xml xdoc
   $stdout.print ic
 end
 
-
 if ARGV.size == 0
   xdoc = REXML::Document.new $stdin
-  to_edi( xdoc )
+  to_edi(xdoc)
 else
   ARGV.each do |fname|
-    xdoc = REXML::Document.new( File.open(fname,'r') )
-    to_edi( xdoc )
+    xdoc = REXML::Document.new(File.open(fname, 'r'))
+    to_edi(xdoc)
   end
 end

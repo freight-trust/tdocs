@@ -9,8 +9,9 @@ RSpec.describe Metanorma::Generic do
 
   describe '#configuration' do
     it 'has `configuration` attribute accessable' do
-      expect(Metanorma::Generic.configuration)
-        .to(be_instance_of(Metanorma::Generic::Configuration))
+      expect(Metanorma::Generic.configuration).to(
+        be_instance_of(Metanorma::Generic::Configuration)
+      )
     end
 
     context 'YAML config support' do
@@ -28,12 +29,12 @@ RSpec.describe Metanorma::Generic do
       end
 
       before do
-        File.new(config_file_name, 'w+').tap { |file| file.puts(yaml_content.to_yaml) }.close
+        File.new(config_file_name, 'w+').tap do |file|
+          file.puts(yaml_content.to_yaml)
+        end.close
       end
 
-      after do
-        FileUtils.rm_f(config_file_name)
-      end
+      after { FileUtils.rm_f(config_file_name) }
 
       it 'checks for metnorma.yml file and if it finds one, use its values' do
         expect(config.organization_name_short).to eq(organization_name_short)
@@ -51,12 +52,13 @@ RSpec.describe Metanorma::Generic do
       end
 
       it 'sets default atrributes' do
-        expect(config.organization_name_short)
-          .to(eq(default_organization_name_short))
-        expect(config.organization_name_long)
-          .to(eq(default_organization_name_long))
-        expect(config.document_namespace)
-          .to(eq(default_document_namespace))
+        expect(config.organization_name_short).to(
+          eq(default_organization_name_short)
+        )
+        expect(config.organization_name_long).to(
+          eq(default_organization_name_long)
+        )
+        expect(config.document_namespace).to(eq(default_document_namespace))
       end
     end
 

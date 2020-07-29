@@ -1,16 +1,19 @@
-require "isodoc"
+require 'isodoc'
 
 module IsoDoc
   module Generic
-
     class Metadata < IsoDoc::Metadata
       def initialize(lang, script, labels)
         super
         here = File.dirname(__FILE__)
-        default_logo_path = File.expand_path(File.join(here, "html", "logo.jpg"))
+        default_logo_path =
+          File.expand_path(File.join(here, 'html', 'logo.jpg'))
         set(:logo, baselocation(configuration.logo_path) || default_logo_path)
         unless configuration.logo_paths.nil?
-          set(:logo_paths, Array(configuration.logo_paths).map { |p| baselocation(p) })
+          set(
+            :logo_paths,
+            Array(configuration.logo_paths).map { |p| baselocation(p) }
+          )
         end
       end
 
@@ -18,13 +21,21 @@ module IsoDoc
         attr_accessor :_file
       end
 
-      def self.inherited( k )
+      def self.inherited(k)
         k._file = caller_locations.first.absolute_path
       end
 
       def baselocation(loc)
         return nil if loc.nil?
-        File.expand_path(File.join(File.dirname(self.class::_file || __FILE__), "..", "..", "..", loc))
+        File.expand_path(
+          File.join(
+            File.dirname(self.class._file || __FILE__),
+            '..',
+            '..',
+            '..',
+            loc
+          )
+        )
       end
 
       def configuration
@@ -33,7 +44,7 @@ module IsoDoc
 
       def author(isoxml, _out)
         super
-        tc = isoxml.at(ns("//bibdata/ext/editorialgroup/committee"))
+        tc = isoxml.at(ns('//bibdata/ext/editorialgroup/committee'))
         set(:tc, tc.text) if tc
       end
 
@@ -43,8 +54,8 @@ module IsoDoc
       end
 
       def unpublished(status)
-        stages = configuration&.published_stages || ["published"]
-        !(Array(stages).map { |m| m.downcase }.include? status.downcase)
+        stages = configuration&.published_stages || %w[published]
+        !(Array(stages).map(&:downcase).include? status.downcase)
       end
 
       def ext(isoxml, out)

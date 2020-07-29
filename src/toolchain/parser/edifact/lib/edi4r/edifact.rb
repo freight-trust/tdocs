@@ -59,14 +59,13 @@
 # Segment, CDE, and DE in sub-module 'E' of module 'EDI'.
 
 module EDI::E
-
   #
   # Use pattern for allowed chars of UNOC charset if none given explicitly
   #
-  Illegal_Charset_Patterns = Hash.new(/[^-A-Za-z0-9 .,()\/=!%"&*;<>'+:?\xa0-\xff]+/n)
-  Illegal_Charset_Patterns['UNOA'] =     /[^-A-Z0-9 .,()\/=!%"&*;<>'+:?]+/
-  Illegal_Charset_Patterns['UNOB'] =  /[^-A-Za-z0-9 .,()\/=!%"&*;<>'+:?]+/
-  # more to come...
+  Illegal_Charset_Patterns =
+    Hash.new(%r{[^-A-Za-z0-9 .,()\/=!%"&*;<>'+:?\xa0-\xff]+}n)
+  Illegal_Charset_Patterns['UNOA'] = %r{[^-A-Z0-9 .,()\/=!%"&*;<>'+:?]+}
+  Illegal_Charset_Patterns['UNOB'] = %r{[^-A-Za-z0-9 .,()\/=!%"&*;<>'+:?]+} # more to come...
 
   #########################################################################
   #
@@ -94,44 +93,44 @@ module EDI::E
   # Returns:
   #   Array of split results (strings without their terminating separator)
 
-  def edi_split( str, s, e, max=0 )
+  def edi_split(str, s, e, max = 0)
     results, item, start = [], '', 0
-    while start < str.length do
+    while start < str.length
       # match_at = index of next separator, or -1 if none found
-      match_at = ((start...str.length).find{|i| str[i] == s}) || str.length
-      item += str[start...match_at]
-      # Count escapes in front of separator. No real separator if odd!
-      escapes = count_escapes( item, e )
+      match_at = ((start...str.length).find { |i| str[i] == s }) || str.length
+      item += str[start...match_at] # Count escapes in front of separator. No real separator if odd!
+      escapes = count_escapes(item, e)
+
       if escapes & 1 == 1 # odd
-        raise EDISyntaxError, "Pending escape char in #{str}" if match_at == str.length
-        (escapes/2+1).times {item.chop!} # chop off duplicate escapes
+        if match_at == str.length
+          raise EDISyntaxError, "Pending escape char in #{str}"
+        end
+        (escapes / 2 + 1).times { item.chop! } # chop off duplicate escapes
         item << s # add separator as regular character
-      else # even
-        (escapes/2).times {item.chop!}  # chop off duplicate escapes
+      else
+        # even
+        (escapes / 2).times { item.chop! } # chop off duplicate escapes
         results << item
         item = ''
       end
       start = match_at + 1
-    end
-    #
-    # Do not return trailing empty items
-    #
+    end #
+
     results << item unless item.empty?
     return results if results.empty?
-    while results.last.empty?; results.pop; end
+    results.pop while results.last.empty?
     results
   end
 
-  class EDISyntaxError < ArgumentError
-  end
+  class EDISyntaxError < ArgumentError; end
 
-  class EDIArgumentError < ArgumentError
-  end
+  class EDIArgumentError < ArgumentError; end
 
-  def count_escapes( str, e ) # :nodoc:
+  def count_escapes(str, e)
+    # :nodoc:
     n = 0
-    (str.length-1).downto(0) do |i|
-      if str[i]==e
+    (str.length - 1).downto(0) do |i|
+      if str[i] == e
         n += 1
       else
         return n
@@ -141,7 +140,6 @@ module EDI::E
   end
 
   module_function :edi_split, :count_escapes
-
 
   #########################################################################
   #
@@ -158,38 +156,38 @@ module EDI::E
   class ::Time
     attr_accessor :format
 
-    def Time.edifact(str, fmt=102)
+    def Time.edifact(str, fmt = 102)
       msg = "Time.edifact: #{str} does not match format #{fmt}"
       case fmt.to_s
       when '101'
         rc = str =~ /(\d\d)(\d\d)(\d\d)(.+)?/
-        raise msg unless rc and rc==0; warn msg if $4
+        raise msg unless rc and rc == 0
+        warn msg if $4
         year = $1.to_i
         year += (year < 69) ? 2000 : 1900 # See ParseDate
         dtm = Time.local(year, $2, $3)
-
       when '102'
         rc = str =~ /(\d\d\d\d)(\d\d)(\d\d)(.+)?/
-        raise msg unless rc and rc==0; warn msg if $4
+        raise msg unless rc and rc == 0
+        warn msg if $4
         dtm = Time.local($1, $2, $3)
-
       when '201'
         rc = str =~ /(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(.+)?/
-        raise msg unless rc and rc==0; warn msg if $6
+        raise msg unless rc and rc == 0
+        warn msg if $6
         year = $1.to_i
         year += (year < 69) ? 2000 : 1900 # See ParseDate
         dtm = Time.local(year, $2, $3, $4, $5)
-
       when '203'
         rc = str =~ /(\d\d\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(.+)?/
-        raise msg unless rc and rc==0; warn msg if $6
+        raise msg unless rc and rc == 0
+        warn msg if $6
         dtm = Time.local($1, $2, $3, $4, $5)
-
       when '204'
         rc = str =~ /(\d\d\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(.+)?/
-        raise msg unless rc and rc==0; warn msg if $7
+        raise msg unless rc and rc == 0
+        warn msg if $7
         dtm = Time.local($1, $2, $3, $4, $5, $6)
-
       else
         raise "Time.edifact: Format #{fmt} not supported - sorry"
       end
@@ -197,9 +195,11 @@ module EDI::E
       dtm
     end
 
-    def to_edifact_s(format=nil)
+    def to_edifact_s(format = nil)
       if @format.nil? && format.nil?
-        raise EDIArgumentError.new("Requires `format` for formatting EDI-compatible Time")
+        raise EDIArgumentError.new(
+                'Requires `format` for formatting EDI-compatible Time'
+              )
       end
 
       utc_time = getutc
@@ -207,16 +207,39 @@ module EDI::E
 
       case fmt
       when '101'
-        "%02d%02d%02d" % [utc_time.year % 100, utc_time.mon, utc_time.day]
+        '%02d%02d%02d' % [utc_time.year % 100, utc_time.mon, utc_time.day]
       when '102'
-        "%04d%02d%02d" % [utc_time.year, utc_time.mon, utc_time.day]
+        '%04d%02d%02d' % [utc_time.year, utc_time.mon, utc_time.day]
       when '201'
-        "%02d%02d%02d%02d%02d" % [utc_time.year % 100, utc_time.mon, utc_time.day, utc_time.hour, utc_time.min]
+        '%02d%02d%02d%02d%02d' %
+          [
+            utc_time.year % 100,
+            utc_time.mon,
+            utc_time.day,
+            utc_time.hour,
+            utc_time.min
+          ]
       when '203'
-        "%04d%02d%02d%02d%02d" % [utc_time.year, utc_time.mon, utc_time.day, utc_time.hour, utc_time.min]
+        '%04d%02d%02d%02d%02d' %
+          [
+            utc_time.year,
+            utc_time.mon,
+            utc_time.day,
+            utc_time.hour,
+            utc_time.min
+          ]
       when '204'
-        "%04d%02d%02d%02d%02d%2d" % [utc_time.year, utc_time.mon, utc_time.day, utc_time.hour, utc_time.min, utc_time.sec]
-      else # Should never occur
+        '%04d%02d%02d%02d%02d%2d' %
+          [
+            utc_time.year,
+            utc_time.mon,
+            utc_time.day,
+            utc_time.hour,
+            utc_time.min,
+            utc_time.sec
+          ]
+      else
+        # Should never occur
         raise "Time.edifact: Format #{format} not supported - sorry"
       end
     end
@@ -230,16 +253,15 @@ module EDI::E
   # i.e. ASCII codes.
   #
   class UNA < EDI::Object
-
     attr_reader :pattern_esc, :pattern_unesc # :nodoc:
     attr_reader :ce_sep, :de_sep, :rep_sep, :esc_char, :seg_term, :decimal_sign
 
     #
     # Sets the decimal sign. UN/EDIFACT allows only  ?, and ?.
     #
-    def decimal_sign= (chr)
+    def decimal_sign=(chr)
       chr = chr[0] if chr.is_a? String
-      raise "Illegal decimal sign: #{chr}" unless chr==?. || chr==?,
+      raise "Illegal decimal sign: #{chr}" unless chr == '.' || chr == ','
       @decimal_sign = chr
       set_chars
     end
@@ -247,48 +269,48 @@ module EDI::E
     #
     # Sets the composite data element separator. Default is ?:
     #
-    def ce_sep= (chr)
+    def ce_sep=(chr)
       chr = chr[0] if chr.is_a? String
       @ce_sep = chr
-      set_chars	# Update derived Regexp objects!
+      set_chars # Update derived Regexp objects!
     end
 
     #
     # Sets the data element separator. Default is ?+
     #
-    def de_sep= (chr)
+    def de_sep=(chr)
       chr = chr[0] if chr.is_a? String
       @de_sep = chr
-      set_chars	# Update derived Regexp objects!
+      set_chars # Update derived Regexp objects!
     end
 
     #
     # Sets the repetition separator. Default is ?* .
     # Only applicable to Syntax Version 4 !
     #
-    def rep_sep= (chr)
-      raise NoMethodError, "Syntax version 4 required" unless root.version==4
+    def rep_sep=(chr)
+      raise NoMethodError, 'Syntax version 4 required' unless root.version == 4
       chr = chr[0] if chr.is_a? String
       @rep_sep = chr
-      set_chars	# Update derived Regexp objects!
+      set_chars # Update derived Regexp objects!
     end
 
     #
     # Sets the segment terminator. Default is ?'
     #
-    def seg_term= (chr)
+    def seg_term=(chr)
       chr = chr[0] if chr.is_a? String
       @seg_term = chr
-      set_chars	# Update derived Regexp objects!
+      set_chars # Update derived Regexp objects!
     end
 
     #
     # Sets the escape character. Default is ??
     #
-    def esc_char= (chr)
+    def esc_char=(chr)
       chr = chr[0] if chr.is_a? String
       @esc_char = chr
-      set_chars	# Update derived Regexp objects!
+      set_chars # Update derived Regexp objects!
     end
 
     #
@@ -297,44 +319,43 @@ module EDI::E
     #   be already defined.
     # * Sets the UN/EDIFACT defaults if source string 'UNA......' not given
     #
-    def initialize( root, source=nil )
-      super( root, root, 'UNA')
+    def initialize(root, source = nil)
+      super(root, root, 'UNA')
 
       raise "UNA.new requires 'version' in the interchange" unless root.version
       raise "UNA.new requires 'charset' in the interchange" unless root.charset
 
-      if source =~ /^UNA(......)$/  # Take what's given
+      if source =~ /^UNA(......)$/ # Take what's given
         @chars = $1
-
       elsif (source == nil or source.empty?) # Use EDIFACT default rules
-        if root.version==2 and root.charset=='UNOB'
+        if root.version == 2 and root.charset == 'UNOB'
           @chars = "\x11\x12.? \x14"
-        elsif root.version==4
+        elsif root.version == 4
           @chars = ":+.?*'"
         else
           @chars = ":+.? '"
         end
-
       else
         raise "This is not a valid UNA source string: #{source}"
       end
 
-      @ce_sep, @de_sep, @decimal_sign,
-      @esc_char, @rep_sep, @seg_term = @chars.split('').map{|c| c[0]}
+      @ce_sep, @de_sep, @decimal_sign, @esc_char, @rep_sep, @seg_term =
+        @chars.split('').map { |c| c[0] }
       set_patterns
     end
 
     def to_s
-      'UNA'+@chars
+      'UNA' + @chars
     end
 
     private
 
     def set_chars
-      @chars=[@ce_sep, @de_sep, @decimal_sign, @esc_char, @rep_sep, @seg_term ]
-      @chars=@chars.map{|c| c.chr}.join('')
-      # Prevent duplicates
-      raise "Must not assign special char more than once!" if @chars=~/(.).*\1/
+      @chars = [@ce_sep, @de_sep, @decimal_sign, @esc_char, @rep_sep, @seg_term]
+      @chars = @chars.map(&:chr).join('') # Prevent duplicates
+      if @chars =~ /(.).*\1/
+        raise 'Must not assign special char more than once!'
+      end
       set_patterns
     end
 
@@ -343,14 +364,23 @@ module EDI::E
     # characters is changed.
     #
     def set_patterns
-      special_chars = [ @ce_sep, @de_sep, @esc_char, @seg_term ]
+      special_chars = [@ce_sep, @de_sep, @esc_char, @seg_term]
       special_chars.push @rep_sep if root.version == 4
-      special_chars = special_chars.map{|c| c.chr}
-      @pattern_esc = Regexp.new( [ '([', special_chars, '])' ].flatten.join)
-      @pattern_unesc = Regexp.new( [
-                                     '([^', @esc_char, ']?)', '[', @esc_char,
-                                     ']([', special_chars,'])'
-                                   ].flatten.join )
+      special_chars = special_chars.map(&:chr)
+      @pattern_esc = Regexp.new(['([', special_chars, '])'].flatten.join)
+      @pattern_unesc =
+        Regexp.new(
+          [
+            '([^',
+            @esc_char,
+            ']?)',
+            '[',
+            @esc_char,
+            ']([',
+            special_chars,
+            '])'
+          ].flatten.join
+        )
       root.show_una = true
     end
   end
@@ -360,21 +390,25 @@ module EDI::E
   # Interchange: Class of the top-level objects of UN/EDIFACT data
   #
   class Interchange < EDI::Interchange
-
     attr_accessor :show_una
     attr_reader :e_linebreak, :e_indent # :nodoc:
     attr_reader :charset, :una
     attr_reader :messages_created, :groups_created
 
-
     @@interchange_defaults = {
-      :i_edi => false, :charset => 'UNOB', :version => 3,
-      :show_una => true, :una_string => nil,
-      :sender => nil, :recipient => nil,
-      :interchange_control_reference => '1', :application_reference => nil,
-      :interchange_agreement_id => nil,
-      :acknowledgment_request => nil, :test_indicator => nil,
-      :output_mode => :verbatim
+      i_edi: false,
+      charset: 'UNOB',
+      version: 3,
+      show_una: true,
+      una_string: nil,
+      sender: nil,
+      recipient: nil,
+      interchange_control_reference: '1',
+      application_reference: nil,
+      interchange_agreement_id: nil,
+      acknowledgment_request: nil,
+      test_indicator: nil,
+      output_mode: :verbatim
     }
     @@interchange_default_keys = @@interchange_defaults.keys
 
@@ -409,14 +443,15 @@ module EDI::E
     # - ic = EDI::E::Interchange.new  # Empty interchange, default settings
     # - ic = EDI::E::Interchange.new(:charset=>'UNOC',:output_mode=>:linebreak)
 
-    def initialize( user_par={} )
-      super( user_par ) # just in case...
+    def initialize(user_par = {})
+      super(user_par) # just in case...
       if (illegal_keys = user_par.keys - @@interchange_default_keys) != []
         msg = "Illegal parameter(s) found: #{illegal_keys.join(', ')}\n"
-        msg += "Valid param keys (symbols): #{@@interchange_default_keys.join(', ')}"
+        msg +=
+          "Valid param keys (symbols): #{@@interchange_default_keys.join(', ')}"
         raise ArgumentError, msg
       end
-      par = @@interchange_defaults.merge( user_par )
+      par = @@interchange_defaults.merge(user_par)
 
       @messages_created = @groups_created = 0
 
@@ -429,11 +464,10 @@ module EDI::E
       self.show_una = par[:show_una]
 
       check_consistencies
-      init_ndb( @version )
+      init_ndb(@version)
 
-      if @e_iedi  # Interactive EDI
-
-        raise "I-EDI not supported yet"
+      if @e_iedi
+        raise 'I-EDI not supported yet'
 
         # Fill in what we already know about I-EDI:
 
@@ -444,19 +478,22 @@ module EDI::E
 
         @header.cS002.d0004 = par[:sender] unless par[:sender].nil?
         @header.cS003.d0010 = par[:recipient] unless par[:recip].nil?
-        @header.cS302.d0300 = par[:interchange_control_reference]
-        # FIXME: More to do in S302...
+        @header.cS302.d0300 = par[:interchange_control_reference] # FIXME: More to do in S302...
 
-        x= :test_indicator;           @header.d0035 = par[x] unless par[x].nil?
+        @header.d0035 = par[x] unless par[x].nil?
+        x = :test_indicator
 
         t = Time.now
-        @header.cS300.d0338 = t.strftime(par[:version]==4 ? '%Y%m%d':'%y%m%d')
-        @header.cS300.d0314 = t.strftime("%H%M")
+        @header.cS300.d0338 =
+          t.strftime(par[:version] == 4 ? '%Y%m%d' : '%y%m%d')
+        @header.cS300.d0314 = t.strftime('%H%M')
 
         @trailer.d0036 = 0
         ch, ct = @header.cS302, @trailer.cS302
-        ct.d0300, ct.d0303, ct.d0051, ct.d0304 = ch.d0300, ch.d0303, ch.d0051, ch.d0304
-      else # Batch EDI
+        ct.d0300, ct.d0303, ct.d0051, ct.d0304 =
+          ch.d0300, ch.d0303, ch.d0051, ch.d0304
+      else
+        # Batch EDI
 
         @header = new_segment('UNB')
         @trailer = new_segment('UNZ')
@@ -466,40 +503,47 @@ module EDI::E
         @header.cS003.d0010 = par[:recipient] unless par[:recip].nil?
         @header.d0020 = par[:interchange_control_reference]
 
-        x= :application_reference;    @header.d0026 = par[x] unless par[x].nil?
-        x= :acknowledgment_request;   @header.d0031 = par[x] unless par[x].nil?
-        x= :interchange_agreement_id; @header.d0032 = par[x] unless par[x].nil?
-        x= :test_indicator;           @header.d0035 = par[x] unless par[x].nil?
+        @header.d0026 = par[x] unless par[x].nil?
+        x = :application_reference
+        @header.d0031 = par[x] unless par[x].nil?
+        x = :acknowledgment_request
+        @header.d0032 = par[x] unless par[x].nil?
+        x = :interchange_agreement_id
+        @header.d0035 = par[x] unless par[x].nil?
+        x = :test_indicator
 
         t = Time.now
-        @header.cS004.d0017 = t.strftime(par[:version]==4 ? '%Y%m%d':'%y%m%d')
-        @header.cS004.d0019 = t.strftime("%H%M")
+        @header.cS004.d0017 =
+          t.strftime(par[:version] == 4 ? '%Y%m%d' : '%y%m%d')
+        @header.cS004.d0019 = t.strftime('%H%M')
 
         @trailer.d0036 = 0
-      end
+      end # Interactive EDI
     end
-
 
     #
     # Reads EDIFACT data from given stream (default: $stdin),
     # parses it and returns an Interchange object
     #
-    def Interchange.parse( hnd=$stdin, auto_validate=true )
+    def Interchange.parse(hnd = $stdin, auto_validate = true)
       ic = nil
       buf = hnd.read
       return ic if buf.empty?
 
-      ic, segment_list = Interchange.parse_buffer( buf )
-      # Remember to update ndb to SV4-1 now if d0076 of UNB/S001 tells so
+      ic, segment_list = Interchange.parse_buffer(buf) # Remember to update ndb to SV4-1 now if d0076 of UNB/S001 tells so
 
       # Deal with 'trash' after UNZ
 
       if ic.is_iedi?
-        init_seg = Regexp.new('^UIB'); tag_init = 'UIB'
-        exit_seg = Regexp.new('^UIZ'); tag_exit = 'UIZ'
+        init_seg = Regexp.new('^UIB')
+        tag_init = 'UIB'
+        exit_seg = Regexp.new('^UIZ')
+        tag_exit = 'UIZ'
       else
-        init_seg = Regexp.new('^UNB'); tag_init = 'UNB'
-        exit_seg = Regexp.new('^UNZ'); tag_exit = 'UNZ'
+        init_seg = Regexp.new('^UNB')
+        tag_init = 'UNB'
+        exit_seg = Regexp.new('^UNZ')
+        tag_exit = 'UNZ'
       end
 
       last_seg = nil
@@ -508,14 +552,15 @@ module EDI::E
         case last_seg
         when /^[A-Z]{3}/ # Segment tag?
           unless last_seg =~ exit_seg
-            raise "Parse error: #{tag_exit} is not last segment! Found: #{last_seg}"
+            raise "Parse error: #{tag_exit} is not last segment! Found: #{
+                    last_seg
+                  }"
           end
           break
-        when /\n/, /\r\n/, ''
-          # ignore linebreaks at end of file, do not warn.
+        when /\n/, /\r\n/, '' # ignore linebreaks at end of file, do not warn.
         else
           warn "WARNING: Data found after #{tag_exit} segment - ignored!"
-          warn "Found: \'#{last_seg}\'"
+          warn "Found: '#{last_seg}'"
         end
       end
       trailer = Segment.parse(ic, last_seg, tag_exit)
@@ -525,15 +570,15 @@ module EDI::E
       err_flag = false
       segment_list.each do |seg|
         if seg =~ init_seg
-          warn "ERROR: Another interchange header found in file!"
+          warn 'ERROR: Another interchange header found in file!'
           err_flag = true
         end
         if seg =~ exit_seg
-          warn "ERROR: Another interchange trailer found in file!"
+          warn 'ERROR: Another interchange trailer found in file!'
           err_flag = true
         end
       end
-      raise "FATAL ERROR - exiting" if err_flag
+      raise 'FATAL ERROR - exiting' if err_flag
 
       # OK, ready to deal with content now:
 
@@ -556,23 +601,19 @@ module EDI::E
 
       while segbuf = segment_list.shift
         case segbuf
-
         when init_seg
           sub_list = Array.new
           sub_list.push segbuf
-
         when exit_seg
           sub_list.push segbuf
           if group_mode
-            ic.add( MsgGroup.parse(ic, sub_list), auto_validate )
+            ic.add(MsgGroup.parse(ic, sub_list), auto_validate)
           else
-            ic.add( Message.parse(ic, sub_list), auto_validate )
+            ic.add(Message.parse(ic, sub_list), auto_validate)
           end
-
         else
           sub_list.push segbuf
         end
-
       end # while
 
       # Finally add the trailer from the originally read data,
@@ -592,15 +633,16 @@ module EDI::E
     # Intended use:
     #   Efficient routing by reading just UNB data: sender/recipient/ref/test
     #
-    def Interchange.peek(hnd=$stdin, maxlen=128) # Handle to input stream
-      buf = hnd.read( maxlen )
+    def Interchange.peek(hnd = $stdin, maxlen = 128)
+      # Handle to input stream
+      buf = hnd.read(maxlen)
       return nil if buf.empty?
-      ic, dummy = Interchange.parse_buffer( buf, 1 )
+      ic, dummy = Interchange.parse_buffer(buf, 1)
 
       # Create a dummy trailer
       tag = ic.is_iedi? ? 'UIZ' : 'UNZ'
       trailer_string = tag.dup << ic.una.de_sep << '0' << ic.una.de_sep << '0'
-      ic.trailer= Segment.parse(ic, trailer_string, tag)
+      ic.trailer = Segment.parse(ic, trailer_string, tag)
 
       ic
     end
@@ -611,24 +653,22 @@ module EDI::E
     # read UNB/UIB, create an Interchange object with a header,
     # return this interchange and the array of segments
     #
-    def Interchange.parse_buffer( buf, s_max=0 ) # :nodoc:
-      case buf
-        # UN/EDIFACT case
+    def Interchange.parse_buffer(buf, s_max = 0)
+      # :nodoc:
+      case buf # UN/EDIFACT case
       when /^(UNA......)?\r?\n?U([IN])B.(UNO[A-Z]).([1-4])/
         par = @@interchange_defaults.dup
         par[:una_string], par[:charset], par[:version], par[:i_edi] =
-          $1, $3, $4.to_i, $2=='I'
-        ic = Interchange.new( par )
-        buf.sub!(/^UNA....../,'') # remove pseudo segment
-
+          $1, $3, $4.to_i, $2 == 'I'
+        ic = Interchange.new(par)
+        buf.sub!(/^UNA....../, '') # remove pseudo segment
       else
-        raise "Is this really UN/EDIFACT? File starts with: #{buf[0,23]}"
+        raise "Is this really UN/EDIFACT? File starts with: #{buf[0, 23]}"
       end
 
-      segments = EDI::E.edi_split(buf, ic.una.seg_term, ic.una.esc_char, s_max)
-      # Remove <cr><lf> (some sources are not EDIFACT compliant)
-      segments.each {|s| s.sub!(/\s*(.*)/, '\1')}
-      ic.header = Segment.parse(ic, segments.shift, ic.is_iedi? ? 'UIB':'UNB')
+      segments = EDI::E.edi_split(buf, ic.una.seg_term, ic.una.esc_char, s_max) # Remove <cr><lf> (some sources are not EDIFACT compliant)
+      segments.each { |s| s.sub!(/\s*(.*)/, '\1') }
+      ic.header = Segment.parse(ic, segments.shift, ic.is_iedi? ? 'UIB' : 'UNB')
 
       [ic, segments]
     end
@@ -652,39 +692,38 @@ module EDI::E
     #               (2 blanks per hierarchy level).
     # :verbatim ::  No linebreak (default), ISO compliant
     #
-    def output_mode=( value )
-      super( value )
+    def output_mode=(value)
+      super(value)
       @e_linebreak = @e_indent = ''
       case value
-      when :verbatim
-        # NOP (default)
+      when :verbatim # NOP (default)
       when :linebreak
         @e_linebreak = "\n"
       when :indented
         @e_linebreak = "\n"
         @e_indent = '  '
       else
-        raise "Unknown output mode '#{value}'. Supported modes: :linebreak, :indented, :verbatim (default)"
+        raise "Unknown output mode '#{
+                value
+              }'. Supported modes: :linebreak, :indented, :verbatim (default)"
       end
     end
-
 
     # Add either a MsgGroup or Message object to the interchange.
     # Note: Don't mix both types!
     #
     # UNZ/UIZ counter DE 0036 is automatically incremented.
 
-    def add( obj, auto_validate=true )
+    def add(obj, auto_validate = true)
       super
-      @trailer.d0036 += 1 #if @trailer # @trailer doesn't exist yet when parsing
-      # FIXME: Warn/fail if UNH/UIH/UNG id is not unique (at validation?)
+      @trailer.d0036 += 1 # FIXME: Warn/fail if UNH/UIH/UNG id is not unique (at validation?)
     end
-
 
     # Derive an empty message group from this interchange context.
     # Parameters may be passed hash-like. See MsgGroup.new for details
     #
-    def new_msggroup(params={}) # to be completed ...
+    def new_msggroup(params = {})
+      # to be completed ...
       @groups_created += 1
       MsgGroup.new(self, params)
     end
@@ -692,7 +731,7 @@ module EDI::E
     # Derive an empty message from this interchange context.
     # Parameters may be passed hash-like. See Message.new for details
     #
-    def new_message(params={})
+    def new_message(params = {})
       @messages_created += 1
       Message.new(self, params)
     end
@@ -700,32 +739,34 @@ module EDI::E
     # Derive an empty segment from this interchange context
     # For internal use only (header / trailer segment generation)
     #
-    def new_segment(tag) # :nodoc:
+    def new_segment(tag)
+      # :nodoc:
       Segment.new(self, tag)
     end
-
 
     # Parse a message group (when group mode detected)
     # Internal use only.
 
-    def parse_msggroup(list) # :nodoc:
+    def parse_msggroup(list)
+      # :nodoc:
       MsgGroup.parse(self, list)
     end
 
     # Parse a message (when message mode detected)
     # Internal use only.
 
-    def parse_message(list) # :nodoc:
+    def parse_message(list)
+      # :nodoc:
       Message.parse(self, list)
     end
 
     # Parse a segment (header or trailer expected)
     # Internal use only.
 
-    def parse_segment(buf, tag) # :nodoc:
+    def parse_segment(buf, tag)
+      # :nodoc:
       Segment.parse(self, buf, tag)
     end
-
 
     # Returns the string representation of the interchange.
     #
@@ -736,44 +777,41 @@ module EDI::E
     def to_s
       s = show_una ? una.to_s + @e_linebreak : ''
       postfix = '' << una.seg_term << @e_linebreak
-      s << super( postfix )
+      s << super(postfix)
     end
-
 
     # Yields a readable, properly indented list of all contained objects,
     # including the empty ones. This may be a very long string!
 
-    def inspect( indent='', symlist=[] )
+    def inspect(indent = '', symlist = [])
       symlist << :una
       super
     end
 
-
     # Returns the number of warnings found, writes warnings to STDERR
 
-    def validate( err_count=0 )
-      if (h=self.size) != (t=@trailer.d0036)
+    def validate(err_count = 0)
+      if (h = self.size) != (t = @trailer.d0036)
         warn "Counter UNZ/UIZ, DE0036 does not match content: #{t} vs. #{h}"
         err_count += 1
       end
-      if (h=@header.cS001.d0001) != @charset
-        warn "Charset UNZ/UIZ, S001/0001 mismatch: #{h} vs. #@charset"
+      if (h = @header.cS001.d0001) != @charset
+        warn "Charset UNZ/UIZ, S001/0001 mismatch: #{h} vs. #{@charset}"
         err_count += 1
       end
-      if (h=@header.cS001.d0002) != @version
-        warn "Syntax version UNZ/UIZ, S001/0002 mismatch: #{h} vs. #@version"
+      if (h = @header.cS001.d0002) != @version
+        warn "Syntax version UNZ/UIZ, S001/0002 mismatch: #{h} vs. #{@version}"
         err_count += 1
       end
       check_consistencies
 
       if is_iedi?
-        if (t=@trailer.cS302.d0300) != (h=@header.cS302.d0300)
+        if (t = @trailer.cS302.d0300) != (h = @header.cS302.d0300)
           warn "UIB/UIZ mismatch in initiator ref (S302/0300): #{h} vs. #{t}"
           err_count += 1
-        end
-        # FIXME: Add more I-EDI checks
+        end # FIXME: Add more I-EDI checks
       else
-        if (t=@trailer.d0020) != (h=@header.d0020)
+        if (t = @trailer.d0020) != (h = @header.d0020)
           warn "UNB/UNZ mismatch in refno (DE0020): #{h} vs. #{t}"
           err_count += 1
         end
@@ -790,48 +828,43 @@ module EDI::E
     # Private method: Loads EDIFACT norm database
     #
     def init_ndb(d0002, d0076 = nil)
-      @basedata = EDI::Dir::Directory.create(root.syntax,
-                                             :d0002   => @version,
-                                             :d0076   => d0076,
-                                             :is_iedi => is_iedi?)
+      @basedata =
+        EDI::Dir::Directory.create(
+          root.syntax,
+          d0002: @version, d0076: d0076, is_iedi: is_iedi?
+        )
     end
 
     #
     # Private method: Check if basic UNB elements are set properly
     #
     def check_consistencies
-      # FIXME - @syntax should be completely avoided, use sub-module name
-      if not ['E'].include?(@syntax) # More anticipated here
-        raise "#{@syntax} - syntax not supported!"
-      end
+      raise "#{@syntax} - syntax not supported!" if not %w[E].include?(@syntax) # More anticipated here
       case @version
       when 1
         if @charset != 'UNOA'
-          raise "Syntax version 1 permits only charset UNOA!"
+          raise 'Syntax version 1 permits only charset UNOA!'
         end
       when 2
         if not @charset =~ /UNO[AB]/
-          raise "Syntax version 2 permits only charsets UNOA, UNOB!"
+          raise 'Syntax version 2 permits only charsets UNOA, UNOB!'
         end
       when 3
         if not @charset =~ /UNO[A-F]/
-          raise "Syntax version 3 permits only charsets UNOA...UNOF!"
-        end
+          raise 'Syntax version 3 permits only charsets UNOA...UNOF!'
+        end # A,B: ISO 646 subsets, C-K: ISO-8859-x, X: ISO 2022, Y: ISO 10646-1
       when 4
-        # A,B: ISO 646 subsets, C-K: ISO-8859-x, X: ISO 2022, Y: ISO 10646-1
         if not @charset =~ /UNO[A-KXY]/
-          raise "Syntax version 4 permits only charsets UNOA...UNOZ!"
+          raise 'Syntax version 4 permits only charsets UNOA...UNOZ!'
         end
       else
         raise "#{@version} - no such syntax version!"
       end
       if @e_iedi and @version != 4
-        raise "Inconsistent parameters - I-EDI requires syntax version 4!"
+        raise 'Inconsistent parameters - I-EDI requires syntax version 4!'
       end
-      @illegal_charset_pattern = Illegal_Charset_Patterns['@version']
-      # Add more rules ...
-    end
-
+      @illegal_charset_pattern = Illegal_Charset_Patterns['@version'] # Add more rules ...
+    end # FIXME - @syntax should be completely avoided, use sub-module name
   end
 
   #########################################################################
@@ -842,12 +875,14 @@ module EDI::E
   # Its header unites features from UNB as well as from UNH.
   #
   class MsgGroup < EDI::MsgGroup
-
     attr_reader :messages_created
 
     @@msggroup_defaults = {
-      :msg_type => 'ORDERS', :version => 'D', :release => '96A',
-      :resp_agency => 'UN', :assigned_code => nil # e.g. 'EAN008'
+      msg_type: 'ORDERS',
+      version: 'D',
+      release: '96A',
+      resp_agency: 'UN',
+      assigned_code: nil # e.g. 'EAN008'
     }
     @@msggroup_default_keys = @@msggroup_defaults.keys
 
@@ -890,12 +925,12 @@ module EDI::E
     # * Whenever possible, <b>avoid writing to the counters of
     #   the message header or trailer segments</b>!
 
-    def initialize( p, user_par={} )
-      super( p, user_par )
+    def initialize(p, user_par = {})
+      super(p, user_par)
       @messages_created = 0
 
       if user_par.is_a? Hash
-        preset_group( user_par )
+        preset_group(user_par)
         @header = new_segment('UNG')
         @trailer = new_segment('UNE')
         @trailer.d0060 = 0
@@ -907,17 +942,14 @@ module EDI::E
         cde.d0054 = @release
         cde.d0057 = @subset
 
-        @header.cS006.d0040 = user_par[:sender]    || root.header.cS002.d0004
+        @header.cS006.d0040 = user_par[:sender] || root.header.cS002.d0004
         @header.cS007.d0044 = user_par[:recipient] || root.header.cS003.d0010
-        @header.d0048 = user_par[:group_reference] || p.groups_created
-        #      @trailer.d0048 = @header.d0048
+        @header.d0048 = user_par[:group_reference] || p.groups_created #      @trailer.d0048 = @header.d0048
 
         t = Time.now
-        @header.cS004.d0017 = t.strftime(p.version==4 ? '%Y%m%d':'%y%m%d')
-        @header.cS004.d0019 = t.strftime("%H%M")
-
+        @header.cS004.d0017 = t.strftime(p.version == 4 ? '%Y%m%d' : '%y%m%d')
+        @header.cS004.d0019 = t.strftime('%H%M')
       elsif user_par.is_a? Segment
-
         @header = user_par
         raise "UNG expected, #{@header.name} found!" if @header.name != 'UNG'
         @header.parent = self
@@ -934,105 +966,96 @@ module EDI::E
         @resp_agency = @header.d0051
         @subset = s008.d0057
       else
-        raise "First parameter: Illegal type!"
+        raise 'First parameter: Illegal type!'
       end
-
     end
-
 
     # Internal use only!
 
-    def preset_group(user_par) # :nodoc:
+    def preset_group(user_par)
+      # :nodoc:
       if (illegal_keys = user_par.keys - @@msggroup_default_keys) != []
         msg = "Illegal parameter(s) found: #{illegal_keys.join(', ')}\n"
-        msg += "Valid param keys (symbols): #{@@msggroup_default_keys.join(', ')}"
+        msg +=
+          "Valid param keys (symbols): #{@@msggroup_default_keys.join(', ')}"
         raise ArgumentError, msg
       end
-      par = @@msggroup_defaults.merge( user_par )
+      par = @@msggroup_defaults.merge(user_par)
 
       @name = par[:msg_type]
       @version = par[:version]
       @release = par[:release]
       @resp_agency = par[:resp_agency]
-      @subset = par[:assigned_code]
-      # FIXME: Eliminate use of @version, @release, @resp_agency, @subset
-      #        They get outdated whenever their UNG counterparts are changed
-      #        Try to keep @name updated, or pass it a generic name
+      @subset = par[:assigned_code] #        Try to keep @name updated, or pass it a generic name
     end
 
-
-    def MsgGroup.parse (p, segment_list) # List of segments
-      grp = p.new_msggroup(:msg_type => 'DUMMY')
+    def MsgGroup.parse(p, segment_list)
+      # List of segments
+      grp = p.new_msggroup(msg_type: 'DUMMY')
 
       # We now expect a sequence of segments that comprises one group,
       # starting with UNG and ending with UNE, and with messages in between.
       # We process the UNG/UNE envelope separately, then work on the content.
 
-      header  = grp.parse_segment(segment_list.shift, 'UNG')
-      trailer = grp.parse_segment(segment_list.pop,   'UNE')
+      header = grp.parse_segment(segment_list.shift, 'UNG')
+      trailer = grp.parse_segment(segment_list.pop, 'UNE')
 
       init_seg = Regexp.new('^UNH')
       exit_seg = Regexp.new('^UNT')
 
       while segbuf = segment_list.shift
         case segbuf
-
         when init_seg
           sub_list = Array.new
           sub_list.push segbuf
-
         when exit_seg
           sub_list.push segbuf
           grp.add grp.parse_message(sub_list)
-
         else
           sub_list.push segbuf
         end
       end
 
-      grp.header  = header
+      grp.header = header
       grp.trailer = trailer
       grp
     end
 
-
-    def new_message(params={})
+    def new_message(params = {})
       @messages_created += 1
       Message.new(self, params)
     end
 
-    def new_segment(tag) # :nodoc:
+    def new_segment(tag)
+      # :nodoc:
       Segment.new(self, tag)
     end
 
-
-    def parse_message(list) # :nodoc:
+    def parse_message(list)
+      # :nodoc:
       Message.parse(self, list)
     end
 
-    def parse_segment(buf, tag) # :nodoc:
+    def parse_segment(buf, tag)
+      # :nodoc:
       Segment.parse(self, buf, tag)
     end
 
-
-    def add( msg )
+    def add(msg)
       super
       @trailer.d0060 = @trailer.d0060.to_i if @trailer.d0060.is_a? String
       @trailer.d0060 += 1
     end
 
-
     def to_s
       postfix = '' << root.una.seg_term << root.e_linebreak
-      super( postfix )
+      super(postfix)
     end
 
-
-    def validate( err_count=0 )
-
+    def validate(err_count = 0)
       # Consistency checks
 
-      if (a=@trailer.d0060) != (b=self.size)
+      if (a = @trailer.d0060) != (b = self.size)
         warn "UNE: DE 0060 (#{a}) does not match number of messages (#{b})"
         err_count += 1
       end
@@ -1046,9 +1069,7 @@ module EDI::E
 
       super
     end
-
   end
-
 
   #########################################################################
   #
@@ -1056,12 +1077,13 @@ module EDI::E
   #
   # This class implements a single business document according to UN/EDIFACT
 
-  class Message < EDI::Message
-    #    private_class_method :new
-
+  class Message < EDI::Message #    private_class_method :new
     @@message_defaults = {
-      :msg_type => 'ORDERS', :version => 'D', :release => '96A',
-      :resp_agency => 'UN', :assigned_code => nil # e.g. 'EAN008'
+      msg_type: 'ORDERS',
+      version: 'D',
+      release: '96A',
+      resp_agency: 'UN',
+      assigned_code: nil # e.g. 'EAN008'
     }
     @@message_default_keys = @@message_defaults.keys
 
@@ -1103,25 +1125,29 @@ module EDI::E
     # * Whenever possible, <b>avoid write access to the
     #   message header or trailer segments</b>!
 
-    def initialize( p, user_par={} )
-      super( p, user_par )
+    def initialize(p, user_par = {})
+      super(p, user_par)
 
       # First param is either a hash or segment UNH
       # - If Hash:    Build UNH from given parameters
       # - If Segment: Extract some crucial parameters
+
       if user_par.is_a? Hash
-        preset_msg( user_par )
+        preset_msg(user_par)
         par = {
-          :d0065 => @name, :d0052=> @version, :d0054=> @release,
-          :d0051 => @resp_agency, :d0057 => @subset, :is_iedi => root.is_iedi?
+          d0065: @name,
+          d0052: @version,
+          d0054: @release,
+          d0051: @resp_agency,
+          d0057: @subset,
+          is_iedi: root.is_iedi?
         }
-        @maindata = EDI::Dir::Directory.create(root.syntax, par )
+        @maindata = EDI::Dir::Directory.create(root.syntax, par)
 
         if root.is_iedi?
           @header = new_segment('UIH')
           @trailer = new_segment('UIT')
-          cde = @header.cS306
-#          cde.d0113 = @sub_id
+          cde = @header.cS306 #          cde.d0113 = @sub_id
           @header.d0340 = p.messages_created
         else
           @header = new_segment('UNH')
@@ -1134,11 +1160,9 @@ module EDI::E
         cde.d0054 = @release
         cde.d0051 = @resp_agency
         cde.d0057 = @subset
-
       elsif user_par.is_a? Segment
         @header = user_par
-        raise "UNH expected, #{@header.name} found!" if @header.name != 'UNH'
-        # I-EDI support to be added!
+        raise "UNH expected, #{@header.name} found!" if @header.name != 'UNH' # I-EDI support to be added!
         @header.parent = self
         @header.root = self.root
         @trailer = Segment.new(root, 'UNT') # temporary
@@ -1149,15 +1173,19 @@ module EDI::E
         @resp_agency = s009.d0051
         @subset = s009.d0057
         par = {
-          :d0065 => @name, :d0052=> @version, :d0054=> @release,
-          :d0051 => @resp_agency, :d0057 => @subset, :is_iedi => root.is_iedi?
+          d0065: @name,
+          d0052: @version,
+          d0054: @release,
+          d0051: @resp_agency,
+          d0057: @subset,
+          is_iedi: root.is_iedi?
         }
-        @maindata = EDI::Dir::Directory.create(root.syntax, par )
+        @maindata = EDI::Dir::Directory.create(root.syntax, par)
       else
-        raise "First parameter: Illegal type!"
+        raise 'First parameter: Illegal type!'
       end
 
-      @trailer.d0074 = 2 if @trailer  # Just UNH and UNT so far
+      @trailer.d0074 = 2 if @trailer # Just UNH and UNT so far
     end
 
     #
@@ -1171,22 +1199,25 @@ module EDI::E
     #    # etc.
     #    msg.add seg
     #
-    def new_segment( tag )
+    def new_segment(tag)
       Segment.new(self, tag)
     end
 
     # Internal use only!
 
-    def parse_segment(buf, tag) # :nodoc:
+    def parse_segment(buf, tag)
+      # :nodoc:
       Segment.parse(self, buf, tag)
     end
 
     # Internal use only!
 
-    def preset_msg(user_par) # :nodoc:
+    def preset_msg(user_par)
+      # :nodoc:
       if (illegal_keys = user_par.keys - @@message_default_keys) != []
         msg = "Illegal parameter(s) found: #{illegal_keys.join(', ')}\n"
-        msg += "Valid param keys (symbols): #{@@message_default_keys.join(', ')}"
+        msg +=
+          "Valid param keys (symbols): #{@@message_default_keys.join(', ')}"
         raise ArgumentError, msg
       end
 
@@ -1194,31 +1225,30 @@ module EDI::E
       ung = parent.header
       if parent.is_a?(MsgGroup) && ung.d0038
         s008 = ung.cS008
-        par = {
-          :msg_type=> ung.d0038, :version=> s008.d0052, :release=> s008.d0054,
-          :resp_agency => ung.d0051, :assigned_code => s008.d0057
-        }.merge( user_par )
+        par =
+          {
+            msg_type: ung.d0038,
+            version: s008.d0052,
+            release: s008.d0054,
+            resp_agency: ung.d0051,
+            assigned_code: s008.d0057
+          }.merge(user_par)
       else
-        par = @@message_defaults.merge( user_par )
+        par = @@message_defaults.merge(user_par)
       end
 
       @name = par[:msg_type]
       @version = par[:version]
       @release = par[:release]
       @resp_agency = par[:resp_agency]
-      @subset = par[:assigned_code]
-      # FIXME: Eliminate use of @version, @release, @resp_agency, @subset
-      #        They get outdated whenever their UNH counterparts are changed
-      #        Try to keep @name updated, or pass it a generic name
+      @subset = par[:assigned_code] #        Try to keep @name updated, or pass it a generic name
     end
-
 
     # Returns a new Message object that contains the data of the
     # strings passed in the +segment_list+ array. Uses the context
     # of the given +parent+ object and configures message as a child.
 
-    def Message.parse (parent, segment_list)
-
+    def Message.parse(parent, segment_list)
       if parent.root.is_iedi?
         h, t, re_t = 'UIH', 'UIT', /^UIT/
       else
@@ -1227,12 +1257,12 @@ module EDI::E
 
       # Segments comprise a single message
       # Temporarily assign a parent, or else service segment lookup fails
-      header  = parent.parse_segment(segment_list.shift, h)
-      msg     = parent.new_message(header)
-      trailer = msg.parse_segment( segment_list.pop, t )
+      header = parent.parse_segment(segment_list.shift, h)
+      msg = parent.new_message(header)
+      trailer = msg.parse_segment(segment_list.pop, t)
 
       segment_list.each do |segbuf|
-        seg = Segment.parse( msg, segbuf )
+        seg = Segment.parse(msg, segbuf)
         if segbuf =~ re_t # FIXME: Should that case ever occur?
           msg.trailer = seg
         else
@@ -1242,7 +1272,6 @@ module EDI::E
       msg.trailer = trailer
       msg
     end
-
 
     #
     # Add a previously derived segment to the end of this message (append)
@@ -1262,43 +1291,45 @@ module EDI::E
     #    # etc.
     #    msg.add seg
     #
-    def add( seg )
+    def add(seg)
       super
       @trailer.d0074 = @trailer.d0074.to_i if @trailer.d0074.is_a? String
-      @trailer.d0074 += 1	# What if new segment is/remains empty??
+      @trailer.d0074 += 1 # What if new segment is/remains empty??
     end
 
-
-    def validate( err_count=0 )
+    def validate(err_count = 0)
       # Check sequence of segments against library,
       # thereby adding location information to each segment
 
       par = {
-        :d0065 => @name, :d0052=> @version, :d0054=> @release,
-        :d0051 => @resp_agency, :d0057 => @subset,
-        :d0002 => root.version, :is_iedi => root.is_iedi?,
-        :d0076 => nil  # SV 4-1 support still missing here
+        d0065: @name,
+        d0052: @version,
+        d0054: @release,
+        d0051: @resp_agency,
+        d0057: @subset,
+        d0002: root.version,
+        is_iedi: root.is_iedi?,
+        d0076: nil # SV 4-1 support still missing here
       }
-      diag = EDI::Diagram::Diagram.create( root.syntax, par )
+      diag = EDI::Diagram::Diagram.create(root.syntax, par)
       ni = EDI::Diagram::NodeInstance.new(diag)
 
-      ni.seek!( @header )
-      @header.update_with( ni )
+      ni.seek!(@header)
+      @header.update_with(ni)
       each do |seg|
         if ni.seek!(seg)
-          seg.update_with( ni )
+          seg.update_with(ni)
         else
           # FIXME: Do we really have to fail here, or would a "warn" suffice?
           raise "seek! failed for #{seg.name} when starting at #{ni.name}"
         end
       end
-      ni.seek!( @trailer )
-      @trailer.update_with( ni )
-
+      ni.seek!(@trailer)
+      @trailer.update_with(ni)
 
       # Consistency checks
 
-      if (a=@trailer.d0074) != (b=self.size+2)
+      if (a = @trailer.d0074) != (b = self.size + 2)
         warn "DE 0074 (#{a}) does not match number of segments (#{b})"
         err_count += 1
       end
@@ -1314,7 +1345,9 @@ module EDI::E
       end
 
       if parent.is_a? MsgGroup
-        ung = parent.header; s008 = ung.cS008; s009 = header.cS009
+        ung = parent.header
+        s008 = ung.cS008
+        s009 = header.cS009
         a, b = s009.d0065, ung.d0038
         if a != b
           warn "Message type (#{a}) does not match that of group (#{b})"
@@ -1332,29 +1365,29 @@ module EDI::E
         end
         a, b = s009.d0051, ung.d0051
         if a != b
-          warn "Message responsible agency (#{a}) does not match that of group (#{b})"
+          warn "Message responsible agency (#{
+                 a
+               }) does not match that of group (#{b})"
           err_count += 1
         end
         a, b = s009.d0057, s008.d0057
         if a != b
-          warn "Message association assigned code (#{a}) does not match that of group (#{b})"
+          warn "Message association assigned code (#{
+                 a
+               }) does not match that of group (#{b})"
           err_count += 1
         end
-
       end
 
       # Now check each segment
-      super( err_count )
+      super(err_count)
     end
-
 
     def to_s
       postfix = '' << root.una.seg_term << root.e_linebreak
-      super( postfix )
+      super(postfix)
     end
-
   end
-
 
   #########################################################################
   #
@@ -1365,7 +1398,6 @@ module EDI::E
   #
 
   class Segment < EDI::Segment
-
     # A new segment must have a parent (usually, a message). This is the
     # first parameter. The second is a string with the desired segment tag.
     #
@@ -1373,7 +1405,7 @@ module EDI::E
     # instead.
 
     def initialize(p, tag)
-      super( p, tag )
+      super(p, tag)
 
       each_BCDS(tag) do |entry|
         id = entry.name
@@ -1381,45 +1413,41 @@ module EDI::E
 
         # FIXME: Code redundancy in type detection - remove later!
         case id
-        when /[CES]\d{3}/		# Composite
+        when /[CES]\d{3}/ # Composite
           add new_CDE(id, status)
-        when /\d{4}/		# Simple DE
+        when /\d{4}/ # Simple DE
           add new_DE(id, status, fmt_of_DE(id))
-        else			# Should never occur
+        else
+          # Should never occur
           raise "Not a legal DE or CDE id: #{id}"
         end
       end
     end
 
-
     def new_CDE(id, status)
       CDE.new(self, id, status)
     end
-
 
     def new_DE(id, status, fmt)
       DE.new(self, id, status, fmt)
     end
 
-
     # Reserved for internal use
 
-    def Segment.parse (p, buf, tag_expected=nil)
+    def Segment.parse(p, buf, tag_expected = nil)
       # Buffer contains a single segment
-      obj_list = EDI::E::edi_split( buf, p.root.una.de_sep, p.root.una.esc_char )
-      tag = obj_list.shift 		  # First entry must be the segment tag
+      obj_list = EDI::E.edi_split(buf, p.root.una.de_sep, p.root.una.esc_char)
+      tag = obj_list.shift # First entry must be the segment tag
 
       raise "Illegal tag: #{tag}" unless tag =~ /[A-Z]{3}/
-        if tag_expected and tag_expected != tag
-          raise "Wrong segment name! Expected: #{tag_expected}, found: #{tag}"
-        end
+      if tag_expected and tag_expected != tag
+        raise "Wrong segment name! Expected: #{tag_expected}, found: #{tag}"
+      end
 
       seg = p.new_segment(tag)
-      seg.each {|obj| obj.parse( obj_list.shift ) }
-      seg
-      # Error handling needed here if obj_list is not exhausted now!
+      seg.each { |obj| obj.parse(obj_list.shift) }
+      seg # Error handling needed here if obj_list is not exhausted now!
     end
-
 
     def to_s
       s = ''
@@ -1430,7 +1458,7 @@ module EDI::E
       indent = rt.e_indent * (self.level || 0)
       s << indent << name << rt.una.de_sep
       skip_count = 0
-      each {|obj|
+      each do |obj|
         if obj.empty?
           skip_count += 1
         else
@@ -1441,49 +1469,52 @@ module EDI::E
           s << obj.to_s
           skip_count += 1
         end
-      }
+      end
       s
     end
-
 
     # Some exceptional setters, required for data consistency
 
     # Don't change DE 0001! d0001=() raises an exception when called.
-    def d0001=( value ); fail "Charset not modifiable!"; end
+    def d0001=(value)
+      fail 'Charset not modifiable!'
+    end
 
     # Don't change DE 0002! d0002=() raises an exception when called.
-    def d0002=( value ); fail "EDIFACT Syntax version not modifiable!"; end
+    def d0002=(value)
+      fail 'EDIFACT Syntax version not modifiable!'
+    end
 
     # Setter for DE 0020 in UNB & UNZ (interchange control reference)
-    def d0020=( value )
-      return super unless self.name=~/UN[BZ]/
+    def d0020=(value)
+      return super unless self.name =~ /UN[BZ]/
       parent.header['0020'].first.value = value
       parent.trailer['0020'].first.value = value
     end
 
     # Setter for DE 0048 in UNE & UNG (group reference)
-    def d0048=( value )
-      return super unless self.name=~/UN[GE]/
+    def d0048=(value)
+      return super unless self.name =~ /UN[GE]/
       parent.header['0048'].first.value = value
       parent.trailer['0048'].first.value = value
     end
 
     # Setter for DE 0062 in UNH & UNT (message reference number)
-    def d0062=( value ) # UNH
-      return super unless self.name=~/UN[HT]/
+    def d0062=(value)
+      # UNH
+      return super unless self.name =~ /UN[HT]/
       parent.header['0062'].first.value = value
       parent.trailer['0062'].first.value = value
     end
 
     # Setter for DE 0340 in UIH & UIT (message reference number)
-    def d0340=( value ) # UIH
-      return super unless self.name=~/UI[HT]/
+    def d0340=(value)
+      # UIH
+      return super unless self.name =~ /UI[HT]/
       parent.header['0340'].first.value = value
       parent.trailer['0340'].first.value = value
     end
-
   end
-
 
   #########################################################################
   #
@@ -1495,17 +1526,16 @@ module EDI::E
   # For internal use only.
 
   class CDE < EDI::CDE
-
     def initialize(p, name, status)
       super(p, name, status)
 
       each_BCDS(name) do |entry|
         id = entry.name
-        status = entry.status
-        # FIXME: Code redundancy in type detection - remove later!
+        status = entry.status # FIXME: Code redundancy in type detection - remove later!
         if id =~ /\d{4}/
           add new_DE(id, status, fmt_of_DE(id))
-        else				# Should never occur
+        else
+          # Should never occur
           raise "Not a legal DE: #{id}"
         end
       end
@@ -1515,20 +1545,19 @@ module EDI::E
       DE.new(self, id, status, fmt)
     end
 
-
-    def parse (buf)	# Buffer contains content of a single CDE
+    def parse(buf)
+      # Buffer contains content of a single CDE
       return nil unless buf
-      obj_list = EDI::E::edi_split( buf, root.una.ce_sep, root.una.esc_char )
-      each {|obj| obj.parse( obj_list.shift ) }
-      # FIXME: Error handling needed here if obj_list is not exhausted now!
+      obj_list = EDI::E.edi_split(buf, root.una.ce_sep, root.una.esc_char)
+      each { |obj| obj.parse(obj_list.shift) } # FIXME: Error handling needed here if obj_list is not exhausted now!
     end
-
 
     def to_s
       rt = self.root
-      s = ''; skip_count = 0
+      s = ''
+      skip_count = 0
       ce_sep = rt.una.ce_sep.chr
-      each {|de|
+      each do |de|
         if de.empty?
           skip_count += 1
         else
@@ -1539,12 +1568,10 @@ module EDI::E
           s << de.to_s
           skip_count += 1
         end
-      }
+      end
       s
     end
-
   end
-
 
   #########################################################################
   #
@@ -1556,78 +1583,67 @@ module EDI::E
   # For internal use only.
 
   class DE < EDI::DE
-
-    def initialize( p, name, status, fmt )
-      super( p, name, status, fmt )
-      raise "Illegal DE name: #{name}" unless name =~ /\d{4}/
-        # check if supported format syntax
-        # check if supported status value
+    def initialize(p, name, status, fmt)
+      super(p, name, status, fmt)
+      raise "Illegal DE name: #{name}" unless name =~ /\d{4}/ # check if supported status value
     end
-
 
     # Generate the DE content from the given string representation.
     # +buf+ contains a single DE string, possibly escaped
 
-    def parse( buf, already_escaped=false )
+    def parse(buf, already_escaped = false)
       return nil unless buf
       return @value = nil if buf.empty?
       @value = already_escaped ? buf : unescape(buf)
-      if format[0] == ?n
-        # Normalize decimal sign
-        @value.sub!(/,/, '.')
-        # Select appropriate Numeric, FIXME: Also match exponents!
-        self.value = @value=~/\d+\.\d+/ ? @value.to_f : @value.to_i
+      if format[0] == 'n' # Normalize decimal sign
+        @value.sub!(/,/, '.') # Select appropriate Numeric, FIXME: Also match exponents!
+
+        self.value = @value =~ /\d+\.\d+/ ? @value.to_f : @value.to_i
       end
       @value
     end
 
-
-    def to_s( no_escape=false )
+    def to_s(no_escape = false)
       return '' if empty?
-      s = if @value.is_a? Numeric
-            # Adjust decimal sign
-            super().sub(/[.,]/, root.una.decimal_sign.chr)
-          else
-            super().to_s
-          end
+      s =
+        if @value.is_a? Numeric # Adjust decimal sign
+          super().sub(/[.,]/, root.una.decimal_sign.chr)
+        else
+          super().to_s
+        end
       no_escape ? s : escape(s)
     end
-
 
     # The proper method to assign values to a DE.
     # The passed value must respond to +to_i+ .
 
-    def value=( val )
+    def value=(val)
       # Suppress trailing decimal part if Integer value
       ival = val.to_i
       val = ival if val.is_a? Float and val == ival
       super
     end
 
-
     private
 
-    def escape (str)
+    def escape(str)
       rt = self.root
-      raise "Must have a root to do this" if rt == nil
+      raise 'Must have a root to do this' if rt == nil
 
       esc = rt.una.esc_char.chr
       esc << ?\\ if esc == '\\' # Special case if backslash!
 
-      if rt.charset == 'UNOA'
-        # Implicit conversion to uppercase - convenient,
-        # but could be argued against!
-        str.upcase.gsub(rt.una.pattern_esc, esc+'\1')
+      if rt.charset == 'UNOA' # but could be argued against!
+        str.upcase.gsub(rt.una.pattern_esc, esc + '\1')
       else
-        str.gsub(rt.una.pattern_esc, esc+'\1')
+        str.gsub(rt.una.pattern_esc, esc + '\1')
       end
     end
 
-    def unescape (str)
+    def unescape(str)
       rt = self.root
-      raise "Must have a root to do this" if rt == nil
+      raise 'Must have a root to do this' if rt == nil
       str.gsub(rt.una.pattern_unesc, '\1\2')
     end
   end
-
 end # module EDI

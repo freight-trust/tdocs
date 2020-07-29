@@ -102,19 +102,15 @@ Collection_S::  Segment, CDE
 require 'enumerator'
 
 BEGIN {
-  require 'pathname'
-# 'realpath' fails on Windows platforms!
-# ENV['EDI_NDB_PATH'] = Pathname.new(__FILE__).dirname.parent.realpath + 'data'
+  require 'pathname' # ENV['EDI_NDB_PATH'] = Pathname.new(__FILE__).dirname.parent.realpath + 'data'
   pdir = Pathname.new(__FILE__).dirname.parent
-  ENV['EDI_NDB_PATH'] =  File.expand_path(pdir) + File::Separator + 'data'
+  ENV['EDI_NDB_PATH'] = File.expand_path(pdir) + File::Separator + 'data'
 }
 
-require "edi4r/standards"
-require "edi4r/diagrams"
-
+require 'edi4r/standards'
+require 'edi4r/diagrams'
 
 module EDI
-
   #########################################################################
   #
   # Basic (abstract) class: Makes sure that all derived
@@ -127,15 +123,13 @@ module EDI
   # Caveat:: Setters are used only internally during message construction.
   #          Avoid using them!
 
-
   class Object
     attr_accessor :parent, :root, :name
 
-    def initialize (parent, root, name)
+    def initialize(parent, root, name)
       @parent, @root, @name = parent, root, name
     end
   end
-
 
   #########################################################################
   #
@@ -149,18 +143,18 @@ module EDI
   class Bzip2Reader
     attr_accessor :path
 
-    def initialize( hnd )
+    def initialize(hnd)
       @path = hnd.path
-      @pipe = IO.popen("bzcat #@path",'r' )
+      @pipe = IO.popen("bzcat #{@path}", 'r')
     end
 
-    def read( len=0 )
-      len==0 ? @pipe.read : @pipe.read( len )
+    def read(len = 0)
+      len == 0 ? @pipe.read : @pipe.read(len)
     end
 
     def rewind
       @pipe.close
-      @pipe = IO.popen("bzcat #@path",'r' )
+      @pipe = IO.popen("bzcat #{@path}", 'r')
     end
 
     def close
@@ -176,22 +170,19 @@ module EDI
   # i.e. derivatives of EDI::Object.
 
   class Collection < EDI::Object
-
-    def initialize( parent, root, name )
+    def initialize(parent, root, name)
       super
       @a = []
     end
 
-
-    def root= (rt)
-      super( rt )
-      each {|obj| obj.root = rt }
+    def root=(rt)
+      super(rt)
+      each { |obj| obj.root = rt }
     end
-
 
     # Similar to Array#push(), but automatically setting obj's
     # parent and root to self and self's root. Returns obj.
-    def add( obj )
+    def add(obj)
       push obj
       obj.parent = self
       obj.root = self.root
@@ -200,20 +191,33 @@ module EDI
 
     alias append add
 
-
     def ==(obj)
       self.object_id == obj.object_id
     end
 
     # Delegate to array:
     #   index, each, find_all, length, size, first, last
-    def index(obj);   @a.index(obj);   end
-    def each(&b);     @a.each(&b);     end
-    def find_all(&b); @a.find_all(&b); end
-    def size;         @a.size;         end
-    def length;       @a.length;       end
-    def first;        @a.first;        end
-    def last;         @a.last;         end
+    def index(obj)
+      @a.index(obj)
+    end
+    def each(&b)
+      @a.each(&b)
+    end
+    def find_all(&b)
+      @a.find_all(&b)
+    end
+    def size
+      @a.size
+    end
+    def length
+      @a.length
+    end
+    def first
+      @a.first
+    end
+    def last
+      @a.last
+    end
 
     # The element reference operator [] supports two access modes:
     # Array-like:: Return indexed element when passing an integer
@@ -222,7 +226,6 @@ module EDI
       lookup(i)
     end
 
-
     # This implementation of +inspect()+ is very verbose in that it
     # inspects also all contained objects in a recursive manner.
     #
@@ -230,34 +233,33 @@ module EDI
     # symlist:: Array of getter names (passed as symbols) whose values are
     #           to be listed. Note that :name is included automatically.
 
-    def inspect( indent='', symlist=[] )
-      headline = indent + self.name+': ' + symlist.map do |sym|
-        "#{sym} = #{(s=send(sym)).nil? ? 'nil' : s.to_s}"
-      end.join(', ') + "\n"
-      headline << @header.inspect(indent+'  ') if @header
-      s = @a.inject( headline ){|s,obj| s << obj.inspect(indent+'  ')}
-      @trailer ? s << @trailer.inspect(indent+'  ') : s
+    def inspect(indent = '', symlist = [])
+      headline =
+        indent + self.name + ': ' +
+          symlist.map do |sym|
+            "#{sym} = #{(s = send(sym)).nil? ? 'nil' : s.to_s}"
+          end.join(', ') + "\n"
+      headline << @header.inspect(indent + '  ') if @header
+      s = @a.inject(headline) { |s, obj| s << obj.inspect(indent + '  ') }
+      @trailer ? s << @trailer.inspect(indent + '  ') : s
     end
-
 
     # Returns an array of names of all included objects in proper sequence;
     # primarily for internal use.
 
     def names
-      @a.collect {|e| e.name}
+      @a.collect(&:name)
     end
-
 
     # Helper method: Turns e.g. "EDI::E::Interchange" into "Interchange".
     # For internal use only!
 
-    def normalized_class_name # :nodoc:
+    def normalized_class_name
       if self.class.to_s !~ /^(\w*::)?(\w::)(\w+)?$/
         raise "Cannot normalize class name: #{self.class.to_s}"
       end
       $3
     end
-
 
     private
 
@@ -265,21 +267,15 @@ module EDI
     #       with getter :name
     #       Low-level method, avoid. Use "add" instead.
 
-    def push( obj )
+    def push(obj)
       raise TypeError unless obj.is_a? EDI::Object # obj.respond_to? :name
       @a << obj
     end
 
-
     alias << push
 
-
     def lookup(i)
-      if i.is_a?(Integer)
-        @a[i]
-      else
-        @a.find_all {|x| x.name == i}
-      end
+      i.is_a?(Integer) ? @a[i] : @a.find_all { |x| x.name == i }
     end
 
     # Here we perform the "magic" that provides us with dynamically
@@ -293,36 +289,33 @@ module EDI
       if sym.id2name =~ /^([acds])(\w+)(=)?/
         rc = lookup($2)
         if rc.is_a? Array
-          if rc.size==1
+          if rc.size == 1
             rc = rc.first
-          elsif rc.size==0
+          elsif rc.size == 0
             return super
           end
         end
+
         if $3
-          # Setter
-          raise TypeError, "Can't assign to array #$2" if rc.is_a? Array
-          raise TypeError, "Can only assign to a DE value" if $1 != 'd'
+          raise TypeError, "Can't assign to array #{$2}" if rc.is_a? Array
+          raise TypeError, 'Can only assign to a DE value' if $1 != 'd'
           rc.value = par[0]
         else
           # Getter
           return rc.value if rc.is_a? DE and $1 == 'd'
-          return rc if rc.is_a? CDE      and $1 == 'c'
-          return rc if rc.is_a? Segment  and $1 == 's'
-          err_msg =  "Method prefix '#$1' not matching result '#{rc.class}'!"
-          raise TypeError, err_msg unless rc.is_a? Array
-          # Don't let whole DEs be overwritten - enforce usage of "value":
+          return rc if rc.is_a? CDE and $1 == 'c'
+          return rc if rc.is_a? Segment and $1 == 's'
+          err_msg = "Method prefix '#{$1}' not matching result '#{rc.class}'!"
+          raise TypeError, err_msg unless rc.is_a? Array # Don't let whole DEs be overwritten - enforce usage of "value":
           rc.freeze
           return rc if $1 == 'a'
-          raise TypeError,"Array found - use 'a#$2[i]' to access component i"
-        end
+          raise TypeError, "Array found - use 'a#{$2}[i]' to access component i"
+        end # Setter
       else
         super
       end
-    end
-
+    end # :nodoc:
   end
-
 
   #########################################################################
   #
@@ -332,12 +325,11 @@ module EDI
   class Collection_HT < Collection
     attr_accessor :header, :trailer # make private or protected?
 
-    def root= (rt)
-      super( rt )
+    def root=(rt)
+      super(rt)
       @header.root = rt if @header
       @trailer.root = rt if @trailer
     end
-
 
     # Experimental: Ignore content of header / trailer,
     # regard object as empty when nothing "add"ed to it.
@@ -346,24 +338,20 @@ module EDI
       @a.empty?
     end
 
-
-    def validate( err_count=0 )
+    def validate(err_count = 0)
       err_count += @header.validate if @header
       err_count += @trailer.validate if @trailer
-      each {|obj| err_count += obj.validate}
+      each { |obj| err_count += obj.validate }
       err_count
     end
 
-
-    def to_s( postfix='' )
-      s = @header ? @header.to_s+postfix : ''
-      each {|obj| s << (obj.is_a?(Segment) ? obj.to_s+postfix : obj.to_s)}
-      s << @trailer.to_s+postfix if @trailer
+    def to_s(postfix = '')
+      s = @header ? @header.to_s + postfix : ''
+      each { |obj| s << (obj.is_a?(Segment) ? obj.to_s + postfix : obj.to_s) }
+      s << @trailer.to_s + postfix if @trailer
       s
     end
-
   end
-
 
   #########################################################################
   #
@@ -372,14 +360,12 @@ module EDI
   class Collection_S < Collection
     attr_accessor :status, :rep, :maxrep
 
-
-    def initialize(parent, name, status=nil)
+    def initialize(parent, name, status = nil)
       @status = status
-      super( parent, parent.root, name)
+      super(parent, parent.root, name)
     end
 
-
-    def validate( err_count=0 )
+    def validate(err_count = 0)
       location = "#{parent.name} - #{@name}"
       if empty?
         if required?
@@ -391,30 +377,28 @@ module EDI
           warn "#{location}: Too often repeated: #{rep} > #{maxrep}!"
           err_count += 1
         end
-        each {|obj| err_count += obj.validate}
+        each { |obj| err_count += obj.validate }
       end
       err_count
     end
 
-
-    def fmt_of_DE(id) # :nodoc:
+    def fmt_of_DE(id)
+      # :nodoc:
       @parent.fmt_of_DE(id)
     end
 
-
-    def each_BCDS(id, &b) # :nodoc:
+    def each_BCDS(id, &b)
+      # :nodoc:
       @parent.each_BCDS(id, &b)
     end
-
 
     # Returns +true+ if all contained elements are empty.
 
     def empty?
       empty = true
-      each {|obj| empty &= obj.empty? } # DE or CDE
+      each { |obj| empty &= obj.empty? } # DE or CDE
       empty
     end
-
 
     # Returns +true+ if this segment or CDE is mandatory / required
     # according to its defining "Diagram".
@@ -423,28 +407,24 @@ module EDI
       @status == 'M' or @status == 'R'
     end
 
-
-    def inspect( indent='', symlist=[] )
-      symlist += [:status, :rep, :maxrep]
+    def inspect(indent = '', symlist = [])
+      symlist += %i[status rep maxrep]
       super
     end
-
   end
-
 
   #########################################################################
   #
   # Base class of all interchanges
   #
   class Interchange < Collection_HT
-
     attr_accessor :output_mode
     attr_reader :syntax, :version, :output_mode, :illegal_charset_pattern
 
     # Abstract class - don't instantiate directly
     #
-    def initialize( user_par=nil )
-      super( nil, self, 'Interchange' )
+    def initialize(user_par = nil)
+      super(nil, self, 'Interchange')
       @illegal_charset_pattern = /^$/ # Default: Never match a non-empty string
       @content = nil # nil if empty, :messages, or :groups
     end
@@ -463,21 +443,22 @@ module EDI
     #   "bzcat" is available when applying this method to *.bz2 files.
     # * Do not pass $stdin to this method - we could not "rewind" it!
 
-    def Interchange.parse( hnd, auto_validate=true )
-      case rc=Interchange.detect( hnd )
+    def Interchange.parse(hnd, auto_validate = true)
+      case rc = Interchange.detect(hnd)
       when 'BZ'
-        Interchange.parse( EDI::Bzip2Reader.new( hnd ) ) # see "peek"
+        Interchange.parse(EDI::Bzip2Reader.new(hnd)) # see "peek"
       when 'GZ'
-        Interchange.parse( Zlib::GzipReader.new( hnd ) )
+        Interchange.parse(Zlib::GzipReader.new(hnd))
       when 'E'
-        EDI::E::Interchange.parse( hnd, auto_validate )
+        EDI::E::Interchange.parse(hnd, auto_validate)
       when 'I'
-        EDI::I::Interchange.parse( hnd, auto_validate )
+        EDI::I::Interchange.parse(hnd, auto_validate)
       when 'XE'
-        EDI::E::Interchange.parse_xml( REXML::Document.new(hnd) )
+        EDI::E::Interchange.parse_xml(REXML::Document.new(hnd))
       when 'XI'
-        EDI::I::Interchange.parse_xml( REXML::Document.new(hnd) )
-      else raise "#{rc}: Unsupported format key - don\'t know how to proceed!"
+        EDI::I::Interchange.parse_xml(REXML::Document.new(hnd))
+      else
+        raise "#{rc}: Unsupported format key - don't know how to proceed!"
       end
     end
 
@@ -490,24 +471,22 @@ module EDI
     #
     # NOTES: See Interchange.parse
 
-    def Interchange.peek( hnd=$stdin)
-      case rc=Interchange.detect( hnd )
-        # Does not exist yet!
-#      when 'BZ': Interchange.peek( Zlib::Bzip2Reader.new( hnd ) )
-        # Temporary substitute, Unix/Linux only, low performance:
+    def Interchange.peek(hnd = $stdin)
+      case rc = Interchange.detect(hnd) # Temporary substitute, Unix/Linux only, low performance:
       when 'BZ'
-        Interchange.peek( EDI::Bzip2Reader.new( hnd ) )
+        Interchange.peek(EDI::Bzip2Reader.new(hnd))
       when 'GZ'
-        Interchange.peek( Zlib::GzipReader.new( hnd ) )
+        Interchange.peek(Zlib::GzipReader.new(hnd))
       when 'E'
-        EDI::E::Interchange.peek( hnd )
+        EDI::E::Interchange.peek(hnd)
       when 'I'
-        EDI::I::Interchange.peek( hnd )
+        EDI::I::Interchange.peek(hnd)
       when 'XE'
-        EDI::E::Interchange.peek_xml( REXML::Document.new(hnd) )
+        EDI::E::Interchange.peek_xml(REXML::Document.new(hnd))
       when 'XI'
-        EDI::I::Interchange.peek_xml( REXML::Document.new(hnd) )
-      else raise "#{rc}: Unsupported format key - don\'t know how to proceed!"
+        EDI::I::Interchange.peek_xml(REXML::Document.new(hnd))
+      else
+        raise "#{rc}: Unsupported format key - don't know how to proceed!"
       end
     end
 
@@ -515,103 +494,93 @@ module EDI
     #
     # Convenience method, intended for internal use only
     #
-    def Interchange.detect( hnd ) # :nodoc:
-      buf = hnd.read( 256 )
-      #
-      # NOTE: "rewind" fails when applied to $stdin!
-      # If you really need to read from $stdin, call Interchange::E::parse()
-      # and Interchange::E::peek() etc. directly to bypass auto-detection
+    def Interchange.detect(hnd)
+      # :nodoc:
+      buf = hnd.read(256) # and Interchange::E::peek() etc. directly to bypass auto-detection
       hnd.rewind
 
-      re  = /(<\?xml.*?)?DOCTYPE\s+Interchange.*?\<Interchange\s+.*?standard\_key\s*=\s*(['"])(.)\2/m
+      re = /(<\?xml.*?)?DOCTYPE\s+Interchange.*?\<Interchange\s+.*?standard\_key\s*=\s*(['"])(.)\2/m
       case buf
       when /^(UNA......)?\r?\n?U[IN]B.UNO[A-Z].[1-4]/
-        'E'  # UN/EDIFACT
+        'E' # UN/EDIFACT
       when /^EDI_DC/
-        'I'  # SAP IDoc
+        'I' # SAP IDoc
       when re
-        'X'+$3     # XML, Doctype = Interchange, syntax standard key (E, I, ...) postfix
+        'X' + $3 # XML, Doctype = Interchange, syntax standard key (E, I, ...) postfix
       when /^\037\213/n
         'GZ' # gzip
       when /^\037\235/n
-        'Z'  # compress
+        'Z' # compress
       when /^\037\036/
-        'z'  # pack
+        'z' # pack
       when /^BZh[0-\377]/n
         'BZ' # bzip2
-      else; "?? (stream starts with: #{buf[0..15]})"
+      else
+        "?? (stream starts with: #{buf[0..15]})"
       end
     end
 
-
-    def fmt_of_DE(id) # :nodoc:
+    def fmt_of_DE(id)
+      # :nodoc:
       de = @basedata.de(id)
       de.nil? ? nil : de.format
     end
 
+    def each_BCDS(id, &b)
+      # :nodoc:
 
-    def each_BCDS(id, &b) # :nodoc:
-      begin
-        @basedata.each_BCDS(id, &b )
-      rescue EDILookupError # NoMethodError
-        raise "Lookup failure for BCDS entry id '#{id}'"
-      end
+      @basedata.each_BCDS(id, &b)
+    rescue EDILookupError # NoMethodError
+      raise "Lookup failure for BCDS entry id '#{id}'"
     end
-
 
     # Add either Message objects or MsgGroup objects to an interchange;
     # mixing both types raises a TypeError.
 
-    def add( obj, auto_validate=true )
-      err_msg = "Added object must also be a "
+    def add(obj, auto_validate = true)
+      err_msg = 'Added object must also be a '
+
       if obj.is_a? Message
         @content = :messages unless @content
-        raise TypeError, err_msg+"'Message'" if @content != :messages
+        raise TypeError, err_msg + "'Message'" if @content != :messages
       elsif obj.is_a? MsgGroup
         @content = :groups unless @content
-        raise TypeError, err_msg+"'MsgGroup'" if @content != :groups
+        raise TypeError, err_msg + "'MsgGroup'" if @content != :groups
       else
-	raise TypeError, "Only Message or MsgGroup allowed here"
+        raise TypeError, 'Only Message or MsgGroup allowed here'
       end
       obj.validate if auto_validate
-      super( obj )
+      super(obj)
     end
-
   end
-
 
   #########################################################################
   #
   # A "MsgGroup" is a special "Collection with header and trailer"
   # It collects "Message" objects and is only rarely used.
 
-
   class MsgGroup < Collection_HT
-
     def initialize(p, user_par = nil)
-      super(p, p.root, 'MsgGroup')
-      # ...
+      super(p, p.root, 'MsgGroup') # ...
     end
 
-
-    def fmt_of_DE(id) # :nodoc:
+    def fmt_of_DE(id)
+      # :nodoc:
       @parent.fmt_of_DE(id)
     end
 
-
-    def each_BCDS(id, &b) # :nodoc:
+    def each_BCDS(id, &b)
+      # :nodoc:
       @parent.each_BCDS(id, &b)
     end
 
     # Add only Message objects to a message group!
 
-    def add (msg)
-      raise "Only Messages allowed here" unless msg.is_a? Message
+    def add(msg)
+      raise 'Only Messages allowed here' unless msg.is_a? Message
       super
     end
-
   end
-
 
   #########################################################################
   #
@@ -619,39 +588,34 @@ module EDI
   # It collects "Segment" objects.
 
   class Message < Collection_HT
+    #    @@msgCounter = 1
 
-#    @@msgCounter = 1
-
-    def initialize( p, user_par=nil )
+    def initialize(p, user_par = nil)
       super(p, p.root, 'Message')
     end
 
-
-    def fmt_of_DE(id) # :nodoc:
+    def fmt_of_DE(id)
+      # :nodoc:
       de = @maindata.de(id)
       return @parent.fmt_of_DE(id) if de.nil?
       de.format
     end
 
+    def each_BCDS(id, &b)
+      # :nodoc:
 
-    def each_BCDS(id, &b) # :nodoc:
-      begin
-        @maindata.each_BCDS(id, &b )
-      rescue EDILookupError
-        @parent.each_BCDS(id, &b)
-      end
+      @maindata.each_BCDS(id, &b)
+    rescue EDILookupError
+      @parent.each_BCDS(id, &b)
     end
-
 
     # Add only Segment objects to a message!
 
-    def add (seg)
-      raise "Only Segments allowed here" unless seg.is_a? Segment
+    def add(seg)
+      raise 'Only Segments allowed here' unless seg.is_a? Segment
       super
     end
-
   end
-
 
   #########################################################################
   #
@@ -660,9 +624,7 @@ module EDI
   # +sg_name+:: The name of its segment group (optional)
   # +level+::   The segment's hierarchy level, an integer
 
-
   class Segment < Collection_S
-
     attr_reader :sg_name, :level
 
     # Returns true if segment is a TNode (i.e. a trigger segment).
@@ -702,7 +664,6 @@ module EDI
       self['child-or-self::*']
     end
 
-
     # Access by XPath expression (support is very limited currently)
     # or by name of the dependent component. Pass them as strings.
     #
@@ -714,59 +675,61 @@ module EDI
     # - child::*
     # - child-or-self::*
 
-    def []( xpath_expr )
-      return super( xpath_expr ) if xpath_expr.is_a? Integer
+    def [](xpath_expr)
+      return super(xpath_expr) if xpath_expr.is_a? Integer
 
       msg_unsupported = "Unsupported XPath expression: #{xpath_expr}"
 
       case xpath_expr
-
       when /\A(descendant|child)(-or-self)?::(.*)/
         return xpath_matches($1, $2, $3, msg_unsupported)
 
         # Currently no real path, no predicate available supported
-      when /\//, /\[/, /\]/
+      when %r{\/}, /\[/, /\]/
         raise IndexError, msg_unsupported
-
       when /child::(\w+)/ # ignore & accept default axis "child"
-        return super( $1 )
-
+        return super($1)
       when /::/ # No other axes supported for now
         raise IndexError, msg_unsupported
-
-      else # assume simple element name
-        return super( xpath_expr )
+      else
+        # assume simple element name
+        return super(xpath_expr)
       end
     end
 
-
-    def inspect( indent='', symlist=[] )
-      symlist += [:sg_name, :level]
+    def inspect(indent = '', symlist = [])
+      symlist += %i[sg_name level]
       super
     end
 
-
     # Update attributes with information from a corresponding node instance
 
-    def update_with( ni ) # :nodoc:
+    def update_with(ni)
+      # :nodoc:
       return nil if ni.name != @name # Names must match; consider a raise!
-      @status, @maxrep, @sg_name, @rep, @index, @level, @tnode = ni.status,\
-      ni.maxrep, ni.sg_name, ni.inst_cnt, ni.index, ni.level, ni.is_tnode?
+      @status, @maxrep, @sg_name, @rep, @index, @level, @tnode =
+        ni.status,
+        ni.maxrep,
+        ni.sg_name,
+        ni.inst_cnt,
+        ni.index,
+        ni.level,
+        ni.is_tnode?
       self
     end
 
     private
 
-    def add (obj)
-      raise "Only DE or CDE allowed here" unless obj.is_a? DE or obj.is_a? CDE
-      super( obj )
+    def add(obj)
+      raise 'Only DE or CDE allowed here' unless obj.is_a? DE or obj.is_a? CDE
+      super(obj)
     end
 
-    def xpath_matches( axis, or_self, element, msg_unsupported )
+    def xpath_matches(axis, or_self, element, msg_unsupported)
       raise IndexError, msg_unsupported if element != '*'
       results = []
       results << self if or_self
-      child_mode = (axis=='child')
+      child_mode = (axis == 'child')
       return results unless self.is_tnode?
 
       # Now add all segments in self's "tail"
@@ -776,14 +739,13 @@ module EDI
       loop do
         index += 1
         seg = msg[index]
-        next  if child_mode and seg.level > level+1 # other descendants
+        next if child_mode and seg.level > level + 1 # other descendants
         break if seg.level <= level
         results << seg
       end
       results
     end
   end
-
 
   #########################################################################
   #
@@ -792,16 +754,14 @@ module EDI
   # similar to "Segment".
   #
   class CDE < Collection_S
-
     private
 
     # Add a DE
 
-    def add( obj )
-      raise "Only DE allowed here" unless obj.is_a? DE
+    def add(obj)
+      raise 'Only DE allowed here' unless obj.is_a? DE
       super
     end
-
   end
 
   #########################################################################
@@ -821,30 +781,29 @@ module EDI
     attr_accessor :value
     attr_reader :format, :status
 
-    def initialize( p, name, status, fmt )
+    def initialize(p, name, status, fmt)
       @parent, @root, @name, @format, @status = p, p.root, name, fmt, status
       raise "#{location}: 'nil' is not an allowed format." if fmt.nil?
       raise "#{location}: 'nil' is not an allowed status." if status.nil?
       @value = nil
     end
 
-
     def to_s
       str = self.value
       return str if str.is_a? String
-      str = str.to_s; len = str.length
-      return str unless format =~ /n(\d+)/ && len != (fixlen=$1.to_i)
+      str = str.to_s
+      len = str.length
+      return str unless format =~ /n(\d+)/ && len != (fixlen = $1.to_i)
       raise "#{location}: Too long (#{l}) for fmt #{format}" if len > fixlen
       '0' * (fixlen - len) + str
     end
 
-
-    def inspect( indent='' )
-      indent + self.name+': ' + [:value, :format, :status].map do |sym|
-        "#{sym} = #{(s=send(sym)).nil? ? 'nil' : s.to_s}"
-      end.join(', ') + "\n"
+    def inspect(indent = '')
+      indent + self.name + ': ' +
+        %i[value format status].map do |sym|
+          "#{sym} = #{(s = send(sym)).nil? ? 'nil' : s.to_s}"
+        end.join(', ') + "\n"
     end
-
 
     # Performs various validation checks and returns the number of
     # issues found (plus the value of +err_count+):
@@ -853,8 +812,9 @@ module EDI
     # - character set limitations violated?
     # - various format restrictions violated?
 
-    def validate( err_count=0 )
+    def validate(err_count = 0)
       location = "DE #{parent.name}/#{@name}"
+
       if empty?
         if required?
           warn "#{location}: Empty though mandatory!"
@@ -864,62 +824,50 @@ module EDI
         #
         # Charset check
         #
-        if (pos = (value =~ root.illegal_charset_pattern))# != nil
+        if (pos = (value =~ root.illegal_charset_pattern)) # != nil
           warn "#{location}: Illegal character: #{value[pos].chr}"
           err_count += 1
-        end
-        #
-        # Format check, raise error if not consistent!
-        #
+        end #
+
         if @format =~ /^(a|n|an)(..)?(\d+)$/
           _a_n_an, _upto, _size = $1, $2, $3
           case _a_n_an
-
           when 'n'
             strval = value.to_s
             re = Regexp.new('^(-)?(\d+)([.,]\d+)?$')
             md = re.match strval
             if md.nil?
-              raise "#{location}: '#{strval}' - not matching format #@format"
-#              warn "#{strval} - not matching format #@format"
-#              err_count += 1
+              raise "#{location}: '#{strval}' - not matching format #{@format}" #              err_count += 1
             end
 
-            len = strval.length
-            # Sign char does not go into length count:
-            len -= 1 if md[1]=='-'
-            # Decimal char does not go into length count:
-            len -= 1 if not md[3].nil?
-            # len -= 1 if (md[1]=='-' and md[3]) || (md[1] != '' and not md[3])
+            len = strval.length # Sign char does not go into length count:
+            len -= 1 if md[1] == '-' # Decimal char does not go into length count:
+            len -= 1 if not md[3].nil? # len -= 1 if (md[1]=='-' and md[3]) || (md[1] != '' and not md[3])
             return if not required? and len == 0
-            if len > _size.to_i
-#            if _upto.nil? and len != _size.to_i or len > _size.to_i
-              warn "Context in #{location}: #{_a_n_an}, #{_upto}, #{_size}; #{md[1]}, #{md[2]}, #{md[3]}"
+            if len > _size.to_i #            if _upto.nil? and len != _size.to_i or len > _size.to_i
+              warn "Context in #{location}: #{_a_n_an}, #{_upto}, #{_size}; #{
+                     md[1]
+                   }, #{md[2]}, #{md[3]}"
               warn "Length # mismatch in #{location}: #{len} vs. #{_size}"
-              err_count += 1
-              #            warn "  (strval was: '#{strval}')"
+              err_count += 1 #            warn "  (strval was: '#{strval}')"
             end
-            if md[1] =~/^0+/
+            if md[1] =~ /^0+/
               warn "#{strval} contains leading zeroes"
               err_count += 1
             end
-            if md[3] and md[3]=~ /.0+$/
+            if md[3] and md[3] =~ /.0+$/
               warn "#{strval} contains trailing decimal sign/zeroes"
               err_count += 1
             end
-
-          when 'a', 'an'
-#            len = value.is_a?(Numeric) ? value.to_s.length : value.length
+          when 'a', 'an' #            len = value.is_a?(Numeric) ? value.to_s.length : value.length
             len = value.to_s.length
             if _upto.nil? and len != $3.to_i or len > $3.to_i
               warn "Length mismatch in #{location}: #{len} vs. #{_size}"
               err_count += 1
             end
           else
-            raise "#{location}: Illegal format prefix #{_a_n_an}"
-            # err_count += 1
+            raise "#{location}: Illegal format prefix #{_a_n_an}" # err_count += 1
           end
-
         else
           warn "#{location}: Illegal format: #{@format}!"
           err_count += 1
@@ -928,19 +876,15 @@ module EDI
       err_count
     end
 
-
     # Returns +true+ if value is not +nil+.
     # Note that assigning an empty string to a DE makes it "not empty".
     def empty?
       @value == nil
     end
 
-
     # Returns +true+ if this is a required / mandatory segment.
     def required?
       @status == 'M' or @status == 'R'
     end
-
   end
-
 end # module EDI

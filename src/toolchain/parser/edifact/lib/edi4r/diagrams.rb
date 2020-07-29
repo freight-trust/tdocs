@@ -42,7 +42,6 @@
 # define message types.
 
 module EDI::Diagram
-
   #
   # Diagram: A structure class to represent a message diagram (branching diagram)
   #
@@ -100,15 +99,17 @@ module EDI::Diagram
     # params:: A hash of parameters that uniquely identify the selected diagram.
     #          Internal use only - see source code for details.
     #
-    def Diagram.create( std, params )
+    def Diagram.create(std, params)
       case std
       when 'E' # UN/EDIFACT
-        par = {:d0051 => 'UN', 
-          #           :d0057 => '',
-          :is_iedi => false }.update( params )
+        par =
+          {
+            d0051: 'UN',
+            #           :d0057 => '',
+            is_iedi: false
+          }.update(params)
       when 'I' # SAP IDocs
-        par = params
-        #      raise "Not implemented yet!"
+        par = params #      raise "Not implemented yet!"
       else
         raise "Unsupported syntax standard: #{std}"
       end
@@ -117,74 +118,98 @@ module EDI::Diagram
         #
         # Use param set as key for caching
         #
-        key = par.sort {|a,b| a.to_s <=> b.to_s}.hash
+        key =
+          par.sort { |a, b| a.to_s <=> b.to_s }.hash
         obj = @@cache[key]
         return obj unless obj.nil?
-        
-        obj = new( std, par )
-        @@cache[key] = obj # cache & return it
 
+        obj = new(std, par)
+        @@cache[key] = obj # cache & return it
       else
-        new( std, par )
+        new(std, par)
       end
     end
 
-
-    def initialize( std, par ) # :nodoc:
+    def initialize(std, par)
+      # :nodoc:
       case std
       when 'E' # UN/EDIFACT
-        @base_key = [par[:d0065], # msg type
-          par[:d0052], # version
-          par[:d0054], # release, 
-          par[:d0051], # resp. agency
-          '',
-          #                   par[:d0057],  # assoc. assigned code (subset)
-          ''].join(':')
+        @base_key =
+          [
+            par[:d0065],
+            # msg type
+            par[
+              :d0052
+            ],
+            # version
+            par[
+              :d0054
+            ],
+            # release,
+            par[
+              :d0051
+            ],
+            # resp. agency
+            '',
+            #                   par[:d0057],  # assoc. assigned code (subset)
+            ''
+          ].join(':')
         @msg_type = par[:d0065]
 
-        @dir = EDI::Dir::Directory.create(std,
-                                          :d0065 => @msg_type,
-                                          :d0052 => par[:d0052], 
-                                          :d0054 => par[:d0054], 
-                                          :d0051 => par[:d0051], 
-                                          :d0057 => par[:d0057], 
-                                          :is_iedi => par[:is_iedi])
+        @dir =
+          EDI::Dir::Directory.create(
+            std,
+            d0065: @msg_type,
+            d0052: par[:d0052],
+            d0054: par[:d0054],
+            d0051: par[:d0051],
+            d0057: par[:d0057],
+            is_iedi: par[:is_iedi]
+          )
       when 'I' # SAP IDocs
-        @base_key = [par[:IDOCTYPE],
-          par[:EXTENSION],
-          par[:SAPTYPE],
-          '',
-          '',
-          #                   par[:d0057],  # assoc. assigned code (subset)
-          ''].join(':')
+        @base_key =
+          [
+            par[:IDOCTYPE],
+            par[:EXTENSION],
+            par[:SAPTYPE],
+            '',
+            '',
+            #                   par[:d0057],  # assoc. assigned code (subset)
+            ''
+          ].join(':')
         @msg_type = par[:IDOCTYPE]
 
-        @dir = EDI::Dir::Directory.create(std,
-                                          :DOCTYPE => @msg_type,
-                                          :EXTENSION => par[:EXTENSION], 
-                                          :SAPTYPE => par[:SAPTYPE])
-        #      raise "Not implemented yet!"
+        @dir =
+          EDI::Dir::Directory.create(
+            std,
+            DOCTYPE: @msg_type,
+            EXTENSION: par[:EXTENSION],
+            SAPTYPE: par[:SAPTYPE]
+          ) #      raise "Not implemented yet!"
       else
         raise "Unsupported syntax standard: #{std}"
       end
 
-      top_branch = Branch.new( @base_key, nil, self )
+      top_branch = Branch.new(@base_key, nil, self)
       raise "No branch found for key '#{@base_key}'" unless top_branch
 
       @diag = top_branch.expand
       @desc = @diag.desc
 
-      i = 0; @node_dict = {}
-      @diag.each { |node| i+=1; node.index=i; @node_dict[i]=node }
+      i = 0
+      @node_dict = {}
+      @diag.each do |node|
+        i += 1
+        node.index = i
+        @node_dict[i] = node
+      end
     end
-
 
     # Iterates recursively through all nodes of the diagram.
     #
     def each(&b)
       @diag.each(&b)
     end
-
 
     # Index access through ordinal number of node, starting with 1 (!).
     #
@@ -203,9 +228,7 @@ module EDI::Diagram
     def branch
       @diag
     end
-
   end
-
 
   #
   # A Branch is a sequence of Nodes. It corresponds to a segment group without
@@ -228,11 +251,13 @@ module EDI::Diagram
       @sg_name = sg_name
       @root = root
 
-      @nodelist=[]
-      b = @root.dir.message( key+sg_name.to_s )
-      raise "Lookup failed for key `#{key+sg_name.to_s}'" unless b
+      @nodelist = []
+      b = @root.dir.message(key + sg_name.to_s)
+      raise "Lookup failed for key `#{key + sg_name.to_s}'" unless b
       @desc = b.desc
-      b.each {|obj| @nodelist << Node.create( obj.name, obj.status, obj.maxrep )}
+      b.each do |obj|
+        @nodelist << Node.create(obj.name, obj.status, obj.maxrep)
+      end
     end
 
     #
@@ -240,15 +265,14 @@ module EDI::Diagram
     #
     def expand
       each do |node|
-        if node.is_a? TNode and node.tail == nil
-          #        puts "Expanding #{node}"
+        if node.is_a? TNode and node.tail == nil #        puts "Expanding #{node}"
           tail = Branch.new(@key, node.name, @root)
 
           # Merge TNode with first tail node (trigger segment)
           trigger_segment = tail.shift
           node.name = trigger_segment.name
           if trigger_segment.status != 'M' or trigger_segment.maxrep != 1
-            raise "#{trigger_segment.name}: Not a trigger seg!" 
+            raise "#{trigger_segment.name}: Not a trigger seg!"
           end
           node.tail = tail.expand # Recursion!
         end
@@ -271,12 +295,10 @@ module EDI::Diagram
     # Iterate through each node of the node list
     #
     def each
-      @nodelist.each {|node|
+      @nodelist.each do |node|
         yield(node)
-        if node.is_a? TNode and node.tail
-          node.tail.each {|tn| yield(tn)} # Recursion
-        end
-      }
+        node.tail.each { |tn| yield(tn) } if node.is_a? TNode and node.tail # Recursion
+      end
     end
 
     #  def each_pruned
@@ -296,18 +318,16 @@ module EDI::Diagram
     def size
       @nodelist.size
     end
-
   end
-
 
   #
   # A Node is essentially the representation of a segment in a diagram.
-  # It comes in two flavors: Simple nodes (SNode) and T-nodes (TNode) 
+  # It comes in two flavors: Simple nodes (SNode) and T-nodes (TNode)
   # which may have "tails".
   # "Node" is an abstract class - either create a SNode or a TNode.
   #
   class Node
-    private_class_method :new	# Make it an abstract class
+    private_class_method :new # Make it an abstract class
     attr_accessor :name, :index
     attr_reader :status, :maxrep
 
@@ -320,18 +340,19 @@ module EDI::Diagram
       case name
       when /^SG\d+$/ # T-Node
         return TNode.new(name, status, rep)
-      else	   # Simple node
+      else
+        # Simple node
         return SNode.new(name, status, rep)
       end
     end
 
-    def initialize(name, status, rep) # :nodoc:
-      @name, @status, @maxrep = name, status, rep
-      #    @template = EDI::Segment.new(name, nil, nil)
+    def initialize(name, status, rep)
+      # :nodoc:
+      @name, @status, @maxrep = name, status, rep #    @template = EDI::Segment.new(name, nil, nil)
     end
 
     def to_s
-      "%3d - %s, %s, %d" % [@index, @name, @status, @maxrep]
+      '%3d - %s, %s, %d' % [@index, @name, @status, @maxrep]
     end
 
     def required?
@@ -340,8 +361,8 @@ module EDI::Diagram
 
     # Returns +nil+ for an SNode or a reference to the side branch ("tail")
     # of a TNode.
-    def tail
-      return nil # Only TNode implements this non-trivially
+    def tail # Only TNode implements this non-trivially
+      return nil
     end
   end
 
@@ -366,29 +387,29 @@ module EDI::Diagram
       super
       @tail, @sg_name = nil, @name
     end
-
   end
 
   ####################################################################
   #
   # Nodes and more
 
-  NodeCoords = Struct.new( :branch, :offset, :inst_cnt )
+  NodeCoords = Struct.new(:branch, :offset, :inst_cnt)
 
-  # Node co-ordinates: A Struct consisting of the +branch+, its +offset+ 
+  # Node co-ordinates: A Struct consisting of the +branch+, its +offset+
   # within the branch, and its instance counter +inst_cnt+ .
 
   class NodeCoords
     def to_s
-      "<NodeCoords>"+self.branch.object_id.to_s+', '+self.offset.to_s+', '+self.inst_cnt.to_s
+      '<NodeCoords>' + self.branch.object_id.to_s + ', ' + self.offset.to_s +
+        ', ' + self.inst_cnt.to_s
     end
   end
 
   # NodeInstance
   #
   # A given segment of a real message instance needs an instance counter
-  # in addition to its location in the diagram. This applies recursively 
-  # to all segment groups in which it is embedded. This class is equipped 
+  # in addition to its location in the diagram. This applies recursively
+  # to all segment groups in which it is embedded. This class is equipped
   # with the additional attributes ("co-ordinates") of node instances.
   #
   # We also use this class to determine the node instance of a segment
@@ -397,13 +418,12 @@ module EDI::Diagram
   # the next matching segment tag/name.
   #
   class NodeInstance
-
     # A new NodeInstance is inititialized to a "virtual" 0th node
     # before the first real node of the diagramm referenced by +diag+ .
     #
-    def initialize( diag )
+    def initialize(diag)
       @diag = diag # Really needed later?
-      
+
       # Init. to first segment of top branch, e.g. "UNH" or "EDI_DC40"
       @coord = NodeCoords.new(diag.branch, 0, 0)
       @coord_stack = []
@@ -418,7 +438,6 @@ module EDI::Diagram
 
     alias rep inst_cnt
 
-
     # Returns diagram node corresponding to this instance's co-ordinates
     #
     def node
@@ -428,27 +447,34 @@ module EDI::Diagram
     # Delegate some getters to the underlying diagram node:
     #  index, maxrep, name, status
     #
-    def name;   node.name;   end
-    def status; node.status; end
-    def maxrep; node.maxrep; end    
-    def index;  node.index;  end
+    def name
+      node.name
+    end
+    def status
+      node.status
+    end
+    def maxrep
+      node.maxrep
+    end
+    def index
+      node.index
+    end
 
     # Returns this node instance's level in the diagram.
     # Note that special UN/EDIFACT rules about level 0 are acknowledged:
     # level == 0 for mandatory SNode instances of the main branch with maxrep==1.
     def level
-      depth = @coord_stack.length+1
-      return 0 if depth == 1 and node.maxrep == 1 and node.required? and not is_tnode? # Special Level 0 case
+      depth = @coord_stack.length + 1
+      if depth == 1 and node.maxrep == 1 and node.required? and not is_tnode? # Special Level 0 case
+        return 0
+      end
       depth # Else: Level is depth of segment group stack + 1 (1 if no SG)
     end
 
     # Returns the branch name (segment group name)
     #
     def sg_name
-      #    (node.is_a? TNode) ? node.sg_name : nil
-      if node.is_a? TNode
-        return node.sg_name
-      end
+      return node.sg_name if node.is_a? TNode
       @coord.branch.sg_name
     end
 
@@ -456,7 +482,6 @@ module EDI::Diagram
     def is_tnode?
       node.is_a? TNode
     end
-
 
     # Main "workhorse": Seek for next matching segment tag/name
     #
@@ -470,38 +495,32 @@ module EDI::Diagram
     # 2. Search fails if we hit the end of the diagram before a match
     # 3. We might need to loop through segment groups repeatedly!
     #
-    def seek!(seg) # Segment, Regexp or String expected
-      name = (seg.is_a? EDI::Segment) ? seg.name : seg
-      #    name = (seg.is_a? String) ? seg : seg.name
+    def seek!(seg)
+      # Segment, Regexp or String expected
+      name = (seg.is_a? EDI::Segment) ? seg.name : seg #    name = (seg.is_a? String) ? seg : seg.name
       begin
-        node = self.node
-        # print "Looking for #{name} in #{self.name} @ level #{self.level}..."
-        #
-        # Case "match"
-        #
-        if name === node.name # == name
-          #        puts "match!"
+        node = self.node # # Case "match" # # print "Looking for #{name} in #{self.name} @ level #{self.level}..."
+
+        if name === node.name #        puts "match!" # == name
           @coord.inst_cnt += 1
           msg = "Segment #{name} at #{@coord.to_s}: More than #{node.maxrep}!"
+
           if @coord.inst_cnt > node.maxrep
             raise EDI::EDILookupError, msg
           else
             @down_flag = true if node.is_a? TNode
-            return self# .node
+            return self # .node
           end
-        end
-        #
-        # Missed a required node?
-        #
+        end #
+
         if node.required? and @coord.inst_cnt == 0 # @unmatched
-          msg = "Missing required segment #{node.name} at #{@coord.to_s}\n" + \
-          " while looking for segment #{name}!"
+          msg =
+            "Missing required segment #{node.name} at #{@coord.to_s}\n" +
+              " while looking for segment #{name}!"
           raise EDI::EDILookupError, msg
-        end
-        #      puts
-      end while self.next!
-      # Already at top level - Error condition!
-      raise "End of diagram exceeded!"
+        end #      puts
+      end while self.next! # Already at top level - Error condition!
+      raise 'End of diagram exceeded!'
     end
 
     # Navigation methods, for internal use only
@@ -521,7 +540,7 @@ module EDI::Diagram
     # Move to the right of the current node in this branch.
     # Returns +self+, or +nil+ if already at the branch end.
     def right!
-      return nil if @coord.offset+1 == @coord.branch.size
+      return nil if @coord.offset + 1 == @coord.branch.size
       @coord.offset += 1
       @coord.inst_cnt = 0
       self
@@ -532,36 +551,31 @@ module EDI::Diagram
     # Returns +self+, or +nil+ if there is no tail node.
     def down!
       this_node = self.node
-      return nil if (tail=this_node.tail).nil?
-      # Save current co-ordinates on stack
-      @coord_stack.push( @coord )
-      # Init. co-ordinates for the new level:
+      return nil if (tail = this_node.tail).nil? # Save current co-ordinates on stack
+      @coord_stack.push(@coord) # Init. co-ordinates for the new level:
+
       @coord = NodeCoords.new(tail, 0, 0)
       self
     end
 
     #
-    # Next: Move down if TNode and same as last match (another SG instance), 
+    # Next: Move down if TNode and same as last match (another SG instance),
     # else right. Move up if neither possible.
     # Returns +self+, or +nil+ if end of diag encountered.
     def next!
       loop do
-        node = self.node; r = nil
+        node = self.node
+        r = nil
         if node.is_a? TNode and @down_flag
           @down_flag = false
           r = self.down!
         end
-        break if r
-        # Down not applicable or available; now try "right!"
-        break if r = self.right!
-        # At end of this branch - try to move up:
-        break if r = self.up!
-        # Already at top level!
+        break if r # Down not applicable or available; now try "right!"
+        break if r = self.right! # At end of this branch - try to move up:
+        break if r = self.up! # Already at top level!
         return nil
       end
       self
-    end
-
+    end #    (node.is_a? TNode) ? node.sg_name : nil
   end
-
 end # module EDI::Diagram
