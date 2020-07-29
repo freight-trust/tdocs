@@ -1,10 +1,21 @@
-require "spec_helper"
+require 'spec_helper'
 
-logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "isodoc", "generic", "html"))
+logoloc =
+  File.expand_path(
+    File.join(
+      File.dirname(__FILE__),
+      '..',
+      '..',
+      '..',
+      'lib',
+      'isodoc',
+      'generic',
+      'html'
+    )
+  )
 
 RSpec.describe IsoDoc::Generic do
-
-  it "processes default metadata" do
+  it 'processes default metadata' do
     csdc = IsoDoc::Generic::HtmlConvert.new({})
     input = <<~"INPUT"
 <generic-standard xmlns="#{Metanorma::Generic::DOCUMENT_NAMESPACE}">
@@ -52,25 +63,29 @@ RSpec.describe IsoDoc::Generic do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :agency=>"Acme", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000", :docnumeric=>nil, :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :implementeddate=>"XXX", :issueddate=>"XXX", :logo=>"#{File.join(logoloc, "logo.jpg")}", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :publisher=>"Acme", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :stage=>"Working Draft", :stageabbr=>"WD", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :vote_endeddate=>"XXX", :vote_starteddate=>"XXX"}
+    {:accesseddate=>"XXX", :agency=>"Acme", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000", :docnumeric=>nil, :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :implementeddate=>"XXX", :issueddate=>"XXX", :logo=>"#{
+      File.join(logoloc, 'logo.jpg')
+    }", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :publisher=>"Acme", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :stage=>"Working Draft", :stageabbr=>"WD", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :vote_endeddate=>"XXX", :vote_starteddate=>"XXX"}
     OUTPUT
 
-    docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    docxml, filename, dir = csdc.convert_init(input, 'test', true)
+    expect(
+      htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)
+    ).to be_equivalent_to output
   end
 
-   context 'with configuration options' do
+  context 'with configuration options' do
     subject(:convert) do
       xmlpp(Asciidoctor.convert(input, backend: :generic, header_footer: true))
     end
 
     context 'organization' do
-      let(:published_stages) { "working-draft" }
+      let(:published_stages) { 'working-draft' }
       let(:logo_path) { 'lib/example.jpg' }
-      let(:logo_paths) { ['lib/example1.jpg', 'lib/example2.jpg'] }
-      let(:stage_abbreviations) { { "working-draft" => "wd" } }
-      let(:metadata_extensions) { [ "security", "insecurity" ] }
-      let(:webfont) { [ "Jack&amp;x", "Jill?x" ] }
+      let(:logo_paths) { %w[lib/example1.jpg lib/example2.jpg] }
+      let(:stage_abbreviations) { { 'working-draft' => 'wd' } }
+      let(:metadata_extensions) { %w[security insecurity] }
+      let(:webfont) { %w[Jack&amp;x Jill?x] }
 
       it 'processes default metadata' do
         Metanorma::Generic.configure do |config|
@@ -81,8 +96,8 @@ RSpec.describe IsoDoc::Generic do
           config.metadata_extensions = metadata_extensions
           config.webfont = webfont
         end
-            csdc = IsoDoc::Generic::HtmlConvert.new({})
-    input = <<~"INPUT"
+        csdc = IsoDoc::Generic::HtmlConvert.new({})
+        input = <<~"INPUT"
 <generic-standard xmlns="#{Metanorma::Generic::DOCUMENT_NAMESPACE}">
 <bibdata type="standard">
   <title language="en" format="plain">Main Title</title>
@@ -128,33 +143,70 @@ RSpec.describe IsoDoc::Generic do
 </generic-standard>
     INPUT
 
-    output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :agency=>"Acme", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000", :docnumeric=>nil, :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :implementeddate=>"XXX", :insecurity=>"Client Unconfidential", :issueddate=>"XXX", :logo=>"#{File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "example.jpg"))}", :logo_paths=>["#{File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "example1.jpg"))}", "#{File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "example2.jpg"))}"], :obsoleteddate=>"XXX", :publisheddate=>"XXX", :publisher=>"Acme", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :security=>"Client Confidential", :stage=>"Working Draft", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX", :vote_endeddate=>"XXX", :vote_starteddate=>"XXX"}
+        output = <<~"OUTPUT"
+    {:accesseddate=>"XXX", :agency=>"Acme", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000", :docnumeric=>nil, :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :implementeddate=>"XXX", :insecurity=>"Client Unconfidential", :issueddate=>"XXX", :logo=>"#{
+          File.expand_path(
+            File.join(
+              File.dirname(__FILE__),
+              '..',
+              '..',
+              '..',
+              'lib',
+              'example.jpg'
+            )
+          )
+        }", :logo_paths=>["#{
+          File.expand_path(
+            File.join(
+              File.dirname(__FILE__),
+              '..',
+              '..',
+              '..',
+              'lib',
+              'example1.jpg'
+            )
+          )
+        }", "#{
+          File.expand_path(
+            File.join(
+              File.dirname(__FILE__),
+              '..',
+              '..',
+              '..',
+              'lib',
+              'example2.jpg'
+            )
+          )
+        }"], :obsoleteddate=>"XXX", :publisheddate=>"XXX", :publisher=>"Acme", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :security=>"Client Confidential", :stage=>"Working Draft", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX", :vote_endeddate=>"XXX", :vote_starteddate=>"XXX"}
     OUTPUT
 
-        docxml, filename, dir = csdc.convert_init(input, "test", true)
-        expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+        docxml, filename, dir = csdc.convert_init(input, 'test', true)
+        expect(
+          htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)
+        ).to be_equivalent_to output
 
-        FileUtils.rm_f "test.html"
-        IsoDoc::Generic::HtmlConvert.new({}).convert("test", input, false) 
-        html = File.read("test.html", encoding: "utf-8")
+        FileUtils.rm_f 'test.html'
+        IsoDoc::Generic::HtmlConvert.new({}).convert('test', input, false)
+        html = File.read('test.html', encoding: 'utf-8')
         expect(html).to include '<link href="Jack&amp;x" rel="stylesheet" />'
         expect(html).to include '<link href="Jill?x" rel="stylesheet" />'
 
         Metanorma::Generic.configure do |config|
           config.logo_path = Metanorma::Generic::Configuration.new.logo_path
           config.logo_paths = Metanorma::Generic::Configuration.new.logo_paths
-          config.published_stages = Metanorma::Generic::Configuration.new.published_stages
-          config.stage_abbreviations = Metanorma::Generic::Configuration.new.stage_abbreviations
-          config.metadata_extensions = Metanorma::Generic::Configuration.new.metadata_extensions
+          config.published_stages =
+            Metanorma::Generic::Configuration.new.published_stages
+          config.stage_abbreviations =
+            Metanorma::Generic::Configuration.new.stage_abbreviations
+          config.metadata_extensions =
+            Metanorma::Generic::Configuration.new.metadata_extensions
           config.webfont = Metanorma::Generic::Configuration.new.webfont
         end
       end
     end
   end
 
-
-  it "processes pre" do
+  it 'processes pre' do
     input = <<~"INPUT"
 <generic-standard xmlns="#{Metanorma::Generic::DOCUMENT_NAMESPACE}">
 <preface><foreword>
@@ -176,14 +228,14 @@ RSpec.describe IsoDoc::Generic do
     OUTPUT
 
     expect(
-      IsoDoc::Generic::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
+      IsoDoc::Generic::HtmlConvert.new({}).convert('test', input, true).gsub(
+        /^.*<body/m,
+        '<body'
+      ).gsub(%r{</body>.*}m, '</body>')
     ).to be_equivalent_to output
   end
 
-  it "processes keyword" do
+  it 'processes keyword' do
     input = <<~"INPUT"
 <generic-standard xmlns="#{Metanorma::Generic::DOCUMENT_NAMESPACE}">
 <preface><foreword>
@@ -205,14 +257,14 @@ RSpec.describe IsoDoc::Generic do
     OUTPUT
 
     expect(
-      IsoDoc::Generic::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
+      IsoDoc::Generic::HtmlConvert.new({}).convert('test', input, true).gsub(
+        /^.*<body/m,
+        '<body'
+      ).gsub(%r{</body>.*}m, '</body>')
     ).to be_equivalent_to output
   end
 
-  it "processes simple terms & definitions" do
+  it 'processes simple terms & definitions' do
     input = <<~"INPUT"
      <generic-standard xmlns="http://riboseinc.com/isoxml">
        <sections>
@@ -237,14 +289,14 @@ RSpec.describe IsoDoc::Generic do
     OUTPUT
 
     expect(
-      IsoDoc::Generic::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
+      IsoDoc::Generic::HtmlConvert.new({}).convert('test', input, true).gsub(
+        /^.*<body/m,
+        '<body'
+      ).gsub(%r{</body>.*}m, '</body>')
     ).to be_equivalent_to output
   end
 
-  it "processes section names" do
+  it 'processes section names' do
     input = <<~"INPUT"
     <generic-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
@@ -378,10 +430,12 @@ RSpec.describe IsoDoc::Generic do
     OUTPUT
 
     expect(
-      xmlpp(IsoDoc::Generic::HtmlConvert.new({}).convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    )).to be_equivalent_to xmlpp(output)
+      xmlpp(
+        IsoDoc::Generic::HtmlConvert.new({}).convert('test', input, true).gsub(
+          /^.*<body/m,
+          '<body'
+        ).gsub(%r{</body>.*}m, '</body>')
+      )
+    ).to be_equivalent_to xmlpp(output)
   end
-
 end

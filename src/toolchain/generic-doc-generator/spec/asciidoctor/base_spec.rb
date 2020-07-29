@@ -1,8 +1,8 @@
-require "spec_helper"
-require "fileutils"
+require 'spec_helper'
+require 'fileutils'
 
 RSpec.describe Asciidoctor::Generic do
-  it "processes a blank document" do
+  it 'processes a blank document' do
     input = <<~"INPUT"
     #{ASCIIDOC_BLANK_HDR}
     INPUT
@@ -13,10 +13,12 @@ RSpec.describe Asciidoctor::Generic do
 </generic-standard>
     OUTPUT
 
-    expect(xmlpp(Asciidoctor.convert(input, backend: :generic, header_footer: true))).to be_equivalent_to xmlpp(output)
+    expect(
+      xmlpp(Asciidoctor.convert(input, backend: :generic, header_footer: true))
+    ).to be_equivalent_to xmlpp(output)
   end
 
-  it "converts a blank document" do
+  it 'converts a blank document' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -30,12 +32,14 @@ RSpec.describe Asciidoctor::Generic do
 </generic-standard>
     OUTPUT
 
-    FileUtils.rm_f "test.html"
-    expect(xmlpp(Asciidoctor.convert(input, backend: :generic, header_footer: true))).to be_equivalent_to xmlpp(output)
-    expect(File.exist?("test.html")).to be true
+    FileUtils.rm_f 'test.html'
+    expect(
+      xmlpp(Asciidoctor.convert(input, backend: :generic, header_footer: true))
+    ).to be_equivalent_to xmlpp(output)
+    expect(File.exist?('test.html')).to be true
   end
 
-  it "processes default metadata" do
+  it 'processes default metadata' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -118,10 +122,12 @@ RSpec.describe Asciidoctor::Generic do
 </generic-standard>
     OUTPUT
 
-    expect(xmlpp(Asciidoctor.convert(input, backend: :generic, header_footer: true))).to be_equivalent_to xmlpp(output)
+    expect(
+      xmlpp(Asciidoctor.convert(input, backend: :generic, header_footer: true))
+    ).to be_equivalent_to xmlpp(output)
   end
 
-    it "processes default section titles" do
+  it 'processes default section titles' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -214,8 +220,14 @@ RSpec.describe Asciidoctor::Generic do
   </bibliography>
 </generic-standard>
       OUTPUT
-      expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :generic, header_footer: true)))).to be_equivalent_to xmlpp(strip_guid(output))
-    end
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :generic, header_footer: true)
+        )
+      )
+    ).to be_equivalent_to xmlpp(strip_guid(output))
+  end
 
   context 'with configuration options' do
     subject(:convert) do
@@ -226,24 +238,29 @@ RSpec.describe Asciidoctor::Generic do
       let(:input) { File.read(fixture_path('asciidoctor/test_input.adoc')) }
       let(:output) do
         File.read(fixture_path('asciidoctor/test_output.xml')) %
-          { organization_name_short: organization_name_short,
+          {
+            organization_name_short: organization_name_short,
             organization_name_long: organization_name_long,
-            metadata_extensions_out: "<security>Client Confidential</security><insecurity>Client Unconfidential</insecurity>",
-            document_namespace: document_namespace}
+            metadata_extensions_out:
+              '<security>Client Confidential</security><insecurity>Client Unconfidential</insecurity>',
+            document_namespace: document_namespace
+          }
       end
       let(:organization_name_short) { 'Test' }
       let(:organization_name_long) { 'Test Corp.' }
       let(:document_namespace) { 'https://example.com/' }
-      let(:docid_template) { "{{ organization_name_long }} {{ docnumeric }} {{ stage }}" }
-      let(:metadata_extensions) { [ "security", "insecurity" ] }
-      let(:stage_abbreviations) { { "ready" => "", "steady" => "" } }
-      let(:doctypes) { [ "lion", "elephant" ] }
-      let(:default_doctype) { "elephant" }
-      let(:default_stage) { "working-draft" }
-      let(:termsdefs_titles) { ["ABC", "DEF"] }
-      let(:symbols_titles) { ["GHI", "JKL"] }
-      let(:normref_titles) { ["MNO", "PQR"] }
-      let(:bibliography_titles) { ["STU", "VWX"] }
+      let(:docid_template) do
+        '{{ organization_name_long }} {{ docnumeric }} {{ stage }}'
+      end
+      let(:metadata_extensions) { %w[security insecurity] }
+      let(:stage_abbreviations) { { 'ready' => '', 'steady' => '' } }
+      let(:doctypes) { %w[lion elephant] }
+      let(:default_doctype) { 'elephant' }
+      let(:default_stage) { 'working-draft' }
+      let(:termsdefs_titles) { %w[ABC DEF] }
+      let(:symbols_titles) { %w[GHI JKL] }
+      let(:normref_titles) { %w[MNO PQR] }
+      let(:bibliography_titles) { %w[STU VWX] }
 
       it 'uses configuration options for organization and namespace' do
         Metanorma::Generic.configure do |config|
@@ -262,31 +279,53 @@ RSpec.describe Asciidoctor::Generic do
           config.bibliography_titles = bibliography_titles
         end
 
-        FileUtils.rm_f "test.err"
-        expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :generic, header_footer: true)))).to(be_equivalent_to(xmlpp(output)))
-        expect(File.read("test.err")).to include "working-draft is not a recognised status"
-        expect(File.read("test.err")).to include "standard is not a legal document type: reverting to 'elephant'"
+        FileUtils.rm_f 'test.err'
+        expect(
+          xmlpp(
+            strip_guid(
+              Asciidoctor.convert(input, backend: :generic, header_footer: true)
+            )
+          )
+        ).to(be_equivalent_to(xmlpp(output)))
+        expect(
+          File.read('test.err')
+        ).to include 'working-draft is not a recognised status'
+        expect(
+          File.read('test.err')
+        ).to include "standard is not a legal document type: reverting to 'elephant'"
 
         Metanorma::Generic.configure do |config|
-          config.organization_name_short = Metanorma::Generic::Configuration.new.organization_name_short
-          config.organization_name_long = Metanorma::Generic::Configuration.new.organization_name_long
-          config.document_namespace = Metanorma::Generic::Configuration.new.document_namespace
-          config.docid_template = Metanorma::Generic::Configuration.new.docid_template
-          config.metadata_extensions = Metanorma::Generic::Configuration.new.metadata_extensions
-          config.stage_abbreviations = Metanorma::Generic::Configuration.new.stage_abbreviations
+          config.organization_name_short =
+            Metanorma::Generic::Configuration.new.organization_name_short
+          config.organization_name_long =
+            Metanorma::Generic::Configuration.new.organization_name_long
+          config.document_namespace =
+            Metanorma::Generic::Configuration.new.document_namespace
+          config.docid_template =
+            Metanorma::Generic::Configuration.new.docid_template
+          config.metadata_extensions =
+            Metanorma::Generic::Configuration.new.metadata_extensions
+          config.stage_abbreviations =
+            Metanorma::Generic::Configuration.new.stage_abbreviations
           config.doctypes = Metanorma::Generic::Configuration.new.doctypes
-          config.default_doctype = Metanorma::Generic::Configuration.new.default_doctype
-          config.default_stage = Metanorma::Generic::Configuration.new.default_stage
-          config.termsdefs_titles = Metanorma::Generic::Configuration.new.termsdefs_titles
-          config.symbols_titles = Metanorma::Generic::Configuration.new.symbols_titles
-          config.normref_titles = Metanorma::Generic::Configuration.new.normref_titles
-          config.bibliography_titles = Metanorma::Generic::Configuration.new.bibliography_titles
+          config.default_doctype =
+            Metanorma::Generic::Configuration.new.default_doctype
+          config.default_stage =
+            Metanorma::Generic::Configuration.new.default_stage
+          config.termsdefs_titles =
+            Metanorma::Generic::Configuration.new.termsdefs_titles
+          config.symbols_titles =
+            Metanorma::Generic::Configuration.new.symbols_titles
+          config.normref_titles =
+            Metanorma::Generic::Configuration.new.normref_titles
+          config.bibliography_titles =
+            Metanorma::Generic::Configuration.new.bibliography_titles
         end
       end
     end
   end
 
-  it "strips inline header" do
+  it 'strips inline header' do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
       This is a preamble
@@ -306,10 +345,16 @@ RSpec.describe Asciidoctor::Generic do
        </generic-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :generic, header_footer: true)))).to be_equivalent_to xmlpp(output)
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :generic, header_footer: true)
+        )
+      )
+    ).to be_equivalent_to xmlpp(output)
   end
 
-  it "uses default fonts" do
+  it 'uses default fonts' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -317,13 +362,19 @@ RSpec.describe Asciidoctor::Generic do
       :novalid:
     INPUT
 
-    FileUtils.rm_f "test.html"
+    FileUtils.rm_f 'test.html'
     Asciidoctor.convert(input, backend: :generic, header_footer: true)
 
-    html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Overpass", sans-serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Overpass", sans-serif;]m)
+    html = File.read('test.html', encoding: 'utf-8')
+    expect(html).to match(
+      /\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;/m
+    )
+    expect(html).to match(
+      / div[^{]+\{[^}]+font-family: "Overpass", sans-serif;/m
+    )
+    expect(html).to match(
+      /h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Overpass", sans-serif;/m
+    )
   end
 
   context 'customize directive' do
@@ -350,7 +401,7 @@ RSpec.describe Asciidoctor::Generic do
     end
 
     before do
-      FileUtils.rm_f "test.html"
+      FileUtils.rm_f 'test.html'
       config_file.tap { |file| file.puts(yaml_content.to_yaml) }.close
       Metanorma::Generic.configure do |config|
         config.organization_name_short = ''
@@ -359,19 +410,26 @@ RSpec.describe Asciidoctor::Generic do
       end
     end
 
-    after do
-      FileUtils.rm_f "test.html"
-    end
+    after { FileUtils.rm_f 'test.html' }
 
     it 'recognizes `customize` option and uses supplied file as the config file' do
-      expect { Asciidoctor.convert(input, backend: :generic, header_footer: true) }
-        .to(change {
-          [config.organization_name_short, config.organization_name_long, config.document_namespace]
-          }.from(['','','']).to([organization_name_short, organization_name_long, document_namespace]))
+      expect do
+        Asciidoctor.convert(input, backend: :generic, header_footer: true)
+      end.to(
+        change do
+          [
+            config.organization_name_short,
+            config.organization_name_long,
+            config.document_namespace
+          ]
+        end.from(['', '', '']).to(
+          [organization_name_short, organization_name_long, document_namespace]
+        )
+      )
     end
   end
 
-  it "uses Chinese fonts" do
+  it 'uses Chinese fonts' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -380,16 +438,20 @@ RSpec.describe Asciidoctor::Generic do
       :script: Hans
     INPUT
 
-    FileUtils.rm_f "test.html"
+    FileUtils.rm_f 'test.html'
     Asciidoctor.convert(input, backend: :generic, header_footer: true)
 
-    html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "SimSun", serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "SimHei", sans-serif;]m)
+    html = File.read('test.html', encoding: 'utf-8')
+    expect(html).to match(
+      /\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;/m
+    )
+    expect(html).to match(/ div[^{]+\{[^}]+font-family: "SimSun", serif;/m)
+    expect(html).to match(
+      /h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "SimHei", sans-serif;/m
+    )
   end
 
-  it "uses specified fonts" do
+  it 'uses specified fonts' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -401,16 +463,18 @@ RSpec.describe Asciidoctor::Generic do
       :monospace-font: Andale Mono
     INPUT
 
-    FileUtils.rm_f "test.html"
+    FileUtils.rm_f 'test.html'
     Asciidoctor.convert(input, backend: :generic, header_footer: true)
 
-    html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\bpre[^{]+\{[^{]+font-family: Andale Mono;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: Zapf Chancery;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;]m)
+    html = File.read('test.html', encoding: 'utf-8')
+    expect(html).to match(/\bpre[^{]+\{[^{]+font-family: Andale Mono;/m)
+    expect(html).to match(/ div[^{]+\{[^}]+font-family: Zapf Chancery;/m)
+    expect(html).to match(
+      /h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;/m
+    )
   end
 
-  it "processes inline_quoted formatting" do
+  it 'processes inline_quoted formatting' do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
       _emphasis_
@@ -446,7 +510,12 @@ RSpec.describe Asciidoctor::Generic do
        </generic-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :generic, header_footer: true)))).to be_equivalent_to xmlpp(output)
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :generic, header_footer: true)
+        )
+      )
+    ).to be_equivalent_to xmlpp(output)
   end
-
 end

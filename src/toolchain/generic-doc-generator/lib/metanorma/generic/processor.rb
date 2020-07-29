@@ -1,19 +1,24 @@
-require "metanorma/processor"
+require 'metanorma/processor'
 
 module Metanorma
   module Generic
     def self.fonts_used
       {
         html: [
-          configuration.html_bodyfont || "Overpass", configuration.html_headerfont || "Overpass", 
-          configuration.html_monospacefont || "Space Mono"
+          configuration.html_bodyfont || 'Overpass',
+          configuration.html_headerfont || 'Overpass',
+          configuration.html_monospacefont || 'Space Mono'
         ].uniq,
         doc: [
-          configuration.word_bodyfont || "Overpass", configuration.word_headerfont || "Overpass", 
-          configuration.word_monospacefont || "Space Mono"].uniq,
+          configuration.word_bodyfont || 'Overpass',
+          configuration.word_headerfont || 'Overpass',
+          configuration.word_monospacefont || 'Space Mono'
+        ].uniq,
         pdf: [
-          configuration.word_bodyfont || "Overpass", configuration.word_headerfont || "Overpass", 
-          configuration.word_monospacefont || "Space Mono"].uniq,
+          configuration.word_bodyfont || 'Overpass',
+          configuration.word_headerfont || 'Overpass',
+          configuration.word_monospacefont || 'Space Mono'
+        ].uniq
       }
     end
 
@@ -29,11 +34,7 @@ module Metanorma
       end
 
       def output_formats
-        super.merge(
-          html: "html",
-          doc: "doc",
-          pdf: "pdf"
-        )
+        super.merge(html: 'html', doc: 'doc', pdf: 'pdf')
       end
 
       def version
@@ -41,7 +42,11 @@ module Metanorma
       end
 
       def input_to_isodoc(file, filename)
-        Metanorma::Input::Asciidoc.new.process(file, filename, @asciidoctor_backend)
+        Metanorma::Input::Asciidoc.new.process(
+          file,
+          filename,
+          @asciidoctor_backend
+        )
       end
 
       def extract_options(file)
@@ -57,28 +62,36 @@ module Metanorma
         /\n:wordintropage: (?<wordintropage>[^\n]+)\n/ =~ head
         /\n:ulstyle: (?<ulstyle>[^\n]+)\n/ =~ head
         /\n:olstyle: (?<olstyle>[^\n]+)\n/ =~ head
-        new_options = {
-          htmlstylesheet: defined?(htmlstylesheet) ? htmlstylesheet : nil,
-          htmlcoverpage: defined?(htmlcoverpage) ? htmlcoverpage : nil,
-          htmlintropage: defined?(htmlintropage) ? htmlintropage : nil,
-          scripts: defined?(scripts) ? scripts : nil,
-          wordstylesheet: defined?(wordstylesheet) ? wordstylesheet : nil,
-          standardstylesheet: defined?(standardstylesheet) ? standardstylesheet : nil,
-          header: defined?(header) ? header : nil,
-          wordcoverpage: defined?(wordcoverpage) ? wordcoverpage : nil,
-          wordintropage: defined?(wordintropage) ? wordintropage : nil,
-          ulstyle: defined?(ulstyle) ? ulstyle : nil,
-          olstyle: defined?(olstyle) ? olstyle : nil,
-        }.reject { |_, val| val.nil? }
+        new_options =
+          {
+            htmlstylesheet: defined?(htmlstylesheet) ? htmlstylesheet : nil,
+            htmlcoverpage: defined?(htmlcoverpage) ? htmlcoverpage : nil,
+            htmlintropage: defined?(htmlintropage) ? htmlintropage : nil,
+            scripts: defined?(scripts) ? scripts : nil,
+            wordstylesheet: defined?(wordstylesheet) ? wordstylesheet : nil,
+            standardstylesheet:
+              defined?(standardstylesheet) ? standardstylesheet : nil,
+            header: defined?(header) ? header : nil,
+            wordcoverpage: defined?(wordcoverpage) ? wordcoverpage : nil,
+            wordintropage: defined?(wordintropage) ? wordintropage : nil,
+            ulstyle: defined?(ulstyle) ? ulstyle : nil,
+            olstyle: defined?(olstyle) ? olstyle : nil
+          }.reject { |_, val| val.nil? }
         super.merge(new_options)
       end
 
-      def output(isodoc_node, outname, format, options={})
+      def output(isodoc_node, outname, format, options = {})
         case format
         when :html
-          IsoDoc::Generic::HtmlConvert.new(options).convert(outname, isodoc_node)
+          IsoDoc::Generic::HtmlConvert.new(options).convert(
+            outname,
+            isodoc_node
+          )
         when :doc
-          IsoDoc::Generic::WordConvert.new(options).convert(outname, isodoc_node)
+          IsoDoc::Generic::WordConvert.new(options).convert(
+            outname,
+            isodoc_node
+          )
         when :pdf
           IsoDoc::Generic::PdfConvert.new(options).convert(outname, isodoc_node)
         else

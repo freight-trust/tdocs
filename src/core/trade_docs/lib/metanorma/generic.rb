@@ -1,13 +1,13 @@
-require "metanorma/generic/processor"
-require "metanorma/generic/version"
+require 'metanorma/generic/processor'
+require 'metanorma/generic/version'
 require 'forwardable'
 require 'yaml'
 
 module Metanorma
   module Generic
-    ORGANIZATION_NAME_SHORT = "Acme"
-    ORGANIZATION_NAME_LONG = "Acme Corp."
-    DOCUMENT_NAMESPACE = "https://www.metanorma.org/ns/generic"
+    ORGANIZATION_NAME_SHORT = 'Acme'
+    ORGANIZATION_NAME_LONG = 'Acme Corp.'
+    DOCUMENT_NAMESPACE = 'https://www.metanorma.org/ns/generic'
     YAML_CONFIG_FILE = 'metanorma.yml'
 
     class Configuration
@@ -57,33 +57,50 @@ module Metanorma
         attr_accessor :_file
       end
 
-      def self.inherited( k )
+      def self.inherited(k)
         k._file = caller_locations.first.absolute_path
       end
 
       def initialize(*args)
-        super
-        # Try to set config values from yaml file in current directory
-        @yaml = File.join(File.dirname(self.class::_file || __FILE__), "..", "..", YAML_CONFIG_FILE)
+        super # Try to set config values from yaml file in current directory
+        @yaml =
+          File.join(
+            File.dirname(self.class._file || __FILE__),
+            '..',
+            '..',
+            YAML_CONFIG_FILE
+          )
         set_default_values_from_yaml_file(@yaml) if File.file?(@yaml)
         self.organization_name_short ||= ORGANIZATION_NAME_SHORT
         self.organization_name_long ||= ORGANIZATION_NAME_LONG
         self.document_namespace ||= DOCUMENT_NAMESPACE
-        self.termsdefs_titles ||= 
-          ["Terms and definitions", "Terms, definitions, symbols and abbreviated terms",
-           "Terms, definitions, symbols and abbreviations", "Terms, definitions and symbols",
-           "Terms, definitions and abbreviations", "Terms, definitions and abbreviated terms"]
+        self.termsdefs_titles ||=
+          [
+            'Terms and definitions',
+            'Terms, definitions, symbols and abbreviated terms',
+            'Terms, definitions, symbols and abbreviations',
+            'Terms, definitions and symbols',
+            'Terms, definitions and abbreviations',
+            'Terms, definitions and abbreviated terms'
+          ]
         self.symbols_titles ||=
-          ["Symbols and abbreviated terms", "Symbols", "Abbreviated terms", "Abbreviations"]
-        self.normref_titles ||=
-          ["Normative references"]
-        self.bibliography_titles ||= ["Bibliography"]
+          [
+            'Symbols and abbreviated terms',
+            'Symbols',
+            'Abbreviated terms',
+            'Abbreviations'
+          ]
+        self.normref_titles ||= ['Normative references']
+        self.bibliography_titles ||= %w[Bibliography]
       end
 
       def set_default_values_from_yaml_file(config_file)
         default_config_options = YAML.load(File.read(config_file))
         CONFIG_ATTRS.each do |attr_name|
-          instance_variable_set("@#{attr_name}", default_config_options[attr_name.to_s])
+          instance_variable_set(
+            "@#{attr_name}",
+            default_config_options[attr_name.to_s]
+          )
         end
       end
     end
