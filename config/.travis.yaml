@@ -32,3 +32,41 @@ jobs:
         skip_cleanup: true
         github_token: "$token" # defined via the Travis interface
         local_dir: build/html
+git:
+  depth: false # fetch all branches
+language: ruby
+rvm:
+  - 2.6
+services: [docker]
+matrix:
+  include:
+    - env: RESTYLER=astyle
+    - env: RESTYLER=autopep8
+    - env: RESTYLER=black
+    - env: RESTYLER=google-java-format
+    - env: RESTYLER=prettier
+    - env: RESTYLER=prettier-json
+    - env: RESTYLER=prettier-markdown
+    - env: RESTYLER=prettier-ruby
+    - env: RESTYLER=prettier-yaml
+    - env: RESTYLER=reorder-python-imports
+    - env: RESTYLER=rubocop
+    - env: RESTYLER=shellharden
+    - env: RESTYLER=whitespace
+install: gem install rspec
+script: |
+  # failure means we're on the "push" job. we'll just diff against parent
+  mb=$(git merge-base master HEAD 2>/dev/null || echo "HEAD^")
+
+  if ! git diff --name-only "$mb" | grep -q "^${RESTYLER}/"; then
+    echo "$RESTYLER unchanged, skipping."
+    exit 0
+  fi
+
+  parent=$(./build/restyler-meta overrides "$RESTYLER")
+
+  if [ -n "$parent" ]; then
+    make "$parent"/Dockerfile.built "$RESTYLER".tested
+  else
+    make "$RESTYLER"/Dockerfile.tested
+  fi
