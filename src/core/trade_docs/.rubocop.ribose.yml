@@ -1,20 +1,21 @@
 AllCops:
   Include:
-  - "**/*.rake"
-  - "**/Gemfile"
-  - "**/*.gemfile"
-  - "**/Rakefile"
-  - "**/*.rb"
+    - "**/*.rake"
+    - "**/Gemfile"
+    - "**/*.gemfile"
+    - "**/Rakefile"
+    - "**/*.rb"
   Exclude:
-  - "vendor/**/*"
-  - "db/**/*"
-  - "tmp/**/*"
+    - "vendor/**/*"
+    - "db/**/*"
+    - "tmp/**/*"
   DisplayCopNames: false
   StyleGuideCopsOnly: false
 Rails:
   Enabled: true
 Metrics/AbcSize:
-  Description: A calculated magnitude based on number of assignments, branches, and
+  Description:
+    A calculated magnitude based on number of assignments, branches, and
     conditions.
   Enabled: true
   Max: 15
@@ -32,7 +33,8 @@ Metrics/ClassLength:
   CountComments: false
   Max: 100
 Metrics/CyclomaticComplexity:
-  Description: A complexity metric that is strongly correlated to the number of test
+  Description:
+    A complexity metric that is strongly correlated to the number of test
     cases needed to validate a method.
   Enabled: true
   Max: 6
@@ -43,8 +45,8 @@ Metrics/LineLength:
   Max: 80
   AllowURI: true
   URISchemes:
-  - http
-  - https
+    - http
+    - https
 Metrics/MethodLength:
   Description: Avoid methods longer than 10 lines of code.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#short-methods
@@ -52,7 +54,7 @@ Metrics/MethodLength:
   CountComments: true
   Max: 10
   Exclude:
-  - "spec/**/*"
+    - "spec/**/*"
 Metrics/ParameterLists:
   Description: Avoid long parameter lists.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#too-many-params
@@ -60,7 +62,8 @@ Metrics/ParameterLists:
   Max: 5
   CountKeywordArgs: true
 Metrics/PerceivedComplexity:
-  Description: A complexity metric geared towards measuring complexity for a human
+  Description:
+    A complexity metric geared towards measuring complexity for a human
     reader.
   Enabled: true
   Max: 7

@@ -34,13 +34,13 @@ The instance of class `ValidationExecutorSetRegistry` can be kept as a singleton
 Therefore the registration process need to be performed only once.
 
 Validating a business document requires a few more steps.
+
 1. Access to the registry is needed.
 1. A specific `VESID` instance (e.g. `PeppolValidation370.VID_OPENPEPPOL_T10_V2`) - there are constants available for all VES identifiers defined in this project.
 1. The `ValidationExecutionManager` is an in-between class that can be used to customize the execution (e.g. setting a class loader). But it is created very quickly, so there is no harm on creating it on the fly every time.
 1. An instance of class `ValidationSource` to identify the document to be validate. Class `ValidationSource` has factory methods for the default cases (having an `org.w3c.dom.Node` or having an `com.helger.commons.io.resource.IReadableResource`).
 1. The validation results are stored in an instance of class `ValidationResultList`. This class is a list of `ValidationResult` instances - each `ValidationResult` represents the result of a single level of validation.
-1. Your application logic than needs to define what to do with the results. 
-
+1. Your application logic than needs to define what to do with the results.
 
 ```java
     // Resolve the VES ID
@@ -56,8 +56,8 @@ Validating a business document requires a few more steps.
         // errors found ...
       } else {
         // no errors (but maybe warnings) found
-      }                                                                       
-    }                                                                             
+      }
+    }
 ```
 
 # Maven usage

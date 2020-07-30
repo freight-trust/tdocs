@@ -24,37 +24,25 @@
   "readme": "ISO 3166-1-alpha-2 English country names and code elements. This list states\nthe country names (official short names in English) in alphabetical order as\ngiven in [ISO 3166-1][] and the corresponding ISO 3166-1-alpha-2 code elements.\n\n[ISO 3166-1]: http://www.iso.org/iso/home/standards/country_codes.htm\n\nThis list is updated whenever a change to the official code list in ISO 3166-1\nis effected by the ISO 3166/MA.\n\nIt lists 250 official short names and code elements as of Dec 2012.\n\n## License\n\nThis material is licensed by its maintainers under the Public Domain Dedication\nand License.\n\nNevertheless, it should be noted that this material is ultimately sourced from\nISO and their rights and licensing policy is somewhat unclear. As this is a\nshort, simple database of facts there is a strong argument that no rights can\nsubsist in this collection. However, ISO state on [their\nsite](http://www.iso.org/iso/home/standards/country_codes.htm): \n\n> ISO makes the list of alpha-2 country codes available for internal use and\n> non-commercial purposes free of charge. \n\nThis carries the implication (though not spelled out) that other uses are not\npermitted and that, therefore, there may be rights preventing further general\nuse and reuse.\n\n",
   "related": [
     {
-      "formats": [
-        "CSV",
-        "JSON"
-      ],
+      "formats": ["CSV", "JSON"],
       "path": "/core/country-codes",
       "publisher": "core",
       "title": "Country codes"
     },
     {
-      "formats": [
-        "CSV",
-        "JSON"
-      ],
+      "formats": ["CSV", "JSON"],
       "path": "/core/continent-codes",
       "publisher": "core",
       "title": "Continent codes"
     },
     {
-      "formats": [
-        "CSV",
-        "JSON"
-      ],
+      "formats": ["CSV", "JSON"],
       "path": "/core/airport-codes",
       "publisher": "core",
       "title": "Airport codes"
     },
     {
-      "formats": [
-        "CSV",
-        "JSON"
-      ],
+      "formats": ["CSV", "JSON"],
       "path": "/core/language-codes",
       "publisher": "core",
       "title": "Language codes"
@@ -77,9 +65,7 @@
     {
       "bytes": 4120,
       "datahub": {
-        "derivedFrom": [
-          "data"
-        ],
+        "derivedFrom": ["data"],
         "type": "derived/csv"
       },
       "dialect": {
@@ -119,9 +105,7 @@
     {
       "bytes": 9576,
       "datahub": {
-        "derivedFrom": [
-          "data"
-        ],
+        "derivedFrom": ["data"],
         "type": "derived/json"
       },
       "dpp:streamedFrom": "https://s3.amazonaws.com/rawstore.datahub.io/d7c9d7cfb42cb69f4422dec222dbbaa8.csv",
@@ -208,9 +192,7 @@
         "type": "preview"
       },
       "name": "datahub-preview-data_csv_preview",
-      "resources": [
-        "data"
-      ],
+      "resources": ["data"],
       "specType": "table",
       "transform": {
         "limit": 2000

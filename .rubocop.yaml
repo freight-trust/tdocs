@@ -1,15 +1,15 @@
 ---
 AllCops:
   Exclude:
-  - vendor/**/*
-  - db/**/*
-  - tmp/**/*
+    - vendor/**/*
+    - db/**/*
+    - tmp/**/*
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   TargetRubyVersion: 2.4
 require:
-- rubocop-rails
-- rubocop-performance
+  - rubocop-rails
+  - rubocop-performance
 Naming/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
   Enabled: false
@@ -70,16 +70,18 @@ Style/CollectionMethods:
     collect: map
     find_all: select
 Style/ColonMethodCall:
-  Description: 'Do not use :: for method call.'
+  Description: "Do not use :: for method call."
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#double-colons
   Enabled: false
 Style/CommentAnnotation:
-  Description: Checks formatting of special comments (TODO, FIXME, OPTIMIZE, HACK,
+  Description:
+    Checks formatting of special comments (TODO, FIXME, OPTIMIZE, HACK,
     REVIEW).
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#annotate-keywords
   Enabled: false
 Metrics/AbcSize:
-  Description: A calculated magnitude based on number of assignments, branches, and
+  Description:
+    A calculated magnitude based on number of assignments, branches, and
     conditions.
   Enabled: true
   Max: 15
@@ -88,9 +90,10 @@ Metrics/BlockLength:
   Max: 25
   ExcludedMethods: []
   Exclude:
-  - spec/**/*
+    - spec/**/*
 Metrics/CyclomaticComplexity:
-  Description: A complexity metric that is strongly correlated to the number of test
+  Description:
+    A complexity metric that is strongly correlated to the number of test
     cases needed to validate a method.
   Enabled: true
   Max: 6
@@ -126,7 +129,8 @@ Naming/FileName:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#snake-case-files
   Enabled: false
 Style/FrozenStringLiteralComment:
-  Description: Add the frozen_string_literal comment to the top of files to help transition
+  Description:
+    Add the frozen_string_literal comment to the top of files to help transition
     from Ruby 2.3.0 to Ruby 3.0.
   Enabled: false
 Lint/FlipFlop:
@@ -166,7 +170,8 @@ Style/LambdaCall:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#proc-call
   Enabled: false
 Style/LineEndConcatenation:
-  Description: Use \ instead of + or << to concatenate two string literals at line
+  Description:
+    Use \ instead of + or << to concatenate two string literals at line
     end.
   Enabled: false
 Metrics/LineLength:
@@ -176,8 +181,8 @@ Metrics/LineLength:
   Enabled: true
   AllowURI: true
   URISchemes:
-  - http
-  - https
+    - http
+    - https
 Metrics/MethodLength:
   Description: Avoid methods longer than 10 lines of code.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#short-methods
@@ -185,7 +190,7 @@ Metrics/MethodLength:
   CountComments: true
   Max: 10
   Exclude:
-  - spec/**/*
+    - spec/**/*
 Style/ModuleFunction:
   Description: Checks for usage of `extend self` in modules.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#module-function
@@ -244,9 +249,9 @@ Naming/PredicateName:
   Description: Check the names of predicate methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#bool-methods-qmark
   ForbiddenPrefixes:
-  - is_
+    - is_
   Exclude:
-  - spec/**/*
+    - spec/**/*
 Style/Proc:
   Description: Use proc instead of Proc.new.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#proc
@@ -264,7 +269,8 @@ Style/Sample:
   Reference: https://github.com/JuanitoFatas/fast-ruby#arrayshufflefirst-vs-arraysample-code
   Enabled: false
 Style/SelfAssignment:
-  Description: Checks for places where self-assignment shorthand should have been
+  Description:
+    Checks for places where self-assignment shorthand should have been
     used.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#self-assignment
   Enabled: false
@@ -294,34 +300,35 @@ Style/TrailingCommaInArguments:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
   EnforcedStyleForMultiline: no_comma
   SupportedStylesForMultiline:
-  - comma
-  - consistent_comma
-  - no_comma
+    - comma
+    - consistent_comma
+    - no_comma
   Enabled: true
 Style/TrailingCommaInArrayLiteral:
   Description: Checks for trailing comma in array literals.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
   EnforcedStyleForMultiline: comma
   SupportedStylesForMultiline:
-  - comma
-  - consistent_comma
-  - no_comma
+    - comma
+    - consistent_comma
+    - no_comma
   Enabled: true
 Style/TrailingCommaInHashLiteral:
   Description: Checks for trailing comma in hash literals.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
   EnforcedStyleForMultiline: comma
   SupportedStylesForMultiline:
-  - comma
-  - consistent_comma
-  - no_comma
+    - comma
+    - consistent_comma
+    - no_comma
   Enabled: true
 Style/TrivialAccessors:
   Description: Prefer attr_* methods to trivial readers/writers.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#attr_family
   Enabled: false
 Style/VariableInterpolation:
-  Description: Don't interpolate global, instance and class variables directly in
+  Description:
+    Don't interpolate global, instance and class variables directly in
     strings.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#curlies-interpolate
   Enabled: false
@@ -338,12 +345,14 @@ Style/WordArray:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#percent-w
   Enabled: false
 Layout/ParameterAlignment:
-  Description: Here we check if the parameters on a multi-line method call or definition
+  Description:
+    Here we check if the parameters on a multi-line method call or definition
     are aligned.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-double-indent
   Enabled: false
 Layout/ConditionPosition:
-  Description: Checks for condition placed in a confusing position relative to the
+  Description:
+    Checks for condition placed in a confusing position relative to the
     keyword.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#same-line-condition
   Enabled: false
@@ -359,21 +368,25 @@ Layout/MultilineOperationIndentation:
   Enabled: true
   EnforcedStyle: indented
 Layout/MultilineMethodCallIndentation:
-  Description: Checks indentation of method calls with the dot operator that span
+  Description:
+    Checks indentation of method calls with the dot operator that span
     more than one line.
   Enabled: true
   EnforcedStyle: indented
 Layout/InitialIndentation:
-  Description: Checks the indentation of the first non-blank non-comment line in a
+  Description:
+    Checks the indentation of the first non-blank non-comment line in a
     file.
   Enabled: false
 Lint/AmbiguousOperator:
-  Description: Checks for ambiguous operators in the first argument of a method invocation
+  Description:
+    Checks for ambiguous operators in the first argument of a method invocation
     without parentheses.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#parens-as-args
   Enabled: false
 Lint/AmbiguousRegexpLiteral:
-  Description: Checks for ambiguous regexp literals in the first argument of a method
+  Description:
+    Checks for ambiguous regexp literals in the first argument of a method
     invocation without parenthesis.
   Enabled: false
 Lint/AssignmentInCondition:
@@ -409,7 +422,8 @@ Lint/LiteralInInterpolation:
   Description: Checks for literals used in interpolation.
   Enabled: false
 Lint/Loop:
-  Description: Use Kernel#loop with break rather than begin/end/until or begin/end/while
+  Description:
+    Use Kernel#loop with break rather than begin/end/until or begin/end/while
     for post-loop tests.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#loop-with-break
   Enabled: false
@@ -431,27 +445,32 @@ Lint/UnderscorePrefixedVariableName:
   Description: Do not use prefix `_` for a variable that is used.
   Enabled: false
 Lint/RedundantCopDisableDirective:
-  Description: 'Checks for rubocop:disable comments that can be removed. Note: this
-    cop is not disabled when disabling all cops. It must be explicitly disabled.'
+  Description:
+    "Checks for rubocop:disable comments that can be removed. Note: this
+    cop is not disabled when disabling all cops. It must be explicitly disabled."
   Enabled: false
 Lint/Void:
   Description: Possible use of operator/literal/variable in void context.
   Enabled: false
 Performance/CaseWhenSplat:
-  Description: Place `when` conditions that use splat at the end of the list of `when`
+  Description:
+    Place `when` conditions that use splat at the end of the list of `when`
     branches.
   Enabled: false
 Performance/Count:
-  Description: Use `count` instead of `select...size`, `reject...size`, `select...count`,
+  Description:
+    Use `count` instead of `select...size`, `reject...size`, `select...count`,
     `reject...count`, `select...length`, and `reject...length`.
   Enabled: false
 Performance/Detect:
-  Description: Use `detect` instead of `select.first`, `find_all.first`, `select.last`,
+  Description:
+    Use `detect` instead of `select.first`, `find_all.first`, `select.last`,
     and `find_all.last`.
   Reference: https://github.com/JuanitoFatas/fast-ruby#enumerabledetect-vs-enumerableselectfirst-code
   Enabled: false
 Performance/FlatMap:
-  Description: Use `Enumerable#flat_map` instead of `Enumerable#map...Array#flatten(1)`
+  Description:
+    Use `Enumerable#flat_map` instead of `Enumerable#map...Array#flatten(1)`
     or `Enumberable#collect..Array#flatten(1)`
   Reference: https://github.com/JuanitoFatas/fast-ruby#enumerablemaparrayflatten-vs-enumerableflat_map-code
   Enabled: false
@@ -460,12 +479,14 @@ Performance/ReverseEach:
   Reference: https://github.com/JuanitoFatas/fast-ruby#enumerablereverseeach-vs-enumerablereverse_each-code
   Enabled: false
 Performance/Size:
-  Description: Use `size` instead of `count` for counting the number of elements in
+  Description:
+    Use `size` instead of `count` for counting the number of elements in
     `Array` and `Hash`.
   Reference: https://github.com/JuanitoFatas/fast-ruby#arraycount-vs-arraysize-code
   Enabled: false
 Performance/StringReplacement:
-  Description: Use `tr` instead of `gsub` when you are replacing the same number of
+  Description:
+    Use `tr` instead of `gsub` when you are replacing the same number of
     characters. Use `delete` instead of `gsub` when you are deleting characters.
   Reference: https://github.com/JuanitoFatas/fast-ruby#stringgsub-vs-stringtr-code
   Enabled: false
@@ -473,7 +494,8 @@ Rails/ActionFilter:
   Description: Enforces consistent use of action filter methods.
   Enabled: false
 Rails/Date:
-  Description: Checks the correct usage of date aware methods, such as Date.today,
+  Description:
+    Checks the correct usage of date aware methods, such as Date.today,
     Date.current etc.
   Enabled: false
 Rails/FindBy:
@@ -505,7 +527,8 @@ Rails/Validation:
 Rails:
   Enabled: true
 Metrics/PerceivedComplexity:
-  Description: A complexity metric geared towards measuring complexity for a human
+  Description:
+    A complexity metric geared towards measuring complexity for a human
     reader.
   Enabled: true
   Max: 7
