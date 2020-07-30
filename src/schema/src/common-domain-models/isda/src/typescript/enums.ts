@@ -7,7 +7,6 @@
  * The enumeration values to qualify the type of account.
  */
 export enum AccountTypeEnum {
-
   /**
    * Aggregate client account, as defined under ESMA MiFIR.
    */
@@ -21,13 +20,12 @@ export enum AccountTypeEnum {
   /**
    * The account contains proprietary trading activity or positions, belonging to the firm that is the owner of the account.
    */
-  HOUSE
+  HOUSE,
 }
 /**
  * The enumeration values to specify the actions associated with transactions.
  */
 export enum ActionEnum {
-
   /**
    * A cancellation of a prior instance of the transaction event. The eventIdentifier has an associated version greater than 1.
    */
@@ -41,13 +39,12 @@ export enum ActionEnum {
   /**
    * A new instance of a transaction event, which is also characterized by the fact that the eventIdentifier has an associated version 1.
    */
-  NEW
+  NEW,
 }
 /**
  * The enumerated values to specify the Additional Type of transaction that can require the collection or delivery of initial margin under a given regulatory regime for the purposes of Covered Transactions, as specified in ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (b)(B).
  */
 export enum AdditionalTypeEnum {
-
   /**
    * Single stock equity option or index option transaction as referred to in the transitional provisions (if any) of the EMIR RTS.
    */
@@ -58,22 +55,20 @@ export enum AdditionalTypeEnum {
    */
   NOT_APPLICABLE,
 
-  OTHER
+  OTHER,
 }
 /**
  * Enumeration for the different types of affirmation status.
  */
 export enum AffirmationStatusEnum {
-
   AFFIRMED,
 
-  UNAFFIRMED
+  UNAFFIRMED,
 }
 /**
  * The enumerated values to specify the effective date of the Amendment to Termination Currency when specified as a specific date (e.g. the annex date). ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (t).
  */
 export enum AmendmentEffectiveDateEnum {
-
   /**
    * The effective date corresponds to the Amendment Effective Date (IM)
    */
@@ -87,13 +82,12 @@ export enum AmendmentEffectiveDateEnum {
   /**
    * The effective date corresponds to the Deed date.
    */
-  DEED_DATE
+  DEED_DATE,
 }
 /**
  * The enumerated values to specify the FpML asset class categorization.
  */
 export enum AssetClassEnum {
-
   /**
    * Commodity.
    */
@@ -117,23 +111,21 @@ export enum AssetClassEnum {
   /**
    * InterestRate.
    */
-  INTEREST_RATE
+  INTEREST_RATE,
 }
 /**
  * The qualification of the type of asset transfer.
  */
 export enum AssetTransferTypeEnum {
-
   /**
    * The transfer of assets takes place without a corresponding exchange of payment.
    */
-  FREE_OF_PAYMENT
+  FREE_OF_PAYMENT,
 }
 /**
  * The enumerated values to specify the type of averaging used in an Asian option.
  */
 export enum AveragingInOutEnum {
-
   /**
    * The average price is used to derive both the strike and the expiration price.
    */
@@ -147,13 +139,12 @@ export enum AveragingInOutEnum {
   /**
    * The average price is used to derive the expiration price. Also known as 'Asian price' style option.
    */
-  OUT
+  OUT,
 }
 /**
  * The enumerated values to specify the method of calculation to be used when averaging rates. Per ISDA 2000 Definitions, Section 6.2. Certain Definitions Relating to Floating Amounts.
  */
 export enum AveragingMethodEnum {
-
   /**
    * The arithmetic mean of the relevant rates for each reset date.
    */
@@ -162,10 +153,9 @@ export enum AveragingMethodEnum {
   /**
    * The arithmetic mean of the relevant rates in effect for each day in a calculation period calculated by multiplying each relevant rate by the number of days such relevant rate is in effect, determining the sum of such products and dividing such sum by the number of days in the calculation period.
    */
-  WEIGHTED
+  WEIGHTED,
 }
 export enum BondClassEnum {
-
   /**
    * Security: Asset Backed (ABS) A security which income payments and value derived from or backed by a specified pool of underlying assets
    */
@@ -184,10 +174,9 @@ export enum BondClassEnum {
   /**
    * Bond: A bond with a fixed coupon and a defined maturity and is usually issued and redeemed at the face value.
    */
-  VANILLA
+  VANILLA,
 }
 export enum BondInterestEnum {
-
   /**
    * Security: Bond Economics Interest: Calculated with reference to a fixed interest rate.
    */
@@ -211,10 +200,9 @@ export enum BondInterestEnum {
   /**
    * Security: Bond Economics Interest: Calculated with reference to other underlyings (not being floating interest rates, inflation rates or indices) or with a non-linear relationship to         floating interest rates, inflation rates or indices.
    */
-  OTHER_STRUCTURED
+  OTHER_STRUCTURED,
 }
 export enum BondPrincipalEnum {
-
   /**
    * Security: Bond Economics Principal: The principal on the debt is paid down regularly, along with its interest expense over the life of the bond.  Includes amortising bonds with a bullet balance     repayment at maturity.
    */
@@ -248,10 +236,9 @@ export enum BondPrincipalEnum {
   /**
    * Security: Bond Economics Principal: The principal on the debt can be repaid early, in whole or in part, at the option of the holder.
    */
-  PUTTABLE
+  PUTTABLE,
 }
 export enum BondSeniorityEnum {
-
   /**
    * Security: Bond Economics Seniority: Debt which is secured over assets of the issuer or a related party (eg guarantor).
    */
@@ -265,13 +252,12 @@ export enum BondSeniorityEnum {
   /**
    * Security: Bond Economics Seniority: a debt owed to an unsecured creditor that in the event of a liquidation can only be paid after the claims of secured and senior creditors have been met.
    */
-  SUBORDINATED
+  SUBORDINATED,
 }
 /**
  * The enumerated values to specify the type of Broker Confirm that the FpML trade represents.
  */
 export enum BrokerConfirmationTypeEnum {
-
   /**
    * Broker Confirmation Type representing ABX index trades.
    */
@@ -705,13 +691,12 @@ export enum BrokerConfirmationTypeEnum {
   /**
    * Broker Confirmation Type for iTraxx SovX.
    */
-  I_TRAXX_SOV_X
+  I_TRAXX_SOV_X,
 }
 /**
  * The enumerated values to specify the business centers.
  */
 export enum BusinessCenterEnum {
-
   /**
    * Abu Dhabi, United Arab Emirates
    */
@@ -1625,13 +1610,12 @@ export enum BusinessCenterEnum {
   /**
    * Harare, Zimbabwe
    */
-  ZWHA
+  ZWHA,
 }
 /**
  * The enumerated values to specify the convention for adjusting any relevant date if it would otherwise fall on a day that is not a valid business day.
  */
 export enum BusinessDayConventionEnum {
-
   /**
    * The non-business date will be adjusted to the first following day that is a business day
    */
@@ -1670,13 +1654,12 @@ export enum BusinessDayConventionEnum {
   /**
    * The non-business day will be adjusted to the first preceding day that is a business day.
    */
-  PRECEDING
+  PRECEDING,
 }
 /**
  * The enumerated values to specify how a calculation agent will be determined.
  */
 export enum CalculationAgentPartyEnum {
-
   /**
    * The Calculation Agent is determined by reference to the relevant master agreement.
    */
@@ -1700,13 +1683,12 @@ export enum CalculationAgentPartyEnum {
   /**
    * The party that is given notice of exercise. Per 2000 ISDA Definitions, Section 11.1. Parties, paragraph (e).
    */
-  NON_EXERCISING_PARTY
+  NON_EXERCISING_PARTY,
 }
 /**
  * Identifies a party to the on-demand repo transaction that has a right to demand for termination of the repo transaction.
  */
 export enum CallingPartyEnum {
-
   /**
    * As defined in Master Agreement.
    */
@@ -1725,13 +1707,12 @@ export enum CallingPartyEnum {
   /**
    * Initial seller to the repo transaction.
    */
-  INITIAL_SELLER
+  INITIAL_SELLER,
 }
 /**
  * The qualification of the type of cash flows associated with OTC derivatives contracts and their lifecycle events.
  */
 export enum CashflowTypeEnum {
-
   /**
    * A cash flow associated with an amendment lifecycle event.
    */
@@ -1825,13 +1806,12 @@ export enum CashflowTypeEnum {
   /**
    * An upfront cashflow associated to the swap to adjust for a difference between the swap price and the current market price.
    */
-  UPFRONT_FEE
+  UPFRONT_FEE,
 }
 /**
  * The enumerated values to specify the type of organisation involved in the transaction.
  */
 export enum CategoryEnum {
-
   /**
    * The trade or trade report represents the information from the perspective of the sender of the report, typically a clearing member firm or dealer (acting as an agent).
    */
@@ -1850,13 +1830,12 @@ export enum CategoryEnum {
   /**
    * The trade or trade report represents the information from the perspective of the sender of the report, typically a clearing member firm or dealer (acting as a principal).
    */
-  PRINCIPAL
+  PRINCIPAL,
 }
 /**
  * The enumerated values to specify what led to the contract or execution closure.
  */
 export enum ClosedStateEnum {
-
   /**
    * The execution or contract has been allocated.
    */
@@ -1890,13 +1869,12 @@ export enum ClosedStateEnum {
   /**
    * The contract has been subject of an early termination event.
    */
-  TERMINATED
+  TERMINATED,
 }
 /**
  * The ISDA Collateral Assets Definitions as published by ISDA in the 2003 ISDA Collateral Asset Definitions.
  */
 export enum CollateralAssetDefinitionsEnum {
-
   /**
    * Australian Dollar (AUD) Cash.
    */
@@ -2785,10 +2763,9 @@ export enum CollateralAssetDefinitionsEnum {
   /**
    * Tennessee Valley Authority (TVA) Bonds.
    */
-  US_TVA
+  US_TVA,
 }
 export enum CollateralProductTypeEnum {
-
   /**
    *  Cash in a currency form
    */
@@ -2807,13 +2784,12 @@ export enum CollateralProductTypeEnum {
   /**
    * Negotiable financial instrument of monetary value with an issue ownership position
    */
-  SECURITY
+  SECURITY,
 }
 /**
  * The enumeration values to specify the Commodity Reference Prices specified in the Annex to the 2005 ISDA Commodity Definitions.
  */
 export enum CommodityReferencePriceEnum {
-
   /**
    * Per 2005 ISDA Commodity Definitions, Sub-Annex A, Section 7.1 Commodity Reference Prices, as amended and supplemented through the date on which parties enter into the relevant transaction.
    */
@@ -2997,19 +2973,17 @@ export enum CommodityReferencePriceEnum {
   /**
    * A code for the Wheat commodity
    */
-  WHEAT_RED_SPRING_MGE
+  WHEAT_RED_SPRING_MGE,
 }
 export enum CompareOp {
-
   EQUAL,
 
-  GREATER
+  GREATER,
 }
 /**
  * The enumerated values to specify the type of compounding, e.g. flat, straight.
  */
 export enum CompoundingMethodEnum {
-
   /**
    * Flat compounding. Compounding excludes the spread. Note that the first compounding period has it's interest calculated including any spread then subsequent periods compound this at a rate excluding the spread.
    */
@@ -3028,22 +3002,20 @@ export enum CompoundingMethodEnum {
   /**
    * Straight compounding. Compounding includes the spread.
    */
-  STRAIGHT
+  STRAIGHT,
 }
 /**
  * Enumeration for the different types of confirmation status.
  */
 export enum ConfirmationStatusEnum {
-
   CONFIRMED,
 
-  UNCONFIRMED
+  UNCONFIRMED,
 }
 /**
  * The enumerated values to specify a set of standard contract definitions relevant to the transaction.
  */
 export enum ContractualDefinitionsEnum {
-
   /**
    * ISDA 1991 Definitions
    */
@@ -3127,13 +3099,12 @@ export enum ContractualDefinitionsEnum {
   /**
    * ISDA 2014 Credit Derivatives Definitions
    */
-  ISDA_2014_CREDIT
+  ISDA_2014_CREDIT,
 }
 /**
  * The enumerated values to define the supplements to a base set of ISDA Definitions that are applicable to the transaction.
  */
 export enum ContractualSupplementEnum {
-
   /**
    * Standard Terms Supplement for ABX Transactions.
    */
@@ -3260,7 +3231,7 @@ export enum ContractualSupplementEnum {
   ISDA_2003_CREDIT_REPUBLIC_OF_HUNGARY,
 
   /**
-   * Additional Provisions for the Republic of Hungary: Obligation Characteristics and Deliverable Obligation Characteristics dated February 14, 2005. 
+   * Additional Provisions for the Republic of Hungary: Obligation Characteristics and Deliverable Obligation Characteristics dated February 14, 2005.
    */
   ISDA_2003_CREDIT_REPUBLIC_OF_HUNGARY_2005,
 
@@ -3497,13 +3468,12 @@ export enum ContractualSupplementEnum {
   /**
    * Standard Terms Supplement for iTraxx SovX.
    */
-  I_TRAXX_SOV_X
+  I_TRAXX_SOV_X,
 }
 /**
  * The enumeration values to qualify the type of credit limits.
  */
 export enum CreditLimitTypeEnum {
-
   /**
    * The type of credit line expressed in CS01. The sensitivity with respect to changes in the CDS spread.
    */
@@ -3532,24 +3502,22 @@ export enum CreditLimitTypeEnum {
   /**
    * The type of credit line expressed in PV01. The value of a one dollar or one basis point annuity.
    */
-  PV01
+  PV01,
 }
 /**
  * If several agency issue ratings but not equivalent, reference will be made to the lowest/highest available.
  */
 export enum CreditNotationMismatchResolutionEnum {
-
   HIGHEST,
 
   LOWEST,
 
-  REFERENCE_AGENCY
+  REFERENCE_AGENCY,
 }
 /**
  * The enumerated values to specify the rating agencies.
  */
 export enum CreditRatingAgencyEnum {
-
   /**
    * A. M. Best
    */
@@ -3588,10 +3556,9 @@ export enum CreditRatingAgencyEnum {
   /**
    * Standard And Poor's
    */
-  STANDARD_AND_POORS
+  STANDARD_AND_POORS,
 }
 export enum CreditRiskEnum {
-
   /**
    * Tranched credit risk, including securitizations.
    */
@@ -3600,13 +3567,12 @@ export enum CreditRiskEnum {
   /**
    * Untranched credit risk, including repackagings.
    */
-  UNTRANCHED_CREDIT_RISK
+  UNTRANCHED_CREDIT_RISK,
 }
 /**
  * The enumerated values to specify the type of ISDA Credit Support Agreement governing the transaction.
  */
 export enum CreditSupportAgreementTypeEnum {
-
   /**
    * The ISDA 1994 Credit Support Annex New York Law (pledge) applies.
    */
@@ -3640,13 +3606,12 @@ export enum CreditSupportAgreementTypeEnum {
   /**
    * The ISDA 2014 Standard Credit Support Agreement.
    */
-  ISDA_2014_STANDARD_CREDIT_SUPPORT_AGREEMENT
+  ISDA_2014_STANDARD_CREDIT_SUPPORT_AGREEMENT,
 }
 /**
  * Union of the enumerated values defined by the International Standards Organization (ISO) and the FpML nonISOCurrencyScheme which consists of offshore and historical currencies (https://www.fpml.org/coding-scheme/non-iso-currency), as of 28-Oct-2016.
  */
 export enum CurrencyCodeEnum {
-
   /**
    * United Arab Emirates Dirham
    */
@@ -4058,7 +4023,7 @@ export enum CurrencyCodeEnum {
   KID,
 
   /**
-   * Comorian Franc 
+   * Comorian Franc
    */
   KMF,
 
@@ -4443,7 +4408,7 @@ export enum CurrencyCodeEnum {
   UYI,
 
   /**
-   * Uruguayan Peso 
+   * Uruguayan Peso
    */
   UYU,
 
@@ -4580,13 +4545,12 @@ export enum CurrencyCodeEnum {
   /**
    * Zimbabwean Dollar
    */
-  ZWL
+  ZWL,
 }
 /**
  * The enumerated values to specify the day count fraction.
  */
 export enum DayCountFractionEnum {
-
   /**
    * Per 2006 ISDA Definitions, Section 4.16. Day Count Fraction, paragraph (e) or Annex to the 2000 ISDA Definitions (June 2000 Version), Section 4.16. Day Count Fraction, paragraph (d).
    */
@@ -4655,13 +4619,12 @@ export enum DayCountFractionEnum {
   /**
    * Per 2006 ISDA Definitions, Section 4.16. Day Count Fraction, paragraph (f) or Annex to the 2000 ISDA Definitions (June 2000 Version), Section 4.16. Day Count Fraction, paragraph (e).
    */
-  _30_360
+  _30_360,
 }
 /**
  * The enumerated values to specify a day of the seven-day week.
  */
 export enum DayOfWeekEnum {
-
   /**
    * Friday
    */
@@ -4695,13 +4658,12 @@ export enum DayOfWeekEnum {
   /**
    * Wednesday
    */
-  WED
+  WED,
 }
 /**
  * The enumerated values to specify the day type classification used in counting the number of days between two dates.
  */
 export enum DayTypeEnum {
-
   /**
    * When calculating the number of days between two dates the count includes only business days.
    */
@@ -4730,13 +4692,12 @@ export enum DayTypeEnum {
   /**
    * When calculating the number of days between two dates the count includes only scheduled trading days.
    */
-  SCHEDULED_TRADING_DAY
+  SCHEDULED_TRADING_DAY,
 }
 /**
  * The enumerated values to specify the application of Interest Amount with respect to the Delivery Amount through standard language. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(ii).
  */
 export enum DeliveryAmountElectionEnum {
-
   /**
    * The delivery includes both `Transfer on last Local Business Day` and `Transfer a Delivery Amount (IM) consisting of cash on any Local Business Day.`
    */
@@ -4745,13 +4706,12 @@ export enum DeliveryAmountElectionEnum {
   /**
    * The delivery only includes `Transfer on last Local Business Day`. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(ii).
    */
-  LAST_LOCAL_BUSINESS_DAY
+  LAST_LOCAL_BUSINESS_DAY,
 }
 /**
  * Specifies delivery methods for securities transactions. This coding-scheme defines the possible delivery methods for securities.
  */
 export enum DeliveryMethodEnum {
-
   /**
    * Indicates that a securities delivery must be made against payment in simultaneous transmissions and stipulate each other.
    */
@@ -4770,13 +4730,12 @@ export enum DeliveryMethodEnum {
   /**
    * Indicates that a payment in full amount must be made before the securities delivery; fulfillment of securities delivery obligations depends on payment obligations fulfillment.
    */
-  PRE_PAYMENT
+  PRE_PAYMENT,
 }
 /**
  * The enumerated values to specify the method according to which an amount or a date is determined.
  */
 export enum DeterminationMethodEnum {
-
   /**
    * Agreed separately between the parties.
    */
@@ -4855,13 +4814,12 @@ export enum DeterminationMethodEnum {
   /**
    * Price determined at valuation time.
    */
-  VALUATION_TIME
+  VALUATION_TIME,
 }
 /**
  * The enumerated values to specify the method of calculating discounted payment amounts. This enumerations combines the FpML DiscountingTypeEnum and FraDiscountingEnum enumerations.
  */
 export enum DiscountingTypeEnum {
-
   /**
    * As specified by the the Australian Financial Markets Association (AFMA) OTC Financial Product Conventions. This discounting method should not be used for a trade documented under a legal framework where the 2006 ISDA Definitions have been incorporated.
    */
@@ -4880,13 +4838,12 @@ export enum DiscountingTypeEnum {
   /**
    * As specified by the 2006 ISDA Definitions, Section 8.4. Discounting, paragraph (a).
    */
-  STANDARD
+  STANDARD,
 }
 /**
  * The enumerated values to specify whether the dividend is paid with respect to the Dividend Period.
  */
 export enum DividendAmountTypeEnum {
-
   /**
    * The Amount is determined as provided in the relevant Master Confirmation.
    */
@@ -4905,13 +4862,12 @@ export enum DividendAmountTypeEnum {
   /**
    * The record date for a dividend occurs during a dividend period.
    */
-  RECORD_AMOUNT
+  RECORD_AMOUNT,
 }
 /**
  * The enumerated values to specify the date by reference to which the dividend will be paid.
  */
 export enum DividendDateReferenceEnum {
-
   /**
    * The dividend date will be specified ad-hoc by the parties, typically on the dividend ex-date.
    */
@@ -5050,13 +5006,12 @@ export enum DividendDateReferenceEnum {
   /**
    * Pays a fraction of the total on each Unwind Trade Settlement Date which occurs after the Dividend Pay Date, until trade is fully unwound.
    */
-  UNWIND_PAID
+  UNWIND_PAID,
 }
 /**
  * The enumerated values to specify the date on which the receiver of the equity payout is entitled to the dividend.
  */
 export enum DividendEntitlementEnum {
-
   /**
    * Dividend entitlement is on the dividend ex-date.
    */
@@ -5065,13 +5020,12 @@ export enum DividendEntitlementEnum {
   /**
    * Dividend entitlement is on the dividend record date.
    */
-  RECORD_DATE
+  RECORD_DATE,
 }
 /**
  * 2002 ISDA Equity Derivatives Definitions: First Period, Second Period |
  */
 export enum DividendPeriodEnum {
-
   /**
    * 2002 ISDA Equity Derivatives Definitions: First Period means each period from, and including, one Cash Settlement Payment Date or Settlement Date, as the case may be, to, but excluding, the next following Cash Settlement Payment Date or Settlement Date, as the case may be, except that (i) the initial Dividend Period will commence on, and include, the Clearance System Business Day that is one Settlement Cycle following the Trade Date and (ii) the final Dividend Period will end on, but exclude, the final Cash Settlement Payment Date or Settlement Date, as the case may be.
    */
@@ -5080,13 +5034,12 @@ export enum DividendPeriodEnum {
   /**
    * 2002 ISDA Equity Derivatives Definitions: Second Period means each period from, but excluding, one Valuation Date to, and including, the next Valuation Date, except that (i) the initial Dividend Period will commence on, but exclude, the Trade Date and (ii) the final Dividend Period will end on, and include, the final Valuation Date or, in respect of a Physically-settled Forward Transaction to which Variable Obligation is not applicable, the date that is one Settlement Cycle prior to the Settlement Date.
    */
-  SECOND_PERIOD
+  SECOND_PERIOD,
 }
 /**
  * The enumerated values to specify the reference entity types corresponding to a list of types defined in the ISDA First to Default documentation.
  */
 export enum EntityTypeEnum {
-
   /**
    * Entity Type of Asian.
    */
@@ -5135,10 +5088,9 @@ export enum EntityTypeEnum {
   /**
    * Entity Type of Western European Insurance.
    */
-  WESTERN_EUROPEAN_INSURANCE
+  WESTERN_EUROPEAN_INSURANCE,
 }
 export enum EquityTypeEnum {
-
   /**
    * Equity type: Convertible, debt securities that can be converted into common shares
    */
@@ -5160,7 +5112,7 @@ export enum EquityTypeEnum {
   ISSUER_CONVERTIBLE,
 
   /**
-   * Equity type: Convertible, debt securities that can be converted at the election of the Issuer into common shares of a party other than the Issuer.  Also known as reverse exchangeable 
+   * Equity type: Convertible, debt securities that can be converted at the election of the Issuer into common shares of a party other than the Issuer.  Also known as reverse exchangeable
    */
   ISSUER_EXCHANGEABLE,
 
@@ -5172,13 +5124,12 @@ export enum EquityTypeEnum {
   /**
    * Equity type: Common stocks and shares
    */
-  ORDINARY
+  ORDINARY,
 }
 /**
  * The enumeration values to qualify the timestamps that can be associated with a lifecycle event. The reason for such approach is that the experience of integrating the DTCC and CME data representations suggests that a wide set of timestamps are currently utilized among service providers, while there is not at present an objective set of criteria that could help suggest a defined set of timestamps as part of the CDM. Implementers are expected to evaluate the current enumeration values to determine whether those meet their requirements. If not, they are expected to engage with the CDM team to evaluate the addition of further value(s) to this enumeration, which will then participate to the development of a compendium for further evaluation at a later point in order to determine whether this modeling is appropriate.
  */
 export enum EventTimestampQualificationEnum {
-
   /**
    * The date and time on which trade was confirmed as cleared.
    */
@@ -5227,13 +5178,12 @@ export enum EventTimestampQualificationEnum {
   /**
    * The date and time on which the transaction has been created. This timestamp is specified as such by the CME ClearPort Matched IRS Trade submission API specification: 'The transaction date time of the trade. Represents the date & time on which the trade was initially generated either by CME Clearing or firm. The transaction date time may be assigned by CME Clearing at the point the trade is reported as cleared. Transaction date time can also be provided by an external submitter of the trade at the point the trade is submitted.'
    */
-  TRANSACTION_CREATION_DATE_TIME
+  TRANSACTION_CREATION_DATE_TIME,
 }
 /**
  * The enumerated values to specify the normalized exceptions applicable to an Initial Margin CSA.
  */
 export enum ExceptionEnum {
-
   /**
    * The election is applicable.
    */
@@ -5247,13 +5197,12 @@ export enum ExceptionEnum {
   /**
    * An alternative approach is described in the document as follows.
    */
-  OTHER
+  OTHER,
 }
 /**
  * The enumerated values to specify the Execution Location of a Security Agreement
  */
 export enum ExecutionLocationEnum {
-
   /**
    * The Agreement was executed outside of Belgium
    */
@@ -5267,13 +5216,12 @@ export enum ExecutionLocationEnum {
   /**
    * An alternative approach is described in the document as follows.
    */
-  OTHER_LOCATION
+  OTHER_LOCATION,
 }
 /**
  * The enumerated values to specify how a contract has been executed, e.g. electronically, verbally, ...
  */
 export enum ExecutionTypeEnum {
-
   /**
    * Execution via electronic execution facility, derivatives contract market, or other electronic message such as an instant message.
    */
@@ -5282,13 +5230,12 @@ export enum ExecutionTypeEnum {
   /**
    * Bilateral execution between counterparties not pursuant to the rules of a SEF or DCM.
    */
-  OFF_FACILITY
+  OFF_FACILITY,
 }
 /**
  * The enumerated values to specify the list of floating rate index.
  */
 export enum FloatingRateIndexEnum {
-
   /**
    * Per 2006 ISDA Definitions or Annex to the 2000 ISDA Definitions, Section 7.1 Rate Options, as amended and supplemented through the date on which parties enter into the relevant transaction.
    */
@@ -7426,10 +7373,9 @@ export enum FloatingRateIndexEnum {
    */
   ZAR_QUARTERLY_SWAP_RATE_TRADITION_REFERENCE_BANKS,
 
-  STYLE
+  STYLE,
 }
 export enum FundProductTypeEnum {
-
   /**
    * Equity: Fund type: Exchange Traded Fund- Investment fund traded on a stock exchange
    */
@@ -7443,13 +7389,12 @@ export enum FundProductTypeEnum {
   /**
    * Equity: Fund type: A fund which  is not an Exchange Traded Fund or a Money Market Fund.
    */
-  OTHER_FUND
+  OTHER_FUND,
 }
 /**
  * The enumerated values to specify the law governing the contract or legal document.
  */
 export enum GoverningLawEnum {
-
   /**
    * The Governing Law is determined by reference to the relevant master agreement.
    */
@@ -7553,13 +7498,12 @@ export enum GoverningLawEnum {
   /**
    * New York law
    */
-  USNY
+  USNY,
 }
 /**
  * The enumerated values to specify condition(s) required by a party from the other party to hold its posted collateral. ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (h)(i): Eligibility to Hold Posted Collateral (VM); Custodians (VM).
  */
 export enum HoldingPostedCollateralEnum {
-
   /**
    * The custodian is acceptable to the other party to the agreement.
    */
@@ -7568,13 +7512,12 @@ export enum HoldingPostedCollateralEnum {
   /**
    * The provisions specified in Paragraph 6 (c) of the SDA 2016 Credit Support Annex for Variation Margin apply as such.
    */
-  NO_ELECTION
+  NO_ELECTION,
 }
 /**
  * The enumerated values to specify standard currency codes according to the International Standards Organization (ISO).  The set of codes in this enumerated list is sourced from ISO Standard 4217 (https://www.currency-iso.org/en/home/tables/table-a1.html), as of 29-Aug-18.
  */
 export enum ISOCurrencyCodeEnum {
-
   /**
    * United Arab Emirates Dirham
    */
@@ -7956,7 +7899,7 @@ export enum ISOCurrencyCodeEnum {
   KHR,
 
   /**
-   * Comorian Franc 
+   * Comorian Franc
    */
   KMF,
 
@@ -8331,7 +8274,7 @@ export enum ISOCurrencyCodeEnum {
   UYI,
 
   /**
-   * Uruguayan Peso 
+   * Uruguayan Peso
    */
   UYU,
 
@@ -8463,13 +8406,12 @@ export enum ISOCurrencyCodeEnum {
   /**
    * Zimbabwean Dollar
    */
-  ZWL
+  ZWL,
 }
 /**
- * The enumerated values to specify the instances where the independent amount eligible collateral is not defined as a set of eligible collateral assets. 
+ * The enumerated values to specify the instances where the independent amount eligible collateral is not defined as a set of eligible collateral assets.
  */
 export enum IndependentAmountEligibilityEnum {
-
   /**
    * None.
    */
@@ -8478,13 +8420,12 @@ export enum IndependentAmountEligibilityEnum {
   /**
    * None, unless otherwise specified in a Confirmation.
    */
-  NONE_UNLESS_SPECIFIED_IN_CONFIRMATION
+  NONE_UNLESS_SPECIFIED_IN_CONFIRMATION,
 }
 /**
  * The enumerated values to specify the CDX index annex source.
  */
 export enum IndexAnnexSourceEnum {
-
   /**
    * As defined in the relevant form of Master Confirmation applicable to the confirmation of Dow Jones CDX indices.
    */
@@ -8493,13 +8434,12 @@ export enum IndexAnnexSourceEnum {
   /**
    * As defined in the relevant form of Master Confirmation applicable to the confirmation of Dow Jones CDX indices.
    */
-  PUBLISHER
+  PUBLISHER,
 }
 /**
  * The enumerated values to specify the consequences of Index Events.
  */
 export enum IndexEventConsequenceEnum {
-
   /**
    * Calculation Agent Adjustment.
    */
@@ -8518,13 +8458,12 @@ export enum IndexEventConsequenceEnum {
   /**
    * Related Exchange.
    */
-  RELATED_EXCHANGE
+  RELATED_EXCHANGE,
 }
 /**
  * The enumerated values to specify the list of information providers.
  */
 export enum InformationProviderEnum {
-
   /**
    * The Association of Banks in Singapore.
    */
@@ -8595,13 +8534,12 @@ export enum InformationProviderEnum {
   /**
    * Telerate, Inc.
    */
-  TELERATE
+  TELERATE,
 }
 /**
  * The enumeration values to qualify the intent associated with a transaction event.
  */
 export enum IntentEnum {
-
   /**
    * The intent is to correct the event or associated execution/contract.
    */
@@ -8625,13 +8563,12 @@ export enum IntentEnum {
   /**
    * The intent is to terminate the contract.
    */
-  TERMINATION
+  TERMINATION,
 }
 /**
- * The enumerated values to specify the interest adjustment periodicity election through standard language. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(ii). 
+ * The enumerated values to specify the interest adjustment periodicity election through standard language. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(ii).
  */
 export enum InterestAdjustmentPeriodicityEnum {
-
   /**
    * The interest adjustment takes place each day.
    */
@@ -8640,22 +8577,20 @@ export enum InterestAdjustmentPeriodicityEnum {
   /**
    * The interest adjustment takes place on the last local business day of each calendar month
    */
-  LAST_LOCAL_BUSINESS_DAY_OF_MONTH
+  LAST_LOCAL_BUSINESS_DAY_OF_MONTH,
 }
 /**
  * The enumerated values to specify the interest shortfall cap, applicable to mortgage derivatives.
  */
 export enum InterestShortfallCapEnum {
-
   FIXED,
 
-  VARIABLE
+  VARIABLE,
 }
 /**
  * The enumerated values to specify the interpolation method, e.g. linear.
  */
 export enum InterpolationMethodEnum {
-
   /**
    * Linear Interpolation applicable.
    */
@@ -8664,10 +8599,9 @@ export enum InterpolationMethodEnum {
   /**
    * No Interpolation applicable.
    */
-  NONE
+  NONE,
 }
 export enum IssuerTypeEnum {
-
   /**
    * Debt issued Securities by corporate bodies including Banks
    */
@@ -8701,13 +8635,12 @@ export enum IssuerTypeEnum {
   /**
    * Debt issued by international organisations and multilateral banks, entities constituted by treaties or with multiple sovereign members includes Multilateral development Banks
    */
-  SUPRA_NATIONAL
+  SUPRA_NATIONAL,
 }
 /**
  * The enumerated values to specify the legal agreement name.
  */
 export enum LegalAgreementNameEnum {
-
   /**
    * A Collateral Transfer Agreement
    */
@@ -8736,13 +8669,12 @@ export enum LegalAgreementNameEnum {
   /**
    * An Standard Credit Support Annex.
    */
-  STANDARD_CREDIT_SUPPORT_ANNEX
+  STANDARD_CREDIT_SUPPORT_ANNEX,
 }
 /**
  * The enumerated values to specify the legal agreement publisher.
  */
 export enum LegalAgreementPublisherEnum {
-
   /**
    * Association Française des Banques.
    */
@@ -8761,22 +8693,20 @@ export enum LegalAgreementPublisherEnum {
   /**
    * ISDA and Euroclear
    */
-  ISDA_EUROCLEAR
+  ISDA_EUROCLEAR,
 }
 /**
  * The enumerated values to specify the length unit in the Resource type.
  */
 export enum LengthUnitEnum {
-
   PAGES,
 
-  TIME_UNIT
+  TIME_UNIT,
 }
 /**
  * The enumeration values to specify the level at which the limit is set: customer business, proprietary business or account level. This is part of the CME specification for clearing credit limits, although not specified as a set of enumerated values as part of the clearing confirmation specification.
  */
 export enum LimitLevelEnum {
-
   /**
    * The limit is set in relation to the proprietary business undertaken by the clearing counterparty.
    */
@@ -8790,13 +8720,12 @@ export enum LimitLevelEnum {
   /**
    * The limit is set at the account level in relation to the clearing counterparty.
    */
-  HOUSE
+  HOUSE,
 }
 /**
  * The enumerated values to specify the margin approach specific to Initial Margin agreements.
  */
 export enum MarginApproachEnum {
-
   /**
    * (B) If the 'Allocated Margin Flow (IM/IA) Approach' is specified as applicable in Paragraph 13, the following provisions will apply: (1) 'Credit Support Amount (IM)' means, with respect to a party as the Pledgor, for any Calculation Date (IM), (i) the Margin Amount (IM) applicable to the Pledgor, if any, minus (ii) the Pledgor’s Threshold (IM); provided, however, that the Credit Support Amount (IM) will be deemed to be zero whenever the calculation of the Credit Support Amount (IM) yields a number less than zero. (2) Amendment to Obligations in respect of Margin Amount (IA). The posting obligation of a Pledgor in respect of any amount that constitutes a Margin Amount (IA) under any Other CSA shall be reduced on an aggregate basis by the amount of the Pledgor’s Credit Support Amount (IM); provided, however, that if, after such reduction, any such Margin Amount (IA) would be a negative amount, such Margin Amount (IA) will be deemed to be zero.
    */
@@ -8810,13 +8739,12 @@ export enum MarginApproachEnum {
   /**
    * (C) If the 'Greater of Margin Flow (IM/IA) Approach' is specified as applicable in Paragraph 13, the following provisions will apply: (1) 'Credit Support Amount (IM)' means, with respect to a party as the Pledgor, for any Calculation Date (IM), the greater of (i)(A) the Margin Amount (IM) applicable to the Pledgor, if any, minus (B) the Pledgor’s Threshold (IM) and (ii) the Margin Amount (IA); provided, however, that the Credit Support Amount (IM) will be deemed to be zero whenever the calculation of the Credit Support Amount (IM) yields a number less than zero. (2) Amendment to Obligations in respect of Margin Amount (IA).  The posting obligation of a Pledgor in respect of any amount that constitutes a Margin Amount (IA) under any Other CSA, other than such obligations of a Pledgor under this Annex, shall be reduced to zero.
    */
-  GREATER_OF
+  GREATER_OF,
 }
 /**
  * This indicator defines which type of assets (cash or securities) is specified to apply as margin to the repo transaction.
  */
 export enum MarginTypeEnum {
-
   /**
    * When the margin type is Cash, the margin factor is applied to the cash value of the transaction.
    */
@@ -8825,13 +8753,12 @@ export enum MarginTypeEnum {
   /**
    * When the margin type is Instrument, the margin factor is applied to the instrument value for the transaction. In the “instrument” case, the haircut would be applied to the securities.
    */
-  INSTRUMENT
+  INSTRUMENT,
 }
 /**
  * The enumerated values to specify the handling of an averaging date market disruption for an equity derivative transaction.
  */
 export enum MarketDisruptionEnum {
-
   /**
    * As defined in section 6.7 paragraph (c) sub-paragraph (iii) of the ISDA 2002 Equity Derivative definitions.
    */
@@ -8845,13 +8772,12 @@ export enum MarketDisruptionEnum {
   /**
    * As defined in section 6.7 paragraph (c) sub-paragraph (ii) of the ISDA 2002 Equity Derivative definitions.
    */
-  POSTPONEMENT
+  POSTPONEMENT,
 }
 /**
  * The enumerated values to specify the type of the master agreement governing the transaction.
  */
 export enum MasterAgreementTypeEnum {
-
   /**
    * AFB Master Agreement for Foreign Exchange and Derivatives Transactions
    */
@@ -9020,13 +8946,12 @@ export enum MasterAgreementTypeEnum {
   /**
    * Zeebrugge Hub Natural Gas Trading Terms and Conditions
    */
-  ZBT
+  ZBT,
 }
 /**
  * The enumerated values to specify the type of annex to be used with master confirmation agreement governing the transaction.
  */
 export enum MasterConfirmationAnnexTypeEnum {
-
   /**
    * The Index Variance Swap 2004 Annex to the ISDA 2004 Americas Interdealer Master Equity Derivatives Confirmation Agreement and to the Revised ISDA 2004 Americas Interdealer Master Equity Derivatives Confirmation Agreement applies.
    */
@@ -9130,13 +9055,12 @@ export enum MasterConfirmationAnnexTypeEnum {
   /**
    * The Cash-settled Index Option/Cash/Physically-settled Share Option 2010 Annex to the ISDA 2010 EMEA EM Interdealer Master Equity Derivatives Confirmation Agreement applies.
    */
-  ISDA_2010_INDEX_SHARE_OPTION_EMEA_INTERDEALER
+  ISDA_2010_INDEX_SHARE_OPTION_EMEA_INTERDEALER,
 }
 /**
  * The enumerated values to specify the type of master confirmation agreement governing the transaction. While FpML positions the date a prefix, the CDM positions it as the suffix to handle grammar type constraints.
  */
 export enum MasterConfirmationTypeEnum {
-
   /**
    * Used for CDS Index trades executed under the Dow Jones CDX Emerging Markets Master Confirmation.
    */
@@ -9660,13 +9584,12 @@ export enum MasterConfirmationTypeEnum {
   /**
    * Dummy MCA value mirroring the matrix term value StandardWesternEuropeanSovereign.
    */
-  _2014_STANDARD_CREDIT_SOVEREIGN_WESTERN_EUROPEAN
+  _2014_STANDARD_CREDIT_SOVEREIGN_WESTERN_EUROPEAN,
 }
 /**
  * The enumerated values to specify a scheme of transaction types specified in the Equity Derivatives Settlement Matrix.
  */
 export enum MatrixTermEnum {
-
   /**
    * Matrix Transaction Type of ASIA CORPORATE.
    */
@@ -10055,13 +9978,12 @@ export enum MatrixTermEnum {
   /**
    * Matrix Transaction Type of WESTERN EUROPEAN SOVEREIGN.
    */
-  WESTERN_EUROPEAN_SOVEREIGN
+  WESTERN_EUROPEAN_SOVEREIGN,
 }
 /**
  * The enumerated values to specify the identification the form of applicable matrix.
  */
 export enum MatrixTypeEnum {
-
   /**
    * The ISDA-published Credit Derivatives Physical Settlement Matrix.
    */
@@ -10075,10 +9997,9 @@ export enum MatrixTypeEnum {
   /**
    * The ISDA-published 2000 ISDA Definitions Settlement Matrix for Early Terminations and Swaptions.
    */
-  SETTLEMENT_MATRIX
+  SETTLEMENT_MATRIX,
 }
 export enum MaturityTypeEnum {
-
   /**
    * Period from issuance date until now.
    */
@@ -10092,13 +10013,12 @@ export enum MaturityTypeEnum {
   /**
    * Period from now until maturity date.
    */
-  REMAINING_MATURITY
+  REMAINING_MATURITY,
 }
 /**
  * The enumerated values to specify a mortgage typology.
  */
 export enum MortgageSectorEnum {
-
   /**
    * Asset Backed Security.
    */
@@ -10117,13 +10037,12 @@ export enum MortgageSectorEnum {
   /**
    * Residential Mortgage Backed Security.
    */
-  RMBS
+  RMBS,
 }
 /**
  * Defines the consequences of nationalization, insolvency and delisting events relating to the underlying.
  */
 export enum NationalizationOrInsolvencyOrDelistingEventEnum {
-
   /**
    * The trade is terminated.
    */
@@ -10132,13 +10051,12 @@ export enum NationalizationOrInsolvencyOrDelistingEventEnum {
   /**
    * The parties may, but are not obliged, to terminate the transaction on mutually acceptable terms and if the terms are not agreed then the transaction continues.
    */
-  NEGOTIATED_CLOSEOUT
+  NEGOTIATED_CLOSEOUT,
 }
 /**
  * The enumerated values for the natural person's role.
  */
 export enum NaturalPersonRoleEnum {
-
   /**
    * The person who arranged with a client to execute the trade.
    */
@@ -10172,13 +10090,12 @@ export enum NaturalPersonRoleEnum {
   /**
    * The person who executed the trade.
    */
-  TRADER
+  TRADER,
 }
 /**
  * The enumerated values to specify the method of calculating payment obligations when a floating rate is negative (either due to a quoted negative floating rate or by operation of a spread that is subtracted from the floating rate).
  */
 export enum NegativeInterestRateTreatmentEnum {
-
   /**
    * Negative Interest Rate Method. Per 2000 ISDA Definitions, Section 6.4 Negative Interest Rates, paragraphs (b) and (c).
    */
@@ -10187,20 +10104,18 @@ export enum NegativeInterestRateTreatmentEnum {
   /**
    * Zero Interest Rate Method. Per 2000 ISDA Definitions, Section 6.4. Negative Interest Rates, paragraphs (d) and (e).
    */
-  ZERO_INTEREST_RATE_METHOD
+  ZERO_INTEREST_RATE_METHOD,
 }
 /**
  * The enumerated value to specify the fact that no threshold applies.
  */
 export enum NoThresholdEnum {
-
-  ZERO
+  ZERO,
 }
 /**
  * The enumerated values to specify the conditions that govern the adjustment to the number of units of the return swap.
  */
 export enum NotionalAdjustmentEnum {
-
   /**
    * The adjustments to the number of units are governed by an execution clause.
    */
@@ -10214,13 +10129,12 @@ export enum NotionalAdjustmentEnum {
   /**
    * The adjustments to the number of units are not governed by any specific clause.
    */
-  STANDARD
+  STANDARD,
 }
 /**
  * The enumerated values used in both the obligations and deliverable obligations of the credit default swap to represent a class or type of securities which apply.
  */
 export enum ObligationCategoryEnum {
-
   /**
    * ISDA term 'Bond'.
    */
@@ -10249,13 +10163,12 @@ export enum ObligationCategoryEnum {
   /**
    * ISDA term 'Reference Obligations Only'.
    */
-  REFERENCE_OBLIGATIONS_ONLY
+  REFERENCE_OBLIGATIONS_ONLY,
 }
 /**
  * The enumerated values to specify the type of the option. In FpML, OptionTypeEnum is a union with PutCallEnum, which specifies whether the option is a put or a call.
  */
 export enum OptionTypeEnum {
-
   /**
    * A call option gives the holder the right to buy the underlying asset by a certain date for a certain price.
    */
@@ -10279,13 +10192,12 @@ export enum OptionTypeEnum {
   /**
    * A straddle strategy, which involves the simultaneous buying of a put and a call of the same underlier, at the same strike and same expiration date
    */
-  STRADDLE
+  STRADDLE,
 }
 /**
  * The enumeration values to specify the originating event that gave way to the trade.
  */
 export enum OriginatingEventEnum {
-
   /**
    * The trade results from an allocation event.
    */
@@ -10334,13 +10246,12 @@ export enum OriginatingEventEnum {
   /**
    * The trade results from a transfer.
    */
-  TRANSFER
+  TRANSFER,
 }
 /**
  * The enumerated values to specify the type of package transaction.
  */
 export enum PackageTypeEnum {
-
   /**
    * A strategy in which a firm either pays or receives fixed for intermediate term (the 'body'), and does the opposite (receives or pays fixed) for a short and a long term (the 'wings'').
    */
@@ -10379,13 +10290,12 @@ export enum PackageTypeEnum {
   /**
    * A strategy in which a firm either pays or receives fixed for some term versus the opposite (receives or pays fixed) for different term. Typically the second term starts at the completion of the first.
    */
-  SWITCH
+  SWITCH,
 }
 /**
  * The enumeration values associated with party identifier sources.
  */
 export enum PartyIdSourceEnum {
-
   /**
    * Alien Registration Number, number assigned by a social security agency to identify a non-resident person.
    */
@@ -10434,13 +10344,12 @@ export enum PartyIdSourceEnum {
   /**
    * Tax Identification Number, number assigned by a tax authority to identify a person.
    */
-  TXID
+  TXID,
 }
 /**
  * The enumerated values for the party role. The enumerated values go beyond the FpML partyRoleScheme as they also include elements that are part of the FpML Trade, such as the Barrier Determination Agent and the Hedging Party.
  */
 export enum PartyRoleEnum {
-
   /**
    * Organization responsible for preparing the accounting for the trade.
    */
@@ -10679,13 +10588,12 @@ export enum PartyRoleEnum {
   /**
    * An entity with which this party trades from time to time, ie. with which it acts as a counterparty on some transactions.   This role is used for static reference data, not individual transactions.
    */
-  TRADING_PARTNER
+  TRADING_PARTNER,
 }
 /**
  * The enumerated values to specify whether payments occur relative to the calculation period start date or end date, each reset date, valuation date or the last pricing date.
  */
 export enum PayRelativeToEnum {
-
   /**
    * Payments will occur relative to the last day of each calculation period.
    */
@@ -10709,13 +10617,12 @@ export enum PayRelativeToEnum {
   /**
    * Payments will occur relative to the valuation date.
    */
-  VALUATION_DATE
+  VALUATION_DATE,
 }
 /**
  * The enumerated values to specify an interest rate stream payer or receiver party.
  */
 export enum PayerReceiverEnum {
-
   /**
    * The party identified as the stream payer.
    */
@@ -10724,13 +10631,12 @@ export enum PayerReceiverEnum {
   /**
    * The party identified as the stream receiver.
    */
-  RECEIVER
+  RECEIVER,
 }
 /**
  * The enumeration values to specify the payment status.
  */
 export enum PaymentStatusEnum {
-
   /**
    * The payment is disputed.
    */
@@ -10749,13 +10655,12 @@ export enum PaymentStatusEnum {
   /**
    * The payment has been settled.
    */
-  SETTLED
+  SETTLED,
 }
 /**
  * The enumeration values to specify the type of payment.
  */
 export enum PaymentTypeEnum {
-
   /**
    * A cash flow associated with an amendment lifecycle event.
    */
@@ -10851,13 +10756,12 @@ export enum PaymentTypeEnum {
   /**
    * An upfront cashflow associated to the swap to adjust for a difference between the swap price and the current market price.
    */
-  UPFRONT_FEE
+  UPFRONT_FEE,
 }
 /**
  * The enumerated values to specify the period, e.g. day, week.
  */
 export enum PeriodEnum {
-
   /**
    * Day
    */
@@ -10876,13 +10780,12 @@ export enum PeriodEnum {
   /**
    * Year
    */
-  Y
+  Y,
 }
 /**
  * The enumerated values to specify a time period containing the additional value of Term.
  */
 export enum PeriodExtendedEnum {
-
   /**
    * Day
    */
@@ -10906,13 +10809,12 @@ export enum PeriodExtendedEnum {
   /**
    * Year
    */
-  Y
+  Y,
 }
 /**
  * The enumeration values to specify a time period containing additional values such as Term.
  */
 export enum PeriodTimeEnum {
-
   /**
    * Period measured in hours.
    */
@@ -10926,13 +10828,12 @@ export enum PeriodTimeEnum {
   /**
    * Period measured in seconds.
    */
-  SECOND
+  SECOND,
 }
 /**
  * Enumeration to describe the different (risk) states of a Position, whether executed, settled, matured...etc
  */
 export enum PositionStatusEnum {
-
   /**
    * The position has been cancelled, in case of a cancellation event following an execution.
    */
@@ -10951,26 +10852,24 @@ export enum PositionStatusEnum {
   /**
    * The position has settled, in case product is subject to settlement after execution, such as securities.
    */
-  SETTLED
+  SETTLED,
 }
 /**
  * The enumerated values to specify the premium type for forward start options.
  */
 export enum PremiumTypeEnum {
-
   FIXED,
 
   POST_PAID,
 
   PRE_PAID,
 
-  VARIABLE
+  VARIABLE,
 }
 /**
  * he enumerated values to specify whether the price is expressed in absolute or relative terms.
  */
 export enum PriceExpressionEnum {
-
   /**
    * The price is expressed as an absolute amount.
    */
@@ -10979,13 +10878,12 @@ export enum PriceExpressionEnum {
   /**
    * The price is expressed in percentage of the notional amount.
    */
-  PERCENTAGE_OF_NOTIONAL
+  PERCENTAGE_OF_NOTIONAL,
 }
 /**
  * The enumerated values to specify the product identifier source. FpML doesn't specify a list of values.
  */
 export enum ProductIdSourceEnum {
-
   /**
    * Bloomberg global ID- 12 digit alpha numeric randomly generated ID covering active and non-active securities.
    */
@@ -11029,13 +10927,12 @@ export enum ProductIdSourceEnum {
   /**
    * The German Wertpapierkennnummer securities identification code. It is composed of six digits or capital letters (excluding I and O), and no check digit.
    */
-  WERTPAPIER
+  WERTPAPIER,
 }
 /**
  * The enumerated values to specify a logical quantification, i.e. either All or Any.
  */
 export enum QuantifierEnum {
-
   /**
    * The condition in the scope of the quantifier is true of every member of the domain i.e. every one of the elements in scope.
    */
@@ -11044,13 +10941,12 @@ export enum QuantifierEnum {
   /**
    * The condition in the scope of the quantifier is true of at least one member of the domain i.e. one or more of the elements in scope.
    */
-  ANY
+  ANY,
 }
 /**
  * The enumerated values to specify the type of quotation rate to be obtained from each cash settlement reference bank.
  */
 export enum QuotationRateTypeEnum {
-
   /**
    * An ask rate.
    */
@@ -11069,13 +10965,12 @@ export enum QuotationRateTypeEnum {
   /**
    * A mid-market rate.
    */
-  MID
+  MID,
 }
 /**
  * The enumerated values to specify the side from which perspective a value is quoted.
  */
 export enum QuotationSideEnum {
-
   /**
    * A value 'asked' by a seller for an asset, i.e. the value at which a seller is willing to sell.
    */
@@ -11089,13 +10984,12 @@ export enum QuotationSideEnum {
   /**
    * A value midway between the bid and the ask value.
    */
-  MID
+  MID,
 }
 /**
  * The enumerated values to specify the actual quotation style (e.g. PointsUpFront, TradedSpread) used to quote a credit default swap fee leg.
  */
 export enum QuotationStyleEnum {
-
   /**
    * When quotation style is 'PointsUpFront', the initialPoints element of the Credit Default Swap feeLeg should be populated
    */
@@ -11109,13 +11003,12 @@ export enum QuotationStyleEnum {
   /**
    * When quotation style is 'TradedSpread', the marketFixedRate element of the Credit Default Swap feeLeg should be populated
    */
-  TRADED_SPREAD
+  TRADED_SPREAD,
 }
 /**
  * The enumerated values to specify how an exchange rate is quoted.
  */
 export enum QuoteBasisEnum {
-
   /**
    * The amount of currency1 for one unit of currency2
    */
@@ -11124,13 +11017,12 @@ export enum QuoteBasisEnum {
   /**
    * The amount of currency2 for one unit of currency1
    */
-  CURRENCY_2_PER_CURRENCY_1
+  CURRENCY_2_PER_CURRENCY_1,
 }
 /**
  * The enumerated values to specify the methods for converting rates from one basis to another.
  */
 export enum RateTreatmentEnum {
-
   /**
    * Bond Equivalent Yield. Per Annex to the 2000 ISDA Definitions (June 2000 Version), Section 7.3. Certain General Definitions Relating to Floating Rate Options, paragraph (g).
    */
@@ -11139,13 +11031,12 @@ export enum RateTreatmentEnum {
   /**
    * Money Market Yield. Per Annex to the 2000 ISDA Definitions (June 2000 Version), Section 7.3. Certain General Definitions Relating to Floating Rate Options, paragraph (h).
    */
-  MONEY_MARKET_YIELD
+  MONEY_MARKET_YIELD,
 }
 /**
  * The enumerated values to specify the procedure under which the market value of posted collateral will be recalculated.
  */
 export enum RecalculationOfValueElectionEnum {
-
   /**
    * The parties agree to consult
    */
@@ -11159,13 +11050,12 @@ export enum RecalculationOfValueElectionEnum {
   /**
    * The procedures specified in an Other Regulatory CSA
    */
-  OTHER_REGULATORY_CSA_PROCEDURE
+  OTHER_REGULATORY_CSA_PROCEDURE,
 }
 /**
  * The enumerated values to specify the regulatory regimes. The display name corresponds to the regulatory regime name or acronym specified as part of the Regime table in the ISDA CSA for Initial Margin, paragraph 13, General Principles. 2016 ISDA Credit Support Annex for Initial Margin, paragraph 13, General Principles: Regime. | 2018 ISDA Credit Support Annex for Initial Margin, paragraph 13, General Principles: Regime.
  */
 export enum RegulatoryRegimeEnum {
-
   /**
    * Australian Prudential Standard CPS 226 Margining and risk mitigation for non-centrally cleared derivatives. 2018 ISDA Credit Support Annex for Initial Margin, paragraph 13, General Principles.
    */
@@ -11214,13 +11104,12 @@ export enum RegulatoryRegimeEnum {
   /**
    * Margin requirements adopted by a 'prudential regulator' (as defined in CEA § 1a(39)) pursuant to CEA § 4s(e) and Exchange Act § 15F(e). 2016 ISDA Credit Support Annex for Initial Margin, paragraph 13, General Principles. | 2018 ISDA Credit Support Annex for Initial Margin, paragraph 13, General Principles.
    */
-  US_PRUDENTIAL_MARGIN_RULES
+  US_PRUDENTIAL_MARGIN_RULES,
 }
 /**
  * A duration code for a Repo (or Securities Lending) transaction. There are many business and market rules that are derived from the duration of the transaction.
  */
 export enum RepoDurationEnum {
-
   /**
    * Indicates that a contract is classified as overnight, meaning that there is one business day difference between the start and end date of the contract. Business rule: When the repo is overnight, the number of business days between the spot and forward value dates must be one. Forward leg must be specified.
    */
@@ -11229,13 +11118,12 @@ export enum RepoDurationEnum {
   /**
    * Indicates that a contract is a regular term contract, with a start date and an end date. Business rule: When the repo is 'Term', both spot and forward legs must be specified.
    */
-  TERM
+  TERM,
 }
 /**
  * The enumerated values to specify whether resets occur relative to the first or last day of a calculation period.
  */
 export enum ResetRelativeToEnum {
-
   /**
    * Resets occur relative to the last day of a calculation period.
    */
@@ -11244,13 +11132,12 @@ export enum ResetRelativeToEnum {
   /**
    * Resets occur relative to the first day of a calculation period.
    */
-  CALCULATION_PERIOD_START_DATE
+  CALCULATION_PERIOD_START_DATE,
 }
 /**
  * The enumerated values to specify the type of a resource (e.g. document).
  */
 export enum ResourceTypeEnum {
-
   /**
    * Document describing the legal terms of a transaction.
    */
@@ -11264,13 +11151,12 @@ export enum ResourceTypeEnum {
   /**
    * Document describing the economic characteristics of a transaction.
    */
-  TERM_SHEET
+  TERM_SHEET,
 }
 /**
  * The enumerated values to specify the form of the restructuring credit event that is applicable to the credit default swap.
  */
 export enum RestructuringEnum {
-
   /**
    * Restructuring (Section 4.7) and Modified Restructuring Maturity Limitation and Conditionally Transferable Obligation (2014 Definitions: Section 3.31, 2003 Definitions: 2.32) apply.
    */
@@ -11284,13 +11170,12 @@ export enum RestructuringEnum {
   /**
    * Restructuring as defined in the applicable ISDA Credit Derivatives Definitions. (2003 or 2014).
    */
-  R
+  R,
 }
 /**
  * The enumerated values to specify the type of return associated the equity payout.
  */
 export enum ReturnTypeEnum {
-
   /**
    * Dividend return, i.e. excluding price variations.
    */
@@ -11314,13 +11199,12 @@ export enum ReturnTypeEnum {
   /**
    * Volatility return.
    */
-  VOLATILITY
+  VOLATILITY,
 }
 /**
  * The enumerated values to specify the period term as part of a periodic schedule, i.e. the calculation period end date within the regular part of the calculation period. The value could be a rule, e.g. IMM Settlement Dates, which is the 3rd Wednesday of the month, or it could be a specific day of the month, such as the first day of the applicable month.
  */
 export enum RollConventionEnum {
-
   /**
    * Rolls on month end dates irrespective of the length of the month and the previous roll day.
    */
@@ -11549,13 +11433,12 @@ export enum RollConventionEnum {
   /**
    * Rolls on the 9th day of the month.
    */
-  _9
+  _9,
 }
 /**
  * The enumerated values to specify the rounding direction and precision to be used in the rounding of a rate.
  */
 export enum RoundingDirectionEnum {
-
   /**
    * A fractional number will be rounded down to the specified number of decimal places (the precision). For example, 5.29 and 5.25 rounded down to 1 decimal place are 5.2 and 5.2 respectively.
    */
@@ -11569,16 +11452,14 @@ export enum RoundingDirectionEnum {
   /**
    * A fractional number will be rounded up to the specified number of decimal places (the precision). For example, 5.21 and 5.25 rounded up to 1 decimal place are 5.3 and 5.3 respectively.
    */
-  UP
+  UP,
 }
 export enum RoundingModeEnum {
-
   DOWN,
 
-  UP
+  UP,
 }
 export enum SecurityTypeEnum {
-
   /**
    * Security: Bonds - Fixed income instrument of debt issued and securitized as a tradable asset
    */
@@ -11602,13 +11483,12 @@ export enum SecurityTypeEnum {
   /**
    * Security: Warrant - a security that give the right, but not the obligation, to buy or sell a security — most commonly an equity — at a certain price before expiration, or to receive the cash       equivalent.
    */
-  WARRANT
+  WARRANT,
 }
 /**
  * The enumerated values to specify the methodology according to which sensitivities to (i) equity indices, funds and ETFs, and (ii) commodity indices are computed. ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (gg)(2).
  */
 export enum SensitivitiesEnum {
-
   /**
    * The parties agree that in respect of the relevant sensitivities, the delta is allocated back to individual constituents.
    */
@@ -11617,13 +11497,12 @@ export enum SensitivitiesEnum {
   /**
    * The relevant sensitivities are addressed by the standard preferred approach where the entire delta is put into the applicable asset class/category.
    */
-  STANDARD
+  STANDARD,
 }
 /**
  * The enumerated values to specify the relevant settled entity matrix source.
  */
 export enum SettledEntityMatrixSourceEnum {
-
   /**
    * The Relevant Settled Entity Matrix shall be the list agreed for this purpose by the parties. The list is not included as part of the electronic confirmation.
    */
@@ -11637,13 +11516,12 @@ export enum SettledEntityMatrixSourceEnum {
   /**
    * The Settled Entity Matrix published by the Index Publisher.
    */
-  PUBLISHER
+  PUBLISHER,
 }
 /**
  * The enumerated values to specify the settlement rate options as specified in the Annex A to the 1998 FX and Currency Options Definitions.
  */
 export enum SettlementRateOptionEnum {
-
   /**
    * The Spot Rate for a Rate Calculation Date will be the Argentine Peso/U.S. Dollar Specified Rate, expressed as the amount of Argentine Pesos per one U.S. Dollar, for settlement on the same day (or, if such day is not a Business Day in New York, for settlement on the first succeeding day that is a Business Day in both Buenos Aires and New York) which appears on the Reuters Screen BNAR Page at the close of business in Buenos Aires on that Rate Calculation Date.
    */
@@ -12126,13 +12004,12 @@ export enum SettlementRateOptionEnum {
   /**
    * The Spot Rate for a Rate Calculation Date will be the Vietnamese Dong/U.S. Dollar Specified Rate for U.S. Dollars, expressed as the amount of Vietnamese Dong per one U.S. Dollar, for settlement in two Business Days, as published on SFEMC's website (www.sfemc.org) at approximately 3:30 p.m., Singapore time, or as soon as thereafter as practicable, on that Rate Calculation Date. The Spot Rate shall be calculated by SFEMC (or a service provider SFEMC may select in its sole discretion) pursuant to the SFEMC VND Indicative Survey Methodology (which means a methodology, dated as of July 14, 2008, as amended from time to time, for a centralized industry-wide survey of financial institutions that are active participants in the Vietnamese Dong/U.S. Dollar markets for the purpose of determining the SFEMC VND Indicative Survey Rate).
    */
-  VND_SFEMC_INDICATIVE_SURVEY_RATE_VND03
+  VND_SFEMC_INDICATIVE_SURVEY_RATE_VND03,
 }
 /**
  * The enumeration values to specify how the option is to be settled when exercised.
  */
 export enum SettlementTypeEnum {
-
   /**
    * The intrinsic value of the option will be delivered by way of a cash settlement amount determined, (i) by reference to the differential between the strike price and the settlement price; or (ii) in accordance with a bilateral agreement between the parties.
    */
@@ -12151,13 +12028,12 @@ export enum SettlementTypeEnum {
   /**
    * The securities underlying the transaction will be delivered by (i) in the case of a call, the seller to the buyer, or (ii) in the case of a put, the buyer to the seller versus a settlement amount equivalent to the strike price per share.
    */
-  PHYSICAL
+  PHYSICAL,
 }
 /**
  * The enumerated values to specify the consequences of extraordinary events relating to the underlying.
  */
 export enum ShareExtraordinaryEventEnum {
-
   /**
    * The trade continues such that the underlying now consists of the New Shares and/or the Other Consideration, if any, and the proceeds of any redemption, if any, that the holder of the underlying Shares would have been entitled to.
    */
@@ -12191,13 +12067,12 @@ export enum ShareExtraordinaryEventEnum {
   /**
    * Applies to Basket Transactions. The portion of the Basket made up by the affected Share will be cancelled and a cancellation fee will be paid from one party to the other. The remainder of the trade continues.
    */
-  PARTIAL_CANCELLATION_AND_PAYMENT
+  PARTIAL_CANCELLATION_AND_PAYMENT,
 }
 /**
  * The enumerated values to the specify the SIMM normalized exception approaches applicable to the ISDA 2018 Standard CSA. ISDA 2018 Credit Support Annex for Initial Margin, paragraph 13, General Principles.
  */
 export enum SimmExceptionApplicableEnum {
-
   /**
    * The ISDA Standard Initial Margin Model exception is applicable as a Fallback to Mandatory Method. ISDA 2018 Credit Support Annex for Initial Margin, paragraph 13, General Principles.
    */
@@ -12211,13 +12086,12 @@ export enum SimmExceptionApplicableEnum {
   /**
    * An alternative approach is described in the document as follows.
    */
-  OTHER_METHOD
+  OTHER_METHOD,
 }
 /**
  * The enumerated values to specify a long or short spread value.
  */
 export enum SpreadScheduleTypeEnum {
-
   /**
    * Represents a Long Spread Schedule. Spread schedules defined as 'Long' will be applied to Long Positions.
    */
@@ -12226,13 +12100,12 @@ export enum SpreadScheduleTypeEnum {
   /**
    * Represents a Short Spread Schedule. Spread schedules defined as 'Short' will be applied to Short Positions.
    */
-  SHORT
+  SHORT,
 }
 /**
  * The enumerated values to specify whether a trade is settling using standard settlement instructions as well as whether it is a candidate for settlement netting.
  */
 export enum StandardSettlementStyleEnum {
-
   /**
    * This trade is a candidate for settlement netting.
    */
@@ -12246,13 +12119,12 @@ export enum StandardSettlementStyleEnum {
   /**
    * This trade will settle using standard predetermined funds settlement instructions and is a candidate for settlement netting.
    */
-  STANDARD_AND_NET
+  STANDARD_AND_NET,
 }
 /**
  * The enumerated values to specify how to deal with a non standard calculation period within a swap stream.
  */
 export enum StubPeriodTypeEnum {
-
   /**
    * If there is a non regular period remaining it is placed at the end of the stream and combined with the adjacent calculation period to give a long last calculation period.
    */
@@ -12271,10 +12143,9 @@ export enum StubPeriodTypeEnum {
   /**
    * If there is a non regular period remaining it is left shorter than the streams calculation period frequency and placed at the start of the stream.
    */
-  SHORT_INITIAL
+  SHORT_INITIAL,
 }
 export enum SupraNationalIssuerTypeEnum {
-
   /**
    * International Financial Institution
    */
@@ -12283,13 +12154,12 @@ export enum SupraNationalIssuerTypeEnum {
   /**
    * Multilateral Bank or Multilateral Development Bank.
    */
-  MULTILATERAL_BANK
+  MULTILATERAL_BANK,
 }
 /**
  * The enumerated values to specify taxonomy sources.
  */
 export enum TaxonomySourceEnum {
-
   /**
    * The ISO 10962 Classification of Financial Instruments code
    */
@@ -12303,13 +12173,12 @@ export enum TaxonomySourceEnum {
   /**
    * The ISDA product taxonomy
    */
-  ISDA
+  ISDA,
 }
 /**
  * The enumerated values to specify the type of telephone number, e.g. work vs. mobile.
  */
 export enum TelephoneTypeEnum {
-
   /**
    * A number used primarily for work-related facsimile transmissions.
    */
@@ -12328,13 +12197,12 @@ export enum TelephoneTypeEnum {
   /**
    * A number used primarily for work-related calls. Includes home office numbers used primarily for work purposes.
    */
-  WORK
+  WORK,
 }
 /**
  * The enumerated values to specify points in the day when option exercise and valuation can occur.
  */
 export enum TimeTypeEnum {
-
   /**
    * The time is determined as provided in the relevant Master Confirmation.
    */
@@ -12368,13 +12236,12 @@ export enum TimeTypeEnum {
   /**
    * The time at which the official settlement price (following the auction by the exchange) is determined by the exchange.
    */
-  XETRA
+  XETRA,
 }
 /**
  * The enumeration values to qualify the allowed units of time.
  */
 export enum TimeUnitEnum {
-
   /**
    * Day
    */
@@ -12408,13 +12275,12 @@ export enum TimeUnitEnum {
   /**
    * Year
    */
-  YEAR
+  YEAR,
 }
 /**
  * The enumeration values to specify how the transfer will settle, e.g. DvP.
  */
 export enum TransferSettlementEnum {
-
   /**
    * Simultaneous transfer of two assets, typically securities, as a way to avoid settlement risk.
    */
@@ -12433,13 +12299,12 @@ export enum TransferSettlementEnum {
   /**
    * Simultaneous transfer of cashflows.
    */
-  PAYMENT_VERSUS_PAYMENT
+  PAYMENT_VERSUS_PAYMENT,
 }
 /**
  * The enumeration values to specify the transfer status.
  */
 export enum TransferStatusEnum {
-
   /**
    * The transfer is disputed.
    */
@@ -12458,13 +12323,12 @@ export enum TransferStatusEnum {
   /**
    * The transfer has been settled.
    */
-  SETTLED
+  SETTLED,
 }
 /**
  * The enumerated values to specify the time of day which would be considered for valuing the knock event.
  */
 export enum TriggerTimeTypeEnum {
-
   /**
    * At any time during the Knock Determination period (continuous barrier).
    */
@@ -12473,13 +12337,12 @@ export enum TriggerTimeTypeEnum {
   /**
    * The close of trading on a day would be considered for valuation.
    */
-  CLOSING
+  CLOSING,
 }
 /**
  * The enumerated values to specify whether an option will trigger or expire depending upon whether the spot rate is above or below the barrier rate.
  */
 export enum TriggerTypeEnum {
-
   /**
    * The underlier price must be equal to the Trigger level.
    */
@@ -12503,13 +12366,12 @@ export enum TriggerTypeEnum {
   /**
    * The underlier price must be less than the Trigger level.
    */
-  LESS
+  LESS,
 }
 /**
  * The enumeration values to qualify the units of measure. FpML makes use of the priceQuoteUnitsScheme for specifying the units as part of its commodity implementation. Its scope is however deemed too broad for the CDM, as it includes values such as Amount and BasisPoints.  As a result, it is deemed inappropriate as a reference scheme for that enumeration.
  */
 export enum UnitEnum {
-
   /**
    * Barrel
    */
@@ -12533,13 +12395,12 @@ export enum UnitEnum {
   /**
    * Megawatt-hour
    */
-  M_WH
+  M_WH,
 }
 /**
  * The enumerated values to specify the ISDA defined methodology for determining the final price of the reference obligation for purposes of cash settlement.
  */
 export enum ValuationMethodEnum {
-
   AVERAGE_BLENDED_HIGHEST,
 
   AVERAGE_BLENDED_MARKET,
@@ -12554,20 +12415,18 @@ export enum ValuationMethodEnum {
 
   HIGHEST,
 
-  MARKET
+  MARKET,
 }
 export enum WarehouseIdentityEnum {
-
   /**
    * The DTCC Trade Information Warehouse Gold service
    */
-  DTCC_TIW_GOLD
+  DTCC_TIW_GOLD,
 }
 /**
  * The enumerated values to specify the weekly roll day.
  */
 export enum WeeklyRollConventionEnum {
-
   /**
    * Friday
    */
@@ -12606,10 +12465,9 @@ export enum WeeklyRollConventionEnum {
   /**
    * Wednesday
    */
-  WED
+  WED,
 }
 export enum WorkflowStatusEnum {
-
   ACCEPTED,
 
   AFFIRMED,
@@ -12636,5 +12494,5 @@ export enum WorkflowStatusEnum {
 
   UNCERTAIN,
 
-  UNCONFIRMED
+  UNCONFIRMED,
 }

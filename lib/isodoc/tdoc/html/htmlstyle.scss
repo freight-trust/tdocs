@@ -7,7 +7,7 @@
    License: none (public domain)
 */
 
-@import 'base_style/all';
+@import "base_style/all";
 
 body {
   @include bodyStyle1(15px, 1.4em, #1d1d1d, #ffffff, 300);
@@ -19,7 +19,7 @@ main {
 }
 
 #toc {
-  @include toc(#485094, #1661AD, #485094);
+  @include toc(#485094, #1661ad, #485094);
   @include sidebarToc();
 
   .toc-active a {
@@ -43,7 +43,7 @@ nav {
 }
 
 #toggle {
-  @include sidebarNavToggle(white, #1661AD)
+  @include sidebarNavToggle(white, #1661ad);
 }
 
 #myBtn {
@@ -51,7 +51,7 @@ nav {
   text-transform: uppercase;
 
   a.anchorjs-link {
-    @include anchorLink(#485094)
+    @include anchorLink(#485094);
   }
 }
 
@@ -117,12 +117,12 @@ p.document-stage {
 
 #standard-band,
 #published-band {
-  background-color: #9ABD48;
+  background-color: #9abd48;
 }
 
 #standard,
 #published {
-  border-bottom: solid 3px #9ABD48;
+  border-bottom: solid 3px #9abd48;
 }
 
 #governance,
@@ -149,12 +149,12 @@ p.document-stage {
 
 #working-draft,
 #proposal {
-  border-bottom: solid 3px #F7803C;
+  border-bottom: solid 3px #f7803c;
 }
 
 #working-draft-band,
 #proposal-band {
-  background-color: #F7803C;
+  background-color: #f7803c;
 }
 
 #committee-draft {
@@ -174,11 +174,11 @@ p.document-stage {
 }
 
 #standard {
-  border-bottom: solid 3px #9ABD48;
+  border-bottom: solid 3px #9abd48;
 }
 
 #standard-band {
-  background-color: #9ABD48;
+  background-color: #9abd48;
 }
 
 #obsolete {
@@ -204,7 +204,7 @@ h4,
 h5,
 h6 {
   font-family: $headerfont;
-  color: #1661AD;
+  color: #1661ad;
   font-weight: 300;
   margin-top: 1.6em;
   margin-bottom: 0.3em;
@@ -235,7 +235,7 @@ h3 {
 .TermNum,
 .Terms,
 .AltTerms {
-  color: #1661AD;
+  color: #1661ad;
   font-weight: 100;
 }
 
@@ -267,7 +267,7 @@ p.AltTerms {
 /*
   3.2 Links
 */
-@include elementStyles(#485094, #1661AD, white);
+@include elementStyles(#485094, #1661ad, white);
 
 /*
     3.3 Lists
@@ -282,18 +282,18 @@ ul li {
   list-style: none;
 }
 
-ul>li:before {
+ul > li:before {
   content: "\2014";
   display: inline-block;
   width: 1em;
   margin-left: -1.2em;
 }
 
-ul>li p:first-child {
+ul > li p:first-child {
   display: inline;
 }
 
-ul>li:first-child {
+ul > li:first-child {
   margin-top: 1em;
 }
 
@@ -315,7 +315,7 @@ ul>li:first-child {
 */
 
 .rule {
-  @include rule(1px, #0e1a85)
+  @include rule(1px, #0e1a85);
 }
 
 /*
@@ -339,7 +339,7 @@ pre,
 }
 
 pre {
-  @include monospaceBlockStyle()
+  @include monospaceBlockStyle();
 }
 
 @include admonitionBlock();
@@ -347,7 +347,7 @@ pre {
 
 .FigureTitle,
 .SourceTitle {
-  @include blockTitle()
+  @include blockTitle();
 }
 
 /*
@@ -433,7 +433,7 @@ a.footnote-number {
 */
 
 .formula {
-  @include formulaBlock(#f7f7f7)
+  @include formulaBlock(#f7f7f7);
 }
 
 /*
@@ -446,15 +446,14 @@ a.footnote-number {
   width: 250px;
 
   text-align: left;
-  border: #1661AD solid 2px;
-  color: #1661AD !important;
+  border: #1661ad solid 2px;
+  color: #1661ad !important;
   border-radius: 25px;
-
 }
 
 .contact-info a,
 .contact-info a:hover {
-  color: #1661AD;
+  color: #1661ad;
 }
 
 .contact-info p,
@@ -496,7 +495,6 @@ h2 p {
   display: inline;
 }
 
-
 /*
     4.0 Page header
 */
@@ -511,7 +509,7 @@ h2 p {
 }
 
 .wrapper-top {
-  background: linear-gradient(200deg, #0f365e, #1661AD);
+  background: linear-gradient(200deg, #0f365e, #1661ad);
   color: #ffffff;
   padding: 2em 0;
   width: 100%;
@@ -520,7 +518,7 @@ h2 p {
 .wrapper-top-bottom {
   width: 0;
   height: 0;
-  border-top: 100px solid #1661AD;
+  border-top: 100px solid #1661ad;
   border-right: 100px solid transparent;
   position: absolute;
 }
@@ -553,12 +551,10 @@ h2 p {
   padding: 0 3em 0 6em;
 }
 
-
 .zzSTDTitle1,
 .MsoCommentText {
   display: none;
 }
-
 
 .coverpage {
   text-align: center;
@@ -619,7 +615,6 @@ h2 p {
   font-size: 1.2em;
 }
 
-
 /*
     4.4 Copyright
 */
@@ -630,16 +625,11 @@ h2 p {
   text-align: left;
 }
 
-
 /*  .copyright .name, .copyright .address {color: #485094;} */
-
-
 
 /*
     5.0 Other styles
 */
-
-
 
 /*
 To top button
@@ -650,8 +640,6 @@ To top button
 }
 
 @media print {
-
-
   .document-info,
   nav,
   .copyright {
@@ -715,7 +703,7 @@ To top button
   }
 
   h2 {
-    font-size: 1.2em
+    font-size: 1.2em;
   }
 
   h3 {
@@ -747,5 +735,4 @@ To top button
   .wrapper-top-bottom {
     display: none;
   }
-
 }

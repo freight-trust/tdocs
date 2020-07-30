@@ -5,9 +5,7 @@
   "types": [
     {
       "name": "Rect",
-      "properties": [
-        { "name": "x", "type": "Integer", "isAttr": true }
-      ]
+      "properties": [{ "name": "x", "type": "Integer", "isAttr": true }]
     }
   ]
 }
