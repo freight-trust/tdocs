@@ -15,7 +15,6 @@
     <link crossorigin="anonymous" media="all" integrity="sha512-iOE2yI4flq0MgwIhgk4tgog2A3LuuWqOM/G7Akx732FT1lPsGaGiwFhIjrPSs/N0ck5MfRAkWf+OQyVoGsyVGQ==" rel="stylesheet" href="https://github.githubassets.com/assets/github-88e136c88e1f96ad0c830221824e2d82.css" />
     
     
-    
 
 
   <meta name="viewport" content="width=device-width">
@@ -30,7 +29,6 @@
     <meta property="og:image" content="https://avatars0.githubusercontent.com/u/46327217?s=400&amp;v=4" /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="digital-asset/lib-cdm-event-specification-module" /><meta property="og:url" content="https://github.com/digital-asset/lib-cdm-event-specification-module" /><meta property="og:description" content="Contribute to digital-asset/lib-cdm-event-specification-module development by creating an account on GitHub." />
 
   <link rel="assets" href="https://github.githubassets.com/">
-
 
   <meta name="request-id" content="A89C:25C9:6234E7:85664D:5ED4A5CB" data-pjax-transient="true"/><meta name="html-safe-nonce" content="e70909b1c212ec68120de7524c8dc2cf9985bd94" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJBODlDOjI1Qzk6NjIzNEU3Ojg1NjY0RDo1RUQ0QTVDQiIsInZpc2l0b3JfaWQiOiI3NjU5OTIxODQwMTA2OTM5ODUxIiwicmVnaW9uX2VkZ2UiOiJzZWEiLCJyZWdpb25fcmVuZGVyIjoic2VhIn0=" data-pjax-transient="true"/><meta name="visitor-hmac" content="87eb932b5f2160b48530ae137c8cce40bdabc4273fd2c97410c03ad9ed0bab9d" data-pjax-transient="true"/>
 
@@ -64,7 +62,6 @@
 
   <meta http-equiv="x-pjax-version" content="100988d64799449a37fff95c55794c85">
 
-
       <link href="https://github.com/digital-asset/lib-cdm-event-specification-module/commits/master.atom" rel="alternate" title="Recent Commits to lib-cdm-event-specification-module:master" type="application/atom+xml">
 
   <meta name="go-import" content="github.com/digital-asset/lib-cdm-event-specification-module git https://github.com/digital-asset/lib-cdm-event-specification-module.git">
@@ -88,7 +85,6 @@
   </head>
 
   <body class="logged-out env-production page-responsive page-blob">
-
 
     <div class="position-relative js-header-wrapper ">
       <a href="#start-of-content" class="px-2 py-4 bg-blue text-white show-on-focus js-skip-to-content">Skip to content</a>
@@ -278,9 +274,7 @@ aria-expanded="false"
 
             <div class="Box position-absolute overflow-hidden d-none jump-to-suggestions js-jump-to-suggestions-container">
 
-
 <ul class="d-none js-jump-to-suggestions-template-container">
-
 
 <li class="d-flex flex-justify-start flex-items-center p-0 f5 navigation-item js-navigation-item js-jump-to-suggestion" role="option">
   <a tabindex="-1" class="no-underline d-flex flex-auto flex-items-center jump-to-suggestions-path js-jump-to-suggestion-path js-navigation-open p-2" href="">
@@ -322,7 +316,6 @@ aria-expanded="false"
 </ul>
 
 <ul id="jump-to-results" role="listbox" class="p-0 m-0 js-navigation-container jump-to-suggestions-results-container js-jump-to-suggestions-results-container">
-
 
 <li class="d-flex flex-justify-start flex-items-center p-0 f5 navigation-item js-navigation-item js-jump-to-scoped-search d-none" role="option">
   <a tabindex="-1" class="no-underline d-flex flex-auto flex-items-center jump-to-suggestions-path js-jump-to-suggestion-path js-navigation-open p-2" href="">
@@ -439,7 +432,6 @@ aria-expanded="false"
   <div class="application-main " data-commit-hovercards-enabled>
         <div itemscope itemtype="http://schema.org/SoftwareSourceCode" class="">
     <main  >
-
 
   <div class="pagehead repohead hx_repohead readability-menu bg-gray-light pb-0 pt-0 pt-lg-3">
 
@@ -642,7 +634,6 @@ aria-expanded="false"
     <div class="d-flex flex-items-start flex-shrink-0 flex-column flex-md-row pb-3">
       <span class="d-flex flex-justify-between width-full width-md-auto">
 
-
 <details class="details-reset details-overlay branch-select-menu " id="branch-select-menu">
   <summary class="btn css-truncate btn-sm"
            data-hotkey="w"
@@ -706,7 +697,6 @@ aria-expanded="false"
 
     <div class="Box mt-3 position-relative
       ">
-
 
 <div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center">
   <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
@@ -915,7 +905,6 @@ Obtain the corresponding key.</li>
     </main>
 
   </div>
-
 
   </div>
 

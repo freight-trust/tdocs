@@ -6,13 +6,15 @@
     {
       "name": "Car",
       "properties": [
-        { "name": "name", "type": "String", "isAttr": true, "default": "No Name" }
+        {
+          "name": "name",
+          "type": "String",
+          "isAttr": true,
+          "default": "No Name"
+        }
       ],
       "meta": {
-        "owners": [
-          "the pope",
-          "donald trump"
-        ]
+        "owners": ["the pope", "donald trump"]
       }
     }
   ]

@@ -2,7 +2,7 @@ name: ubuntu
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
     paths-ignore:
       - .github/workflows/macos.yml
@@ -20,4 +20,3 @@ jobs:
       - name: Make
         run: |
           make clean all
-

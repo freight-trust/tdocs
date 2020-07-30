@@ -19,4 +19,4 @@ return characters, or other non-standard characters must NOT be transmitted.
 within the CBP application.
 - Per the ASC X12 Standard, an 'M' indicates a Mandatory use, 'O' indicates Optional use, and an 'X' indicates a
 Conditional use. CBP requirements may override ASC X12 Standard Mandatory or Conditional usages.
-- Maximum allowable message transmission size is 12 megabytes (12,582,912 bytes) of data. 
+- Maximum allowable message transmission size is 12 megabytes (12,582,912 bytes) of data.

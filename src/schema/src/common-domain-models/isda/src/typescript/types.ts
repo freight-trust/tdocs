@@ -3,22 +3,137 @@
  * Version: 2.52.2
  */
 
-import { ReferenceWithMeta, FieldWithMeta, MetaFields } from './metatypes';
+import { ReferenceWithMeta, FieldWithMeta, MetaFields } from "./metatypes";
 import {
-  BusinessDayConventionEnum, DayTypeEnum, PeriodEnum, BusinessCenterEnum, PeriodExtendedEnum, UnitEnum, RoundingDirectionEnum, MortgageSectorEnum, ProductIdSourceEnum, TaxonomySourceEnum,
-  ObligationCategoryEnum, PartyRoleEnum, AccountTypeEnum, NaturalPersonRoleEnum, TelephoneTypeEnum, ConfirmationStatusEnum, AffirmationStatusEnum, CashflowTypeEnum, TimeUnitEnum, AssetTransferTypeEnum,
-  CommodityReferencePriceEnum, ActionEnum, IntentEnum, EventTimestampQualificationEnum, WorkflowStatusEnum, FloatingRateIndexEnum, CreditLimitTypeEnum, LimitLevelEnum, WarehouseIdentityEnum, PeriodTimeEnum,
-  QuotationSideEnum, TransferSettlementEnum, TransferStatusEnum, ClosedStateEnum, GoverningLawEnum, ReturnTypeEnum, ExecutionTypeEnum, CompoundingMethodEnum, DayCountFractionEnum, OptionTypeEnum,
-  DeliveryMethodEnum, RepoDurationEnum, MarginTypeEnum, NotionalAdjustmentEnum, AssetClassEnum, QuotationStyleEnum, PositionStatusEnum, PriceExpressionEnum, InterpolationMethodEnum, QuotationRateTypeEnum,
-  ValuationMethodEnum, IndexAnnexSourceEnum, InterestShortfallCapEnum, EntityTypeEnum, SettledEntityMatrixSourceEnum, CategoryEnum, DeterminationMethodEnum, DividendDateReferenceEnum, DividendAmountTypeEnum, DividendEntitlementEnum,
-  DividendPeriodEnum, ShareExtraordinaryEventEnum, TimeTypeEnum, NationalizationOrInsolvencyOrDelistingEventEnum, IndexEventConsequenceEnum, QuoteBasisEnum, InformationProviderEnum, StubPeriodTypeEnum, CallingPartyEnum, DiscountingTypeEnum,
-  SettlementRateOptionEnum, AveragingMethodEnum, NegativeInterestRateTreatmentEnum, RateTreatmentEnum, ResetRelativeToEnum, AveragingInOutEnum, MarketDisruptionEnum, SettlementTypeEnum, RestructuringEnum, TriggerTimeTypeEnum,
-  TriggerTypeEnum, BrokerConfirmationTypeEnum, CalculationAgentPartyEnum, RollConventionEnum, MatrixTermEnum, MatrixTypeEnum, ContractualSupplementEnum, CreditSupportAgreementTypeEnum, ContractualDefinitionsEnum, MasterAgreementTypeEnum,
-  MasterConfirmationAnnexTypeEnum, MasterConfirmationTypeEnum, PayRelativeToEnum, PremiumTypeEnum, WeeklyRollConventionEnum, ResourceTypeEnum, LengthUnitEnum, SpreadScheduleTypeEnum, PayerReceiverEnum, CreditNotationMismatchResolutionEnum,
-  QuantifierEnum, CreditRatingAgencyEnum, IssuerTypeEnum, SupraNationalIssuerTypeEnum, CreditRiskEnum, EquityTypeEnum, FundProductTypeEnum, CollateralProductTypeEnum, SecurityTypeEnum, MaturityTypeEnum,
-  BondClassEnum, BondInterestEnum, BondPrincipalEnum, BondSeniorityEnum, AdditionalTypeEnum, AmendmentEffectiveDateEnum, RegulatoryRegimeEnum, DeliveryAmountElectionEnum, HoldingPostedCollateralEnum, ExecutionLocationEnum,
-  InterestAdjustmentPeriodicityEnum, LegalAgreementNameEnum, LegalAgreementPublisherEnum, MarginApproachEnum, RecalculationOfValueElectionEnum, ExceptionEnum, SensitivitiesEnum, SimmExceptionApplicableEnum
-    } from './enums';
+  BusinessDayConventionEnum,
+  DayTypeEnum,
+  PeriodEnum,
+  BusinessCenterEnum,
+  PeriodExtendedEnum,
+  UnitEnum,
+  RoundingDirectionEnum,
+  MortgageSectorEnum,
+  ProductIdSourceEnum,
+  TaxonomySourceEnum,
+  ObligationCategoryEnum,
+  PartyRoleEnum,
+  AccountTypeEnum,
+  NaturalPersonRoleEnum,
+  TelephoneTypeEnum,
+  ConfirmationStatusEnum,
+  AffirmationStatusEnum,
+  CashflowTypeEnum,
+  TimeUnitEnum,
+  AssetTransferTypeEnum,
+  CommodityReferencePriceEnum,
+  ActionEnum,
+  IntentEnum,
+  EventTimestampQualificationEnum,
+  WorkflowStatusEnum,
+  FloatingRateIndexEnum,
+  CreditLimitTypeEnum,
+  LimitLevelEnum,
+  WarehouseIdentityEnum,
+  PeriodTimeEnum,
+  QuotationSideEnum,
+  TransferSettlementEnum,
+  TransferStatusEnum,
+  ClosedStateEnum,
+  GoverningLawEnum,
+  ReturnTypeEnum,
+  ExecutionTypeEnum,
+  CompoundingMethodEnum,
+  DayCountFractionEnum,
+  OptionTypeEnum,
+  DeliveryMethodEnum,
+  RepoDurationEnum,
+  MarginTypeEnum,
+  NotionalAdjustmentEnum,
+  AssetClassEnum,
+  QuotationStyleEnum,
+  PositionStatusEnum,
+  PriceExpressionEnum,
+  InterpolationMethodEnum,
+  QuotationRateTypeEnum,
+  ValuationMethodEnum,
+  IndexAnnexSourceEnum,
+  InterestShortfallCapEnum,
+  EntityTypeEnum,
+  SettledEntityMatrixSourceEnum,
+  CategoryEnum,
+  DeterminationMethodEnum,
+  DividendDateReferenceEnum,
+  DividendAmountTypeEnum,
+  DividendEntitlementEnum,
+  DividendPeriodEnum,
+  ShareExtraordinaryEventEnum,
+  TimeTypeEnum,
+  NationalizationOrInsolvencyOrDelistingEventEnum,
+  IndexEventConsequenceEnum,
+  QuoteBasisEnum,
+  InformationProviderEnum,
+  StubPeriodTypeEnum,
+  CallingPartyEnum,
+  DiscountingTypeEnum,
+  SettlementRateOptionEnum,
+  AveragingMethodEnum,
+  NegativeInterestRateTreatmentEnum,
+  RateTreatmentEnum,
+  ResetRelativeToEnum,
+  AveragingInOutEnum,
+  MarketDisruptionEnum,
+  SettlementTypeEnum,
+  RestructuringEnum,
+  TriggerTimeTypeEnum,
+  TriggerTypeEnum,
+  BrokerConfirmationTypeEnum,
+  CalculationAgentPartyEnum,
+  RollConventionEnum,
+  MatrixTermEnum,
+  MatrixTypeEnum,
+  ContractualSupplementEnum,
+  CreditSupportAgreementTypeEnum,
+  ContractualDefinitionsEnum,
+  MasterAgreementTypeEnum,
+  MasterConfirmationAnnexTypeEnum,
+  MasterConfirmationTypeEnum,
+  PayRelativeToEnum,
+  PremiumTypeEnum,
+  WeeklyRollConventionEnum,
+  ResourceTypeEnum,
+  LengthUnitEnum,
+  SpreadScheduleTypeEnum,
+  PayerReceiverEnum,
+  CreditNotationMismatchResolutionEnum,
+  QuantifierEnum,
+  CreditRatingAgencyEnum,
+  IssuerTypeEnum,
+  SupraNationalIssuerTypeEnum,
+  CreditRiskEnum,
+  EquityTypeEnum,
+  FundProductTypeEnum,
+  CollateralProductTypeEnum,
+  SecurityTypeEnum,
+  MaturityTypeEnum,
+  BondClassEnum,
+  BondInterestEnum,
+  BondPrincipalEnum,
+  BondSeniorityEnum,
+  AdditionalTypeEnum,
+  AmendmentEffectiveDateEnum,
+  RegulatoryRegimeEnum,
+  DeliveryAmountElectionEnum,
+  HoldingPostedCollateralEnum,
+  ExecutionLocationEnum,
+  InterestAdjustmentPeriodicityEnum,
+  LegalAgreementNameEnum,
+  LegalAgreementPublisherEnum,
+  MarginApproachEnum,
+  RecalculationOfValueElectionEnum,
+  ExceptionEnum,
+  SensitivitiesEnum,
+  SimmExceptionApplicableEnum,
+} from "./enums";
 
 /**
  * A class to specify each party's election with respect to the Termination Events that will be deemed an Access Condition (Initial Margin CSA) or a Specified Condition (Variation Margin CSA). ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (e)(ii). | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (f)(ii). | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (e)(ii). | ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (e): Conditions Precedent and Secured Party’s Rights and Remedies.
@@ -33,7 +148,7 @@ export interface AccessConditions {
    */
   partyElection?: AccessConditionsElections[];
 }
-  
+
 /**
  * A class to specify the Termination Events that will be deemed an Access Condition (Initial Margin CSA) or a Specified Condition (Variation Margin CSA). ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (e)(ii). | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (f)(ii). | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (e)(ii). | ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (e): Conditions Precedent and Secured Party’s Rights and Remedies.
  */
@@ -48,7 +163,7 @@ export interface AccessConditionsElections {
   taxEvent?: boolean;
   taxEventUponMerger?: boolean;
 }
-  
+
 /**
  * A class to specify an account as an account number alongside, optionally. an account name, an account type, an account beneficiary and a servicing party.
  */
@@ -75,11 +190,11 @@ export interface Account {
    */
   servicingParty?: ReferenceWithMeta<Party>;
 }
-  
+
 export interface AcctOwnr {
   id?: Id;
 }
-  
+
 export interface ActualPrice {
   amount?: number;
   /**
@@ -91,7 +206,7 @@ export interface ActualPrice {
    */
   priceExpression?: PriceExpressionEnum;
 }
-  
+
 /**
  * A type for defining the Additional Disruption Events.
  */
@@ -141,7 +256,7 @@ export interface AdditionalDisruptionEvents {
    */
   maximumStockLoanRate?: number;
 }
-  
+
 /**
  * A class to specify the events that will give rise to the payment additional fixed payments.
  */
@@ -159,7 +274,7 @@ export interface AdditionalFixedPayments {
    */
   writedownReimbursement?: boolean;
 }
-  
+
 /**
  * A class to specify the additional regulatory regime(s) that might be elected by the parties to a legal agreement where such provision exists, such as the ISDA 2016 and 2018 CSA for Initial Margin.
  */
@@ -181,7 +296,7 @@ export interface AdditionalRegime {
    */
   regimeTerms?: RegimeTerms[];
 }
-  
+
 /**
  * A class to specify the Additional Representation. ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (o): Additional Representation(s).
  */
@@ -195,7 +310,7 @@ export interface AdditionalRepresentation {
    */
   partyElection?: AdditionalRepresentationElection[];
 }
-  
+
 /**
  * A class to specify the parties' Additional Representation(s) election.
  */
@@ -209,7 +324,7 @@ export interface AdditionalRepresentationElection {
    */
   party?: string;
 }
-  
+
 /**
  * A class to specify Additional Representations that may be applicable to an agreement.
  */
@@ -223,7 +338,7 @@ export interface AdditionalRepresentations {
    */
   additionalRepresentation?: AdditionalRepresentation;
 }
-  
+
 /**
  * A class to specify the Pledgor/Obligor/Chargor Additional Rights Event election. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (k): Chargor Additional Rights Event. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (k): Obligor Additional Rights Event. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (k): Pledgor Additional Rights Event.
  */
@@ -237,7 +352,7 @@ export interface AdditionalRightsEvent {
    */
   qualification?: string;
 }
-  
+
 /**
  * A class to specify an optional termination event, additional to the Termination Events that will be deemed an Access Condition (Initial Margin CSA) or a Specified Condition (Variation Margin CSA)
  */
@@ -251,7 +366,7 @@ export interface AdditionalTerminationEvent {
    */
   name?: string;
 }
-  
+
 /**
  * The specification of the Additional Type of transaction that can require the collection or delivery of initial margin under a given regulatory regime for the purposes of Covered Transactions, as specified in ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (b)(B).
  */
@@ -265,7 +380,7 @@ export interface AdditionalType {
    */
   standardValue?: AdditionalTypeEnum;
 }
-  
+
 /**
  * A class to specify a post or street address.
  */
@@ -291,12 +406,12 @@ export interface Address {
    */
   street?: string[];
 }
-  
+
 export interface AddtlAttrbts {
   rskRdcgTx?: string;
   sctiesFincgTxInd?: string;
 }
-  
+
 /**
  * A class for defining a date that shall be subject to adjustment if it would otherwise fall on a day that is not a business day in the specified business centers, together with the convention for adjusting the date.
  */
@@ -319,7 +434,7 @@ export interface AdjustableDate {
    */
   unadjustedDate?: Date;
 }
-  
+
 /**
  * A class for defining a series of dates that shall be subject to adjustment if they would otherwise fall on a day that is not a business day in the specified business centers, together with the convention for adjusting the dates.
  */
@@ -338,7 +453,7 @@ export interface AdjustableDates {
    */
   unadjustedDate?: Date[];
 }
-  
+
 /**
  * A class for defining a date that shall be subject to adjustment if it would otherwise fall on a day that is not a business day in the specified business centers, together with the convention for adjusting the date.
  */
@@ -357,7 +472,7 @@ export interface AdjustableOrAdjustedDate {
    */
   unadjustedDate?: Date;
 }
-  
+
 /**
  * This Rosetta class specifies the date as either an unadjusted, adjusted or relative date. It supplements the features of the AdjustableOrAdjustedDate to support the credit default swap option premium, which uses the relative date construct.
  */
@@ -379,7 +494,7 @@ export interface AdjustableOrAdjustedOrRelativeDate {
    */
   unadjustedDate?: Date;
 }
-  
+
 /**
  * A class giving the choice between defining a date as an explicit date together with applicable adjustments or as relative to some other (anchor) date.
  */
@@ -394,7 +509,7 @@ export interface AdjustableOrRelativeDate {
    */
   relativeDate?: AdjustedRelativeDateOffset;
 }
-  
+
 /**
  * A class giving the choice between defining a series of dates as an explicit list of dates together with applicable adjustments or as relative to some other series of (anchor) dates.
  */
@@ -409,7 +524,7 @@ export interface AdjustableOrRelativeDates {
    */
   relativeDates?: RelativeDates;
 }
-  
+
 /**
  * A type defining a date (referred to as the derived date) as a relative offset from another date (referred to as the anchor date) plus optional date adjustments.
  */
@@ -449,7 +564,7 @@ export interface AdjustedRelativeDateOffset extends RelativeDateOffset {
    */
   periodMultiplier?: number;
 }
-  
+
 /**
  * A class to specify a trade affirmation.
  */
@@ -472,7 +587,7 @@ export interface Affirmation {
   partyRole?: PartyRole[];
   status?: AffirmationStatusEnum;
 }
-  
+
 /**
  * A class to specify multiple credit notations alongside a conditional 'any' or 'all' qualifier.
  */
@@ -485,7 +600,7 @@ export interface AgencyRatingCriteria {
   qualifier?: QuantifierEnum;
   referenceAgency?: CreditRatingAgencyEnum;
 }
-  
+
 /**
  *  Parameters to be used to filter events that are relevant to a given portfolio in order to calculate the state of this portfolio. The attributes correspond to all the possible aggregation criteria that can be used and these criteria can be combined. All the attributes are optional.
  */
@@ -523,7 +638,7 @@ export interface AggregationParameters {
    */
   totalPosition?: boolean;
 }
-  
+
 /**
  * A class to specify elections specific to a certain type of agreement.
  */
@@ -545,7 +660,7 @@ export interface Agreement {
    */
   transactionConfirmation?: TransactionConfirmation;
 }
-  
+
 /**
  * A class to specify the elections and variables that characterize a legal agreement.
  */
@@ -563,7 +678,7 @@ export interface AgreementTerms {
    */
   umbrellaAgreement?: UmbrellaAgreement;
 }
-  
+
 export interface AllocationBreakdown {
   /**
    * The account to allocate the trade into
@@ -586,16 +701,16 @@ export interface AllocationBreakdown {
    */
   quantity?: QuantityNotation;
 }
-  
+
 export interface AllocationInstruction {
   /**
    * The set of allocation breakdowns to be applied to a block trade
    */
   breakdowns?: AllocationBreakdown[];
 }
-  
+
 /**
- * A class to specify the effective date of the Amendment to Termination Currency. This date can be specified as either an actual date, a specific date (e.g. the annex date) or as a custom provision. 
+ * A class to specify the effective date of the Amendment to Termination Currency. This date can be specified as either an actual date, a specific date (e.g. the annex date) or as a custom provision.
  */
 export interface AmendmentEffectiveDate {
   /**
@@ -611,7 +726,7 @@ export interface AmendmentEffectiveDate {
    */
   specificDate?: AmendmentEffectiveDateEnum;
 }
-  
+
 /**
  * A class defining the exercise period for an American style option together with any rules governing the notional amount of the underlying which can be exercised on any given exercise date and any associated exercise fees.
  */
@@ -650,7 +765,7 @@ export interface AmericanExercise {
    */
   relevantUnderlyingDate?: AdjustableOrRelativeDates;
 }
-  
+
 /**
  * A class to specify a currency amount or a currency amount schedule.
  */
@@ -668,7 +783,7 @@ export interface AmountSchedule extends Schedule {
    */
   step?: Step[];
 }
-  
+
 /**
  * A class to specify the applicable regulatory regime(s) that parties to a legal agreement, such as the ISDA 2016 and 2018 CSA for Initial Margin, might be subject to.
  */
@@ -690,7 +805,7 @@ export interface ApplicableRegime {
    */
   regimeTerms?: RegimeTerms[];
 }
-  
+
 /**
  * A class to specify the Valuation of Appropriated Collateral that is applicable to the English Law ISDA CSA. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (u): Valuation of Appropriated Collateral.
  */
@@ -704,7 +819,7 @@ export interface AppropriatedCollateralValuation {
    */
   isSpecified?: boolean;
 }
-  
+
 /**
  * As per ISDA 2002 Definitions.
  */
@@ -723,7 +838,7 @@ export interface Asian {
    */
   strikeFactor?: number;
 }
-  
+
 /**
  * Generic object to specify an identifier for a quantifiable object, which can either be a product, a currency or a rate option.
  */
@@ -741,7 +856,7 @@ export interface AssetIdentifier {
    */
   rateOption?: FloatingRateOption;
 }
-  
+
 /**
  * Characterizes the asset pool behind an asset backed bond.
  */
@@ -763,7 +878,7 @@ export interface AssetPool {
    */
   version?: string;
 }
-  
+
 /**
  * A class to specify the identifier value and its associated version.
  */
@@ -777,7 +892,7 @@ export interface AssignedIdentifier {
    */
   version?: number;
 }
-  
+
 /**
  * A type to define automatic exercise of a swaption. With automatic exercise the option is deemed to have exercised if it is in the money by more than the threshold amount on the exercise date.
  */
@@ -787,7 +902,7 @@ export interface AutomaticExercise {
    */
   thresholdRate?: number;
 }
-  
+
 /**
  * An unordered list of weighted averaging observations.
  */
@@ -797,7 +912,7 @@ export interface AveragingObservationList {
    */
   averagingObservation?: WeightedAveragingObservation[];
 }
-  
+
 /**
  * Period over which an average value is taken.
  */
@@ -819,7 +934,7 @@ export interface AveragingPeriod {
    */
   schedule?: AveragingSchedule[];
 }
-  
+
 /**
  * Class to representing a method for generating a series of dates.
  */
@@ -837,7 +952,7 @@ export interface AveragingSchedule {
    */
   startDate?: Date;
 }
-  
+
 /**
  * As per ISDA 2002 Definitions.
  */
@@ -851,7 +966,7 @@ export interface Barrier {
    */
   barrierFloor?: TriggerEvent;
 }
-  
+
 /**
  * CDS Basket Reference Information.
  */
@@ -881,7 +996,7 @@ export interface BasketReferenceInformation {
    */
   tranche?: Tranche;
 }
-  
+
 /**
  * A class defining the Bermuda option exercise dates and the expiration date together with any rules governing the notional amount of the underlying which can be exercised on any given exercise date and any associated exercise fee.
  */
@@ -916,7 +1031,7 @@ export interface BermudaExercise {
    */
   relevantUnderlyingDate?: AdjustableOrRelativeDates;
 }
-  
+
 /**
  * A class to specify bespoke Calculation Date terms for the purposes of Initial Margin
  */
@@ -930,7 +1045,7 @@ export interface BespokeCalculationDate {
    */
   isApplicable?: boolean;
 }
-  
+
 /**
  * A class to specify additional Calculation Time terms for the purposes of Initial Margin
  */
@@ -944,7 +1059,7 @@ export interface BespokeCalculationTime {
    */
   bespokeCalculationTimeTerms?: string;
 }
-  
+
 /**
  * A class to specify any bespoke Transfer Timing language by each party to the agreement.
  */
@@ -958,14 +1073,14 @@ export interface BespokeTransferTiming {
    */
   isApplicable?: boolean;
 }
-  
+
 /**
  * A class to specify a bond as having a product identifier. As a difference versus the FpML standard, the CDM structure of this class only includes the productIdentifier class, which consists of an identifier, productTaxonomy, and source of the identifier. The reason for this approach is to avoid the potential for conflicting information between the information associated with the contractual product and the reference information maintained by the relevant service provider.
  */
 export interface Bond extends IdentifiedProduct {
   productIdentifier?: ProductIdentifier;
 }
-  
+
 /**
  *  Either a bond or convertible bond.
  */
@@ -973,7 +1088,7 @@ export interface BondChoiceModel {
   bond?: Bond;
   convertibleBond?: ConvertibleBond;
 }
-  
+
 /**
  * Specification of the economics of the bond
  */
@@ -991,7 +1106,7 @@ export interface BondEconomics {
    */
   bondSeniority?: BondSeniorityEnum;
 }
-  
+
 /**
  *  Bond equity model to value convertible bonds and modelled onto BondEquity.model in FpML.
  */
@@ -1005,7 +1120,7 @@ export interface BondEquityModel {
    */
   equity?: Equity;
 }
-  
+
 /**
  * A class to specify the strike of a bond or convertible bond option.
  */
@@ -1016,7 +1131,7 @@ export interface BondOptionStrike {
    */
   referenceSwapCurve?: ReferenceSwapCurve;
 }
-  
+
 /**
  *  Bond price and yield valuation model for the security leg in a securities financing transaction, closely modelled onto the BondPriceAndYield.model in FpML.
  */
@@ -1042,7 +1157,7 @@ export interface BondPriceAndYieldModel {
    */
   yieldToMaturity?: number;
 }
-  
+
 /**
  * Reference to a bond underlier to represent an asset swap or Condition Precedent Bond.
  */
@@ -1060,7 +1175,7 @@ export interface BondReference {
    */
   discrepancyClause?: boolean;
 }
-  
+
 /**
  * Specification of the type of bond
  */
@@ -1074,7 +1189,7 @@ export interface BondType {
    */
   bondEconomics?: BondEconomics[];
 }
-  
+
 /**
  *  Bond valuation model for the security leg in a securities financing transaction, closely modelled onto the BondCollateral.model in FpML.
  */
@@ -1092,7 +1207,7 @@ export interface BondValuationModel {
    */
   nominalAmount?: Money;
 }
-  
+
 /**
  * Identifies the market sector in which the trade has been arranged.
  */
@@ -1102,7 +1217,7 @@ export interface BrokerConfirmation {
    */
   brokerConfirmationType?: FieldWithMeta<BrokerConfirmationTypeEnum>;
 }
-  
+
 /**
  * A class for defining a time with respect to a business day calendar location. For example, 11:00:00 GBLO.
  */
@@ -1116,7 +1231,7 @@ export interface BusinessCenterTime {
    */
   hourMinuteTime?: string;
 }
-  
+
 /**
  * A class for specifying the business day calendar location used in determining whether a day is a business day or not, either by specifying this business center by reference to an enumerated list that is maintained by the FpML standard, or by reference to such specification when it exists elsewhere as part of the instance document. This class corresponds to the FpML BusinessCentersOrReference.model.
  */
@@ -1131,7 +1246,7 @@ export interface BusinessCenters {
   businessCentersReference?: ReferenceWithMeta<BusinessCenters>;
   meta?: MetaFields;
 }
-  
+
 /**
  * A class defining a range of contiguous business days by defining an unadjusted first date, an unadjusted last date and a business day convention and business centers for adjusting the first and last dates if they would otherwise fall on a non business day in the specified business centers. The days between the first and last date must also be good business days in the specified centers to be counted in the range.
  */
@@ -1153,7 +1268,7 @@ export interface BusinessDateRange extends DateRange {
    */
   unadjustedLastDate?: Date;
 }
-  
+
 /**
  * A class defining the business day convention and financial business centers used for adjusting any relevant date if it would otherwise fall on a day that is not a business day in the specified business center.
  */
@@ -1168,7 +1283,7 @@ export interface BusinessDayAdjustments {
   businessDayConvention?: BusinessDayConventionEnum;
   meta?: MetaFields;
 }
-  
+
 /**
  * A business event represents a life cycle event of a trade and consists of a series of primitive events. The combination of the state changes results in a qualifiable life cycle event. An example of a Business Event is a PartialTermination which is a defined by a quantity change primitive event.
  */
@@ -1207,7 +1322,7 @@ export interface BusinessEvent {
    */
   workflowEventState?: WorkflowStepState;
 }
-  
+
 /**
  * A class to specify an organizational unit.
  */
@@ -1226,7 +1341,7 @@ export interface BusinessUnit {
    */
   name?: string;
 }
-  
+
 /**
  * This class corresponds to the FpML BuyerSeller.model construct.
  */
@@ -1248,11 +1363,11 @@ export interface BuyerSeller {
    */
   sellerPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 export interface Buyr {
   acctOwnr?: AcctOwnr;
 }
-  
+
 /**
  * A class defining the ISDA calculation agent responsible for performing duties as defined in the applicable product definitions.
  */
@@ -1270,7 +1385,7 @@ export interface CalculationAgent {
    */
   calculationAgentPartyReference?: ReferenceWithMeta<Party>[];
 }
-  
+
 /**
  * A class to select Calculation Agent for purposes of Initial Margin agreements
  */
@@ -1288,7 +1403,7 @@ export interface CalculationAgentIm {
    */
   party?: ReferenceWithMeta<String>;
 }
-  
+
 /**
  * This class corresponds to the FpML CalculationAgent.model.
  */
@@ -1302,7 +1417,7 @@ export interface CalculationAgentModel {
    */
   calculationAgentBusinessCenter?: BusinessCenterEnum;
 }
-  
+
 export interface CalculationAmount extends Money {
   /**
    * A schedule of step date and value pairs. On each step date the associated step value becomes effective. A list of steps may be ordered in the document by ascending step date. FpML specifies that an FpML document containing an unordered list of steps is still regarded as a conformant document.
@@ -1318,7 +1433,7 @@ export interface CalculationAmount extends Money {
   currency?: FieldWithMeta<String>;
   meta?: MetaFields;
 }
-  
+
 /**
  * A class to specify the Calculation, Valuation and Timing terms specific to the agreement.
  */
@@ -1356,7 +1471,7 @@ export interface CalculationAndTiming {
    */
   securitiesSettlementDay?: string;
 }
-  
+
 /**
  * A class to specify the ISDA SIMM Calculation Currency as either the Base Currency or an alternative currency. ISDA 2016 CSA for Initial Margin, Paragraph 13, General Principles (ee)(3). | ISDA 2018 CSA for Initial Margin, Paragraph 13, General Principles (ee)(3).
  */
@@ -1374,7 +1489,7 @@ export interface CalculationCurrencyElection {
    */
   party?: string;
 }
-  
+
 /**
  * A class to specify the Calculation Date Location election for the respective parties to the legal agreement. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (d)(i): Calculation Date Location. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (e)(i): Calculation Date Location. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (d)(i): Calculation Date Location.
  */
@@ -1384,7 +1499,7 @@ export interface CalculationDateLocation {
    */
   partyElection?: CalculationDateLocationElection[];
 }
-  
+
 /**
  * A class to specify each of the party elections with respect to the Calculation Date Location. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (d)(i): Calculation Date Location. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (e)(i): Calculation Date Location. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (d)(i): Calculation Date Location.
  */
@@ -1402,7 +1517,7 @@ export interface CalculationDateLocationElection {
    */
   party?: string;
 }
-  
+
 /**
  * A data defining:  the parameters used in the calculation of a fixed or floating rate calculation period amount. This data forms:  part of cashflows representation of a swap stream.
  */
@@ -1457,7 +1572,7 @@ export interface CalculationPeriod extends CalculationPeriodBase {
   adjustedStartDate?: Date;
   meta?: MetaFields;
 }
-  
+
 /**
  * The calculation period adjusted start and end dates, which are the baseline arguments needed to compute an interest accrual calculation.
  */
@@ -1472,7 +1587,7 @@ export interface CalculationPeriodBase {
   adjustedStartDate?: Date;
   meta?: MetaFields;
 }
-  
+
 export interface CalculationPeriodData {
   daysInLeapYearPeriod?: number;
   daysInPeriod?: number;
@@ -1481,7 +1596,7 @@ export interface CalculationPeriodData {
   isLastPeriod?: boolean;
   startDate?: Date;
 }
-  
+
 /**
  * A data for:  defining the parameters used to generate the calculation period dates schedule, including the specification of any initial or final stub calculation periods. A calculation period schedule consists of an optional initial stub calculation period, one or more regular calculation periods and an optional final stub calculation period. In the absence of any initial or final stub calculation periods, the regular part of the calculation period schedule is assumed to be between the effective date and the termination date. No implicit stubs are allowed, i.e. stubs must be explicitly specified using an appropriate combination of firstPeriodStartDate, firstRegularPeriodStartDate and lastRegularPeriodEndDate.
  */
@@ -1524,7 +1639,7 @@ export interface CalculationPeriodDates {
    */
   terminationDate?: AdjustableOrRelativeDate;
 }
-  
+
 /**
  * A class to specify the frequency at which calculation period end dates occur within the regular part of the calculation period schedule and their roll date convention.
  */
@@ -1543,14 +1658,14 @@ export interface CalculationPeriodFrequency extends Frequency {
    */
   periodMultiplier?: number;
 }
-  
+
 /**
  * A type for defining a calendar spread feature.
  */
 export interface CalendarSpread {
   expirationDateTwo?: AdjustableOrRelativeDate;
 }
-  
+
 /**
  * A data defining:  the right of a party to cancel a swap transaction on the specified exercise dates. The provision is for 'walk-away' cancellation (i.e. the fair value of the swap is not paid). A fee payable on exercise can be specified. As a difference from the FpML construct, the canonical model extends the BuyerSeller class.
  */
@@ -1605,7 +1720,7 @@ export interface CancelableProvision extends BuyerSeller {
    */
   sellerPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A data to:  define the adjusted dates for a cancelable provision on a swap transaction.
  */
@@ -1615,7 +1730,7 @@ export interface CancelableProvisionAdjustedDates {
    */
   cancellationEvent?: CancellationEvent[];
 }
-  
+
 /**
  * The adjusted dates for a specific cancellation date, including the adjusted exercise date and adjusted termination date.
  */
@@ -1630,7 +1745,7 @@ export interface CancellationEvent {
   adjustedExerciseDate?: Date;
   meta?: MetaFields;
 }
-  
+
 /**
  * The cash exercise specifies the cashflow using the cashflow payout and a given quantity.
  */
@@ -1644,7 +1759,7 @@ export interface CashExercise {
    */
   quantity?: QuantityNotation;
 }
-  
+
 /**
  * Describes a price component as a cash amount, which can either represent cash proceeds for a security purchase or a cashflow that is embedded as part of a contractual product: for instance an upfront fee.
  */
@@ -1670,7 +1785,7 @@ export interface CashPrice {
    */
   netPrice?: ActualPrice;
 }
-  
+
 /**
  * A type defining the parameters necessary for each of the ISDA cash price methods for cash settlement.
  */
@@ -1688,7 +1803,7 @@ export interface CashPriceMethod {
    */
   quotationRateType?: QuotationRateTypeEnum;
 }
-  
+
 /**
  * A data defining:  the cash settlement payment date(s) as either a set of explicit dates, together with applicable adjustments, or as a date relative to some other (anchor) date, or as any date in a range of contiguous business days.
  */
@@ -1707,7 +1822,7 @@ export interface CashSettlementPaymentDate {
    */
   relativeDate?: RelativeDateOffset;
 }
-  
+
 /**
  * A class defining the list of reference institutions polled for relevant rates or prices when determining the cash settlement amount for a product where cash settlement is applicable.
  */
@@ -1717,7 +1832,7 @@ export interface CashSettlementReferenceBanks {
    */
   referenceBank?: ReferenceBank[];
 }
-  
+
 /**
  * In FpML, PhysicalSettlementTerms and CashSettlementTerms extend SettlementTerms. In the CDM, this extension paradigm has not been used because SettlementTerms class has been used for purposes related to securities transactions, while it is not used as such in the FpML standard (i.e. only as an abstract construct.
  */
@@ -1776,7 +1891,7 @@ export interface CashSettlementTerms extends SettlementBase {
    */
   settlementCurrency?: FieldWithMeta<String>;
 }
-  
+
 export interface CashTransferBreakdown extends TransferBreakdown {
   /**
    * The currency amount of the payment.
@@ -1803,7 +1918,7 @@ export interface CashTransferBreakdown extends TransferBreakdown {
    */
   transferCalculation?: TransferCalculation;
 }
-  
+
 export interface CashTransferComponent extends TransferBase {
   /**
    * The currency amount.
@@ -1830,7 +1945,7 @@ export interface CashTransferComponent extends TransferBase {
    */
   transferCalculation?: TransferCalculation;
 }
-  
+
 /**
  * Class to specify a cashflow, i.e. the outcome of either of computation (e.g. interest accrual) or an assessment of some sort (e.g. a fee). The cashflow can then be turned into a cash transfer, artefact to be used as the input to a payment system or the outcome of it. The associated globalKey denotes the ability to associate a hash value to the Cashflow instantiations for the purpose of model cross-referencing, in support of functionality such as the event effect and the lineage.
  */
@@ -1875,7 +1990,7 @@ export interface Cashflow extends PayoutBase {
    */
   payoutQuantity?: ResolvablePayoutQuantity;
 }
-  
+
 /**
  * A data defining:  the cashflow representation of a swap trade.
  */
@@ -1893,7 +2008,7 @@ export interface CashflowRepresentation {
    */
   principalExchange?: PrincipalExchange[];
 }
-  
+
 /**
  *  Class specifying the bond price as either clean or dirty in a bond valuation model.
  */
@@ -1907,7 +2022,7 @@ export interface CleanOrDirtyPrice {
    */
   dirtyPrice?: number;
 }
-  
+
 /**
  *  Class to specify the clean price of a bond in a bond valuation model, with accruals presented separately, and modelled onto the cleanPrice model in BonPriceAndYield.model in FpML.
  */
@@ -1925,7 +2040,7 @@ export interface CleanPrice {
    */
   dirtyPrice?: string;
 }
-  
+
 /**
  * All information required to perform the clear life cycle event
  */
@@ -1933,7 +2048,7 @@ export interface ClearingInstruction {
   alphaContract?: ReferenceWithMeta<Contract>;
   clearingParty?: Party;
 }
-  
+
 /**
  *  A class to qualify the closed state of an execution or a contract through the combination or a state (e.g. terminated, novated) and a set of dates: activity date, effective date and, when relevant, last payment date.
  */
@@ -1955,7 +2070,7 @@ export interface ClosedState {
    */
   state?: ClosedStateEnum;
 }
-  
+
 /**
  * A type for defining the obligations of the counterparty subject to credit support requirements.
  */
@@ -1965,13 +2080,13 @@ export interface Collateral {
    */
   independentAmount?: IndependentAmount;
 }
-  
+
 /**
  * A class to specify Collateral Access Breach language
  */
 export interface CollateralAccessBreach {
   /**
-   * The business days following the related Collateral Access Breach when the additional terms end 
+   * The business days following the related Collateral Access Breach when the additional terms end
    */
   cabEndDate?: number;
   /**
@@ -1987,7 +2102,7 @@ export interface CollateralAccessBreach {
    */
   isApplicable?: boolean;
 }
-  
+
 /**
  * A class to allow specification of the type of entity issuing the collateral.
  */
@@ -2010,7 +2125,7 @@ export interface CollateralIssuerType {
    */
   supraNationalType?: SupraNationalIssuerTypeEnum;
 }
-  
+
 /**
  * A class to specify the Collateral Management Agreement election by the respective parties to a Japanese Law ISDA CSA. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (b)(i): Collateral Management Agreement.
  */
@@ -2020,7 +2135,7 @@ export interface CollateralManagementAgreement {
    */
   partyElection?: CollateralManagementAgreementElection[];
 }
-  
+
 /**
  * A class to specify the Collateral Management Agreement election by each party as the Obligee. ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (b(i): Collateral Management Agreement.
  */
@@ -2034,7 +2149,7 @@ export interface CollateralManagementAgreementElection {
    */
   party?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A class to allow specification of the asset product type.
  */
@@ -2060,7 +2175,7 @@ export interface CollateralProductType {
    */
   securityType?: SecurityTypeEnum;
 }
-  
+
 /**
  * A class to specify the rounding methodology applicable to the Delivery Amount and the Return Amount in terms of nearest integral multiple of Base Currency units. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (c)(vi)(C): Rounding. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (d)(vi)(C): Rounding. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (c)(vi)(C): Rounding.
  */
@@ -2074,7 +2189,7 @@ export interface CollateralRounding {
    */
   returnAmount?: number;
 }
-  
+
 /**
  * The set of elections which specify a Collateral Transfer Agreement
  */
@@ -2108,7 +2223,7 @@ export interface CollateralTransferAgreementElections {
    */
   conditionsPrecedent?: ConditionsPrecedent;
   /**
-   * The Credit Support Obligations applicable to the agreement. 
+   * The Credit Support Obligations applicable to the agreement.
    */
   creditSupportObligations?: CreditSupportObligationsInitialMargin;
   /**
@@ -2188,7 +2303,7 @@ export interface CollateralTransferAgreementElections {
    */
   terminationCurrencyAmendment?: TerminationCurrencyAmendment;
 }
-  
+
 /**
  * A class to specify Collateral Valuation Agent terms.
  */
@@ -2198,7 +2313,7 @@ export interface CollateralValuationAgent {
    */
   partyElection?: CollateralValuationAgentElection[];
 }
-  
+
 /**
  * A class to specify Collateral Valuation Agent language.
  */
@@ -2212,7 +2327,7 @@ export interface CollateralValuationAgentElection {
    */
   party?: string;
 }
-  
+
 export interface CollateralValuationPercentage {
   /**
    * FX haircut applied to a specific asset which is agreed between the parties (for example, if pledgor eligible collateral is not denominated in the termination currency or under other specified cases in collateral support documents both for initial margin and variation margin).The percentage value is expressed as the discount haircut to the value of the collateral- as an example an 8% FX haircut would be expressed as 0.08.
@@ -2223,13 +2338,12 @@ export interface CollateralValuationPercentage {
    */
   valuationPercentage?: number;
 }
-  
+
 /**
  * A class to specify a commodity asset.
  */
-export interface Commodity {
-}
-  
+export interface Commodity {}
+
 export interface CommoditySet {
   commodity?: Commodity;
   quantity?: number;
@@ -2239,7 +2353,7 @@ export interface CommoditySet {
    */
   unit?: UnitEnum;
 }
-  
+
 export interface CommodityTransferBreakdown extends TransferBreakdown {
   commodity?: Commodity;
   quantity?: number;
@@ -2265,7 +2379,7 @@ export interface CommodityTransferBreakdown extends TransferBreakdown {
    */
   transferCalculation?: TransferCalculation;
 }
-  
+
 export interface CommodityTransferComponent extends TransferBase {
   /**
    * The type of transfer, e.g. Free of Payment.
@@ -2295,7 +2409,7 @@ export interface CommodityTransferComponent extends TransferBase {
    */
   transferCalculation?: TransferCalculation;
 }
-  
+
 /**
  * Specifies the conditions to be applied for converting into a reference currency when the actual currency rate is not determined upfront.
  */
@@ -2313,7 +2427,7 @@ export interface Composite {
    */
   relativeDate?: RelativeDateOffset;
 }
-  
+
 /**
  * A class to specify the outcome of a computed amount, for testing purposes.
  */
@@ -2325,7 +2439,7 @@ export interface ComputedAmount {
    */
   currency?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class to specify the two set of elections that may overwrite the default Condition Precedent provision as specified in Paragraph 4, (a) of the ISDA 2016 Credit Support Annex for Initial Margin and the ISDA 2016 Credit Support Annex for Variation Margin. | ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (e): Conditions Precedent. | ISDA 2018 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (e): Conditions Precedent. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (f): Conditions Precedent. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (e): Conditions Precedent. | ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (e): Conditions Precedent and Secured Party’s Rights and Remedies.
  */
@@ -2343,7 +2457,7 @@ export interface ConditionsPrecedent {
    */
   customProvision?: string;
 }
-  
+
 /**
  * A class to specify a trade confirmation.
  */
@@ -2366,7 +2480,7 @@ export interface Confirmation {
   partyRole?: PartyRole[];
   status?: ConfirmationStatusEnum;
 }
-  
+
 /**
  * A class describing the weight of each of the underlier constituent within the basket, either in absolute or relative terms.
  */
@@ -2380,7 +2494,7 @@ export interface ConstituentWeight {
    */
   openUnits?: number;
 }
-  
+
 /**
  * A class to specify the parties' election to specify contact information, in relation to elections such as the Addresses for Transfer or the Demand and Notices as specified in the ISDA Credit Support Annex agreement.
  */
@@ -2390,7 +2504,7 @@ export interface ContactElection {
    */
   partyElection?: PartyContactInformation[];
 }
-  
+
 /**
  * A class to specify contact information associated with a party: telephone, postal/street address, email and web page.
  */
@@ -2412,7 +2526,7 @@ export interface ContactInformation {
    */
   webPage?: string[];
 }
-  
+
 /**
  *  A class to specify a financial contract object, which can be invoked either within the context of an event, or independently from it. It corresponds to the FpML Trade in the Confirmation view (while the CDM Execution class corresponds to the FpML trade in the Pre-Trade view). The associated globalKey denotes the ability to associate a hash value to the Contract instantiations for the purpose of model cross-referencing, in support of functionality such as the event effect and the lineage.
  */
@@ -2471,7 +2585,7 @@ export interface Contract {
    */
   tradeDate?: TradeDate;
 }
-  
+
 /**
  * Specification of a primitive event that represents an executed trade for a contractual product that has been affirmed (or confirmed) by the two parties.  The optional 'before' state is an 'ExecutionState' consisting of an ExecutionPrimitive.  The 'after' state is a 'PostContractFormationState' that includes a Contract in which there is an optional reference to a RelatedAgreeemnt, such as a Master Agreement.  If an ‘after’ and ‘before’ both exist, then they must have the same TradableProduct values.
  */
@@ -2485,7 +2599,7 @@ export interface ContractFormationPrimitive {
    */
   before?: ReferenceWithMeta<ExecutionState>;
 }
-  
+
 /**
  * A class to specify a contract state instantiation with respect to the before and/or after state of lifecycle events.
  */
@@ -2500,7 +2614,7 @@ export interface ContractState {
    */
   updatedContract?: Contract;
 }
-  
+
 export interface ContractualMatrix {
   /**
    * Defines any applicable key into the relevant matrix. For example, the Transaction Type would be the single term required for the Credit Derivatives Physical Settlement Matrix. This element should be omitted in the case of the 2000 ISDA Definitions Settlement Matrix for Early Termination and Swaptions.
@@ -2515,7 +2629,7 @@ export interface ContractualMatrix {
    */
   publicationDate?: Date;
 }
-  
+
 /**
  *  A class to specify the contractual products' economic terms, alongside their product identification and product taxonomy. The contractual product class is meant to be used across the pre-execution, execution and (as part of the Contract) post-execution lifecycle contexts.
  */
@@ -2533,7 +2647,7 @@ export interface ContractualProduct {
    */
   productTaxonomy?: ProductTaxonomy[];
 }
-  
+
 /**
  * A contractual supplement (such as those published by ISDA) and its publication date that will apply to the trade.
  */
@@ -2547,7 +2661,7 @@ export interface ContractualTermsSupplement {
    */
   publicationDate?: Date;
 }
-  
+
 /**
  * A class to specify the relationship between the Control Agreement and the Credit Support Agreement.
  */
@@ -2557,7 +2671,7 @@ export interface ControlAgreement {
    */
   partyElection?: ControlAgreementElections[];
 }
-  
+
 /**
  * A class to specify the Control Agreement election sby each party to the agreement.
  */
@@ -2579,14 +2693,14 @@ export interface ControlAgreementElections {
    */
   relationshipWithControlAgreement?: boolean;
 }
-  
+
 /**
  * A class to specify Control Agreement language related to delivery of a Notice of Exclusive Control
  */
 export interface ControlAgreementNecEvent {
   controlAgreementNecEventElection?: ControlAgreementNecEventElection[];
 }
-  
+
 /**
  * A class to specify party specific Control Agreement language related to delivery of a Notice of Exclusive Control
  */
@@ -2597,14 +2711,14 @@ export interface ControlAgreementNecEventElection {
    */
   party?: string;
 }
-  
+
 /**
  * A class to specify a convertible bond as having a product identifier. As a difference versus the FpML standard, the CDM structure of this class only includes the productIdentifier class, which consists of an identifier, productTaxonomy, and source of the identifier. The reason for this approach is to avoid the potential for conflicting information between the information associated with the contractual product and the reference information maintained by the relevant service provider.
  */
 export interface ConvertibleBond extends IdentifiedProduct {
   productIdentifier?: ProductIdentifier;
 }
-  
+
 /**
  *  The credit default payout specification provides the details necessary for determining when a credit payout will be triggered as well as the parameters for calculating the payout and the settlement terms. The associated globalKey denotes the ability to associate a hash value to the CreditDefaultPayout instantiations for the purpose of model cross-referencing, in support of functionality such as the event effect and the lineage.
  */
@@ -2631,7 +2745,7 @@ export interface CreditDefaultPayout {
    */
   transactedPrice?: TransactedPrice;
 }
-  
+
 export interface CreditEventNotice {
   /**
    * Inclusion of this business center element implies that Greenwich Mean Time in Section 3.3 of the 2003 ISDA Credit Derivatives Definitions is replaced by the local time of the city indicated by the businessCenter element value.
@@ -2646,7 +2760,7 @@ export interface CreditEventNotice {
    */
   publiclyAvailableInformation?: PubliclyAvailableInformation;
 }
-  
+
 /**
  * A class to specify the applicable Credit Events that would trigger a settlement, as specified in the related Confirmation and defined in the ISDA 2014 Credit Definition article IV section 4.1.
  */
@@ -2713,14 +2827,14 @@ export interface CreditEvents {
    */
   writedown?: boolean;
 }
-  
+
 /**
  * A class to represent the credit limit utilisation information.
  */
 export interface CreditLimitInformation {
   limitApplicable?: LimitApplicableExtended[];
 }
-  
+
 /**
  * Credit limit utilisation breakdown by executed trades and pending orders.
  */
@@ -2734,7 +2848,7 @@ export interface CreditLimitUtilisation {
    */
   pending?: CreditLimitUtilisationPosition;
 }
-  
+
 export interface CreditLimitUtilisationPosition {
   /**
    * Global credit limit utilisation amount, agnostic of long/short position direction.
@@ -2749,7 +2863,7 @@ export interface CreditLimitUtilisationPosition {
    */
   shortPosition?: number;
 }
-  
+
 /**
  * A class to specify the credit notation as the combination of agency, notation, scale and debt type qualifications.
  */
@@ -2771,7 +2885,7 @@ export interface CreditNotation {
    */
   scale?: FieldWithMeta<String>;
 }
-  
+
 /**
  * The credit rating notation higher level construct, which provides the ability to specify multiple rating notations.
  */
@@ -2785,7 +2899,7 @@ export interface CreditNotations {
    */
   creditNotations?: MultipleCreditNotations;
 }
-  
+
 /**
  * The credit rating debt type(s) associated with the credit rating notation and scale. When several debt types are specified, they must be qualified through an 'any' or 'all'.
  */
@@ -2799,7 +2913,7 @@ export interface CreditRatingDebt {
    */
   debtTypes?: MultipleDebtTypes;
 }
-  
+
 /**
  * The agreement executed between the parties and intended to govern collateral arrangement for all OTC derivatives transactions between those parties.
  */
@@ -2817,7 +2931,7 @@ export interface CreditSupportAgreement {
    */
   identifierValue?: string;
 }
-  
+
 /**
  * The set of elections which specify a Credit Support Annex or Deed.
  */
@@ -2859,7 +2973,7 @@ export interface CreditSupportAgreementElections {
    */
   conditionsPrecedent?: ConditionsPrecedent;
   /**
-   * The Credit Support Obligations applicable to the agreement. 
+   * The Credit Support Obligations applicable to the agreement.
    */
   creditSupportObligations?: CreditSupportObligationsInitialMargin;
   /**
@@ -2951,7 +3065,7 @@ export interface CreditSupportAgreementElections {
    */
   trustSchemeAddendum?: boolean;
 }
-  
+
 /**
  * A class to specify the Credit Support Obligations applicable to the Initial Margin Credit Support Annex and which are common among the English, Japanese and New York governing laws. This excludes the Other Eligible Support election (which only applies to the Japanese Law and New York Law agreements) and the Transfer Timing election (which only applies to the English Law and the New York Law agreements). ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (c): Credit Support Obligations. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (d): Credit Support Obligations. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (c): Credit Support Obligations.
  */
@@ -2977,7 +3091,7 @@ export interface CreditSupportObligationsInitialMargin {
    */
   threshold?: Threshold;
 }
-  
+
 /**
  * A class to specify the Credit Support Obligations applicable to the Variation Margin Credit Support Annex and which are common among the English, Japanese and New York governing laws. ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (c): Credit Support Obligations.
  */
@@ -3007,7 +3121,7 @@ export interface CreditSupportObligationsVariationMargin {
    */
   rounding?: CollateralRounding;
 }
-  
+
 /**
  * A data to:  represent the cash settlement method defined in the 2006 ISDA Definitions, Section 18.3. Cash Settlement Methods, paragraph (g) (published in Supplement number 28).
  */
@@ -3025,12 +3139,12 @@ export interface CrossCurrencyMethod {
    */
   quotationRateType?: QuotationRateTypeEnum;
 }
-  
+
 export interface CrossCurrencyTerms {
   principalExchanges?: PrincipalExchanges;
   settlementProvision?: SettlementProvision;
 }
-  
+
 /**
  * A class that is used for including the currency exchange rates used to cross between the traded currencies for non-base currency FX contracts.
  */
@@ -3060,7 +3174,7 @@ export interface CrossRate extends QuotedCurrencyPair {
    */
   quoteBasis?: QuoteBasisEnum;
 }
-  
+
 /**
  * An abstract class to specify the provisions for a ISDA Credit Support Annex that are common among vintages, governing laws and across IM and VM.
  */
@@ -3070,7 +3184,7 @@ export interface Csa {
    */
   documentationIdentification?: DocumentationIdentification;
 }
-  
+
 /**
  * An abstract class to specify the provisions for the 2016 ISDA Credit Support Annex that are common among governing laws and across Initial and Variation Margin.
  */
@@ -3120,7 +3234,7 @@ export interface Csa2016 extends Csa {
    */
   documentationIdentification?: DocumentationIdentification;
 }
-  
+
 /**
  * An abstract class to specify the provisions for the 2016 ISDA Credit Support Annex for Variation Margin that are common among governing laws.
  */
@@ -3202,11 +3316,12 @@ export interface CsaVariationMargin2016 extends Csa2016 {
    */
   documentationIdentification?: DocumentationIdentification;
 }
-  
+
 /**
  * A class to specify the provisions that are specific to the New York Law version of the ISDA 2016 Credit Support Annex for Variation Margin.
  */
-export interface CsaVariationMargin2016NewYorkLaw extends CsaVariationMargin2016 {
+export interface CsaVariationMargin2016NewYorkLaw
+  extends CsaVariationMargin2016 {
   /**
    * The Other Eligible Support elections associated with margin agreements. ISDA 2016 New York Law Credit Support Annex for Variation Margin, paragraph 13, (l): Other Eligible Support (VM) and Other Posted Support (VM).
    */
@@ -3296,12 +3411,12 @@ export interface CsaVariationMargin2016NewYorkLaw extends CsaVariationMargin2016
    */
   documentationIdentification?: DocumentationIdentification;
 }
-  
+
 export interface Curve {
   commodityCurve?: FieldWithMeta<CommodityReferencePriceEnum>;
   interestRateCurve?: InterestRateCurve;
 }
-  
+
 /**
  * A class to specify the custodian and custody account details for each party to the agreement.
  */
@@ -3311,7 +3426,7 @@ export interface Custodian {
    */
   partyElection?: CustodianElection[];
 }
-  
+
 /**
  * A class to specify the custodian and custody account details for each party to the agreement.
  */
@@ -3333,7 +3448,7 @@ export interface CustodianElection {
    */
   segregatedSecurityAccount?: Account;
 }
-  
+
 /**
  * A class to specify the Custodian Event (English Law & New York Law ISDA CSA) and the Collateral Manager Event (Japanese Law ISDA CSA) in terms of applicability and end-date. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (n)(iii): Custodian Event. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (m)(ii): Collateral Manager Event. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(iii): Custodian Event.
  */
@@ -3347,7 +3462,7 @@ export interface CustodianEvent {
    */
   isApplicable?: boolean;
 }
-  
+
 /**
  * A class to specify the Custodian Event (English Law & New York Law ISDA CSA) or Collateral Manager Event (Japanese Law ISDA CSA) End Date. Its qualification is function of three elective periods: either (i) a specified number of days after the occurrence of the Custodian Event (the daysAfterCustodianEvent attribute), or (ii) the number of days prior to the date on which the Control Agreement will terminate, with in this latter case (iii) the further qualification of the number of days prior to the Release Date if only one party has effectively provided the Timely Statement to the other party. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (n)(iii): CE End Date. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (m)(ii): CME End Date. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(iii): CE End Date.
  */
@@ -3365,7 +3480,7 @@ export interface CustodianEventEndDate {
    */
   releaseDate?: CustomisableOffset;
 }
-  
+
 /**
  * A class to specify the Custodian Risk elections specific to a Credit Support Agreement.
  */
@@ -3375,7 +3490,7 @@ export interface CustodianRisk {
    */
   partyElection?: CustodianRiskElection[];
 }
-  
+
 /**
  * A class to specify the Custodian Risk (English Law and New York Law ISDA CSA) and the Collateral Manager Risk (Japanese Law ISDA CSA) election. | ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (n)(ii): Custodian (IM) Risk. | ISDA 2018 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (n)(ii): Custodian (IM) Risk. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (m)(i): Collateral Manager Risk. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(ii): Custodian (IM) Risk.
  */
@@ -3393,7 +3508,7 @@ export interface CustodianRiskElection {
    */
   qualification?: string;
 }
-  
+
 /**
  * A class to specify the requirements applicable to the custodian with respect to the holding of posted collateral. ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (h)(i): Eligibility to Hold Posted Collateral (VM) Custodians (VM).
  */
@@ -3411,7 +3526,7 @@ export interface CustodianTerms {
    */
   minimumRating?: CreditNotations;
 }
-  
+
 /**
  * A class to specify the Custody Arrangements for the agreement.
  */
@@ -3457,7 +3572,7 @@ export interface CustodyArrangements {
    */
   otherProvisions?: string;
 }
-  
+
 /**
  * A class to specify an offset either as a normalized [multiplier, period, dayType] or as a custom provision of type string.
  */
@@ -3465,7 +3580,7 @@ export interface CustomisableOffset {
   customProvision?: string;
   offset?: Offset;
 }
-  
+
 /**
  * In its initial iteration, this class is meant to support the DTCC TIW workflow information.
  */
@@ -3479,18 +3594,18 @@ export interface CustomisedWorkflow {
    */
   itemValue?: string;
 }
-  
+
 export interface DateGroup {
   dates?: Date[];
 }
-  
+
 /**
  * List of dates.
  */
 export interface DateList {
   date?: Date[];
 }
-  
+
 /**
  * A class defining a contiguous series of calendar dates. The date range is defined as all the dates between and including the first and the last date. The first date must fall before the last date.
  */
@@ -3504,7 +3619,7 @@ export interface DateRange {
    */
   unadjustedLastDate?: Date;
 }
-  
+
 /**
  * A data to:  provide the ability to point to multiple payment nodes in the document through the unbounded paymentDatesReference.
  */
@@ -3514,7 +3629,7 @@ export interface DateRelativeToCalculationPeriodDates {
    */
   calculationPeriodDatesReference?: ReferenceWithMeta<CalculationPeriodDates>[];
 }
-  
+
 /**
  * A data to:  provide the ability to point to multiple payment nodes in the document through the unbounded paymentDatesReference.
  */
@@ -3524,7 +3639,7 @@ export interface DateRelativeToPaymentDates {
    */
   paymentDatesReference?: ReferenceWithMeta<PaymentDates>[];
 }
-  
+
 /**
  * List of dateTimes.
  */
@@ -3534,7 +3649,7 @@ export interface DateTimeList {
    */
   dateTime?: Date[];
 }
-  
+
 /**
  * A class to specify all the ISDA terms relevant to defining the deliverable obligations.
  */
@@ -3632,7 +3747,7 @@ export interface DeliverableObligations {
    */
   transferable?: boolean;
 }
-  
+
 /**
  * A class to specify the application of Interest Amount with respect the Delivery Amount. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(ii).
  */
@@ -3646,14 +3761,14 @@ export interface DeliveryAmount {
    */
   standardElection?: DeliveryAmountElectionEnum;
 }
-  
+
 export interface DerivInstrmAttrbts {
   dlvryTp?: string;
   pricMltplr?: string;
   undrlygInstrm?: UndrlygInstrm;
   xpryDt?: string;
 }
-  
+
 /**
  * The purpose of this class is to be extended by the Price and EquityValuation classes.
  */
@@ -3663,7 +3778,7 @@ export interface DeterminationMethod {
    */
   determinationMethod?: DeterminationMethodEnum;
 }
-  
+
 /**
  * A data defining:  discounting information. The 2000 ISDA definitions, section 8.4. discounting (related to the calculation of a discounted fixed amount or floating amount) apply. This type must only be included if discounting applies.
  */
@@ -3681,7 +3796,7 @@ export interface DiscountingMethod {
    */
   discountingType?: DiscountingTypeEnum;
 }
-  
+
 /**
  * A class to specify the election terms under which a party disputes (i) the Calculation Agent’s calculation of a Delivery Amount or a Return Amount, or (ii) the Value of any Transfer of Eligible Credit Support or Posted Credit Support. Parties can specify such election either through a business center time or through a custom election. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (g): Dispute Resolution. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (h): Dispute Resolution. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (g): Dispute Resolution.
  */
@@ -3699,7 +3814,7 @@ export interface DisputeResolution {
    */
   resolutionTime?: BusinessCenterTime;
 }
-  
+
 /**
  * A class to specify the Distributions and Interest Payment provisions applicable to the Japanese Law ISDA 2016 CSA for Initial Margin and the New York Law ISDA 2016 CSA for Variation Margin. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n): Distributions and Interest Payment (IM). | ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (i): Distributions and Interest Payment (VM).
  */
@@ -3737,7 +3852,7 @@ export interface DistributionAndInterestPayment {
    */
   negativeInterest?: boolean;
 }
-  
+
 /**
  * A class to specify the currency in which the dividends will be denominated, i.e. either in the dividend currency or in a currency specified as part of the contract.
  */
@@ -3755,7 +3870,7 @@ export interface DividendCurrency {
    */
   determinationMethod?: DeterminationMethodEnum;
 }
-  
+
 /**
  * A class to specify the dividend date by reference to another date, with the ability to apply and offset. This class doesn't exist in FpML and is meant to simplify the choice constraint associated with the DividendPaymentDate class.
  */
@@ -3769,7 +3884,7 @@ export interface DividendDateReference {
    */
   paymentDateOffset?: Offset;
 }
-  
+
 /**
  * A class describing the date on which the dividend will be paid/received. This class is also used to specify the date on which the FX rate will be determined, when applicable.
  */
@@ -3777,7 +3892,7 @@ export interface DividendPaymentDate {
   adjustableDate?: AdjustableDate;
   dividendDateReference?: DividendDateReference;
 }
-  
+
 /**
  * A class describing the dividend payout ratio associated with an equity underlier. In certain cases the actual ratio is not known on trade inception, and only general conditions are then specified.
  */
@@ -3795,7 +3910,7 @@ export interface DividendPayout {
    */
   dividendPayoutRatioNonCash?: number;
 }
-  
+
 /**
  * A class describing the conditions governing the payment of dividends to the receiver of the equity return, with the exception of the dividend payout ratio, which is defined for each of the underlying components.
  */
@@ -3821,11 +3936,11 @@ export interface DividendReturnTerms {
    */
   dividendPayout?: DividendPayout;
   /**
-   * 2002 ISDA Equity Derivatives Definitions: Dividend Period as either the First Period or the Second Period. | 
+   * 2002 ISDA Equity Derivatives Definitions: Dividend Period as either the First Period or the Second Period. |
    */
   dividendPeriod?: DividendPeriodEnum;
   /**
-   * 2002 ISDA Equity Derivatives Definitions: Dividend Period as such other period determined as provided in the related Confirmation. | 
+   * 2002 ISDA Equity Derivatives Definitions: Dividend Period as such other period determined as provided in the related Confirmation. |
    */
   dividendPeriodEffectiveDate?: ReferenceWithMeta<Date>;
   /**
@@ -3845,11 +3960,11 @@ export interface DividendReturnTerms {
    */
   extraordinaryDividendsParty?: ReferenceWithMeta<Party>;
 }
-  
+
 export interface Document {
   finInstrmRptgTxRpt?: FinInstrmRptgTxRpt;
 }
-  
+
 /**
  * A class for defining the definitions that govern the document and should include the year and type of definitions referenced, along with any relevant documentation (such as master agreement) and the date it was signed.
  */
@@ -3888,7 +4003,7 @@ export interface DocumentationIdentification {
    */
   otherAgreement?: OtherAgreement[];
 }
-  
+
 /**
  * A data to:  define the adjusted dates associated with an early termination provision.
  */
@@ -3915,7 +4030,7 @@ export interface EarlyTerminationEvent {
   adjustedExerciseFeePaymentDate?: Date;
   meta?: MetaFields;
 }
-  
+
 /**
  * A data defining:  an early termination provision for a swap. This early termination is at fair value, i.e. on termination the fair value of the product must be settled between the parties.
  */
@@ -3938,7 +4053,7 @@ export interface EarlyTerminationProvision {
    */
   optionalEarlyTerminationParameters?: ExercisePeriod;
 }
-  
+
 /**
  *  This class represents the full set of price-forming features associated with a contractual product: the payout component, the notional/quantity, the effective and termination date and the date adjustment provisions when applying uniformily across the payout components. This class also includes the legal provisions which have valuation implications: cancelable provision, extendible provision, early termination provision and extraordinary events specification.
  */
@@ -3972,7 +4087,7 @@ export interface EconomicTerms {
    */
   terminationDate?: AdjustableOrRelativeDate;
 }
-  
+
 /**
  * A class to specify the party elective amounts which can be used for the purpose of specifying elections such as the ISDA CSA Threshold and Minimum Transfer Amount.
  */
@@ -3994,7 +4109,7 @@ export interface ElectiveAmountElection {
    */
   zeroAmount?: boolean;
 }
-  
+
 /**
  * A class to specify the conditions under which a party and its custodian(s) are entitled to hold collateral. ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (h)(i): Eligibility to Hold Posted Collateral (VM) Custodians (VM).
  */
@@ -4012,14 +4127,14 @@ export interface EligibilityToHoldCollateral {
    */
   partyTerms?: HoldingPostedCollateralEnum[];
 }
-  
+
 /**
  * Set of criteria used to specify eligible collateral.
  */
 export interface EligibleCollateral {
   criteria?: EligibleCollateralCriteria[];
 }
-  
+
 /**
  * Criteria used to specify eligible collateral.
  */
@@ -4037,7 +4152,7 @@ export interface EligibleCollateralCriteria {
    */
   valuationPercentage?: CollateralValuationPercentage;
 }
-  
+
 /**
  * A class to specify the eligible collateral elections by the respective parties to the Credit Support Annex for Variation Margin. ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (c)(ii): Eligible Collateral (VM).
  */
@@ -4047,7 +4162,7 @@ export interface EligibleCollateralVariationMargin {
    */
   partyElection?: EligibleCollateralVariationMarginElection;
 }
-  
+
 /**
  * A class to specify the parties' elections with respect to the eligible collateral for each of the respective parties when acting as a pledgor/chargor/obligor. ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (c)(ii): Eligible Collateral (VM).
  */
@@ -4061,7 +4176,7 @@ export interface EligibleCollateralVariationMarginElection {
    */
   party?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A class to specify the interest rate associated with initial margin collateral. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n): Distributions and Interest Payment (IM).
  */
@@ -4076,7 +4191,7 @@ export interface EligibleCurrencyInterestRate {
    */
   interestRate?: number;
 }
-  
+
 /**
  * A class to specify Enforcement Events specific to Security Agreements
  */
@@ -4090,14 +4205,14 @@ export interface EnforcementEvent {
    */
   failureToPay?: boolean;
 }
-  
+
 /**
  * A class to specify an equity as having a product identifier. As a difference versus the FpML standard, the CDM structure of this class only includes the productIdentifier class, which consists of an identifier, productTaxonomy, and source of the identifier. The reason for this approach is to avoid the potential for conflicting information between the information associated with the contractual product and the reference information maintained by the relevant service provider.
  */
 export interface Equity extends IdentifiedProduct {
   productIdentifier?: ProductIdentifier;
 }
-  
+
 /**
  * A class for defining the merger events and their treatment.
  */
@@ -4115,13 +4230,12 @@ export interface EquityCorporateEvents {
    */
   shareForShare?: ShareExtraordinaryEventEnum;
 }
-  
+
 /**
  * Specification for General Terms and Elections of an Equity Master Confirmation that is applicable across multiple Equity confirmations and is referenced by each of these confirmations, an example of which being the 2018 ISDA CDM Equity Confirmation for Security Equity Swap.
  */
-export interface EquityMasterConfirmation extends MasterConfirmationBase {
-}
-  
+export interface EquityMasterConfirmation extends MasterConfirmationBase {}
+
 /**
  *  The equity payout specification terms. The associated globalKey denotes the ability to associate a hash value to the EquityPayout instantiations for the purpose of model cross-referencing, in support of functionality such as the event effect and the lineage.
  */
@@ -4169,11 +4283,12 @@ export interface EquityPayout extends PayoutBase {
    */
   payoutQuantity?: ResolvablePayoutQuantity;
 }
-  
+
 /**
  * Specification for the General Terms and Relationship Supplement Elections as provided in the 2018 ISDA CDM Equity Confirmation for Security Equity Swap.
  */
-export interface EquitySwapMasterConfirmation2018 extends EquityMasterConfirmation {
+export interface EquitySwapMasterConfirmation2018
+  extends EquityMasterConfirmation {
   /**
    * The parameters used to generate the 'Equity Valuation Dates' schedule, including the Effective Date and Termination Date for the Swap.
    */
@@ -4199,7 +4314,7 @@ export interface EquitySwapMasterConfirmation2018 extends EquityMasterConfirmati
    */
   typeOfSwapElection?: ReturnTypeEnum;
 }
-  
+
 /**
  * A class for defining how and when an equity option or equity swap is to be valued.
  */
@@ -4245,7 +4360,7 @@ export interface EquityValuation extends CashPrice {
    */
   netPrice?: ActualPrice;
 }
-  
+
 /**
  * A class defining the exercise period for a European style option together with any rules governing the notional amount of the underlying which can be exercised on any given exercise date and any associated exercise fees.
  */
@@ -4276,7 +4391,7 @@ export interface EuropeanExercise {
    */
   relevantUnderlyingDate?: AdjustableOrRelativeDates;
 }
-  
+
 /**
  * The set of operational and positional effects associated with a lifecycle event, alongside the reference to the contract reference(s) that is subject to the event (and is positioned in the before state of the event primitive).
  */
@@ -4306,7 +4421,7 @@ export interface EventEffect {
    */
   transfer?: ReferenceWithMeta<TransferPrimitive>[];
 }
-  
+
 /**
  * A class which combines several events for testing purposes.
  */
@@ -4314,7 +4429,7 @@ export interface EventTestBundle {
   computedAmount?: ComputedAmount[];
   event?: WorkflowStep[];
 }
-  
+
 /**
  * A class to represent the various set of timestamps that can be associated with lifecycle events, as a collection of [dateTime, qualifier].
  */
@@ -4328,7 +4443,7 @@ export interface EventTimestamp {
    */
   qualification?: EventTimestampQualificationEnum;
 }
-  
+
 /**
  * A class that is used for describing the exchange rate for a particular transaction.
  */
@@ -4358,24 +4473,24 @@ export interface ExchangeRate {
    */
   spotRate?: number;
 }
-  
+
 /**
  * A class to specify an ETF as having a product identifier. As a difference versus the FpML standard, the CDM structure of this class only includes the productIdentifier class, which consists of an identifier, productTaxonomy, and source of the identifier. The reason for this approach is to avoid the potential for conflicting information between the information associated with the contractual product and the reference information maintained by the relevant service provider.
  */
 export interface ExchangeTradedFund extends IdentifiedProduct {
   productIdentifier?: ProductIdentifier;
 }
-  
+
 export interface ExctgPrsn {
   prsn?: Prsn;
 }
-  
+
 export interface ExecutingEntity {
   addressOfBranch?: Address;
   addressOfIncorporation?: Address;
   isInvestmentFirm?: boolean;
 }
-  
+
 /**
  *  A class to specify an execution, which consists essentially in the economic terms which are agreed between the parties, alongside with the qualification of the type of execution. The associated globalKey denotes the ability to associate a hash value to the respective Execution instantiations for the purpose of model cross-referencing, in support of functionality such as the event effect and the lineage.
  */
@@ -4418,7 +4533,7 @@ export interface Execution {
    */
   tradeDate?: FieldWithMeta<Date>;
 }
-  
+
 /**
  * A class to specify execution language terms of a Security Agreement.
  */
@@ -4436,7 +4551,7 @@ export interface ExecutionLanguage {
    */
   standardLanguage?: boolean;
 }
-  
+
 /**
  * A class to specify execution location terms of a Security Agreement
  */
@@ -4466,7 +4581,7 @@ export interface ExecutionLocation {
    */
   otherLanguage?: string;
 }
-  
+
 /**
  * Specification of the primitive event for an execution, with 'after' state being an ExecutionState and the 'before' state being Null. It is expected that the 'before' state will be adjusted or deprecated once the CDM scope is extended to the pre-execution space.
  */
@@ -4480,7 +4595,7 @@ export interface ExecutionPrimitive {
    */
   before?: ReferenceWithMeta<ExecutionState>[];
 }
-  
+
 /**
  * A class to specify an execution instantiation with respect to the before and/or after state of lifecycle events.
  */
@@ -4488,7 +4603,7 @@ export interface ExecutionState {
   execution?: Execution;
   meta?: MetaFields;
 }
-  
+
 /**
  * A class to specify execution location and language of execution to determine duty to be paid.
  */
@@ -4502,7 +4617,7 @@ export interface ExecutionTerms {
    */
   executionLocation?: ExecutionLocation;
 }
-  
+
 /**
  * A data defining:  the adjusted dates associated with a particular exercise event.
  */
@@ -4529,7 +4644,7 @@ export interface ExerciseEvent {
   adjustedRelevantSwapEffectiveDate?: Date;
   meta?: MetaFields;
 }
-  
+
 /**
  * A class defining the fee payable on exercise of an option. This fee may be defined as an amount or a percentage of the notional exercised. As a difference with FpML, it extends the BuyerSeller class.
  */
@@ -4567,7 +4682,7 @@ export interface ExerciseFee extends BuyerSeller {
    */
   sellerPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A class to define a fee or schedule of fees to be payable on the exercise of an option. This fee may be defined as an amount or a percentage of the notional exercised. As a difference with FpML, it extends the BuyerSeller class.
  */
@@ -4605,7 +4720,7 @@ export interface ExerciseFeeSchedule extends PayerReceiver {
    */
   receiverPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A class defining to whom and where notice of execution should be given. The partyReference refers to one of the principal parties of the trade. If present the exerciseNoticePartyReference refers to a party, other than the principal party, to whom notice should be given.
  */
@@ -4623,7 +4738,7 @@ export interface ExerciseNotice {
    */
   partyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * The exercise outcome combines the option contract (which states would be 'Exercised' in case of a full exercise and which would have a reduced notional in case of partial exercise) and either a physical or partial exercise.
  */
@@ -4632,7 +4747,7 @@ export interface ExerciseOutcome {
   contract?: Contract;
   physicalExercise?: PhysicalExercise;
 }
-  
+
 /**
  * This defines the time interval to the start of the exercise period, i.e. the earliest exercise date, and the frequency of subsequent exercise dates (if any).
  */
@@ -4647,7 +4762,7 @@ export interface ExercisePeriod {
   exerciseFrequency?: Period;
   meta?: MetaFields;
 }
-  
+
 /**
  * This primitive leverages the FpML OptionExercise construct, except for the exerciseTiming which is deemed as associated to a request for exercise that is meant to take place, as opposed to the actual exercise event.
  */
@@ -4658,7 +4773,7 @@ export interface ExercisePrimitive {
   exerciseTime?: BusinessCenterTime;
   fullExercise?: boolean;
 }
-  
+
 /**
  * A class describing how notice of exercise should be given. This can be either manual or automatic.
  */
@@ -4684,7 +4799,7 @@ export interface ExerciseProcedure {
    */
   splitTicket?: boolean;
 }
-  
+
 /**
  * A data defining:  an option to extend an existing swap transaction on the specified exercise dates for a term ending on the specified new termination date. As a difference from FpML, it extends the BuyerSeller class, which represents the BuyerSeller.model.
  */
@@ -4731,7 +4846,7 @@ export interface ExtendibleProvision extends BuyerSeller {
    */
   sellerPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A data defining:  the adjusted dates associated with a provision to extend a swap.
  */
@@ -4741,7 +4856,7 @@ export interface ExtendibleProvisionAdjustedDates {
    */
   extensionEvent?: ExtensionEvent[];
 }
-  
+
 /**
  * A data to:  define the adjusted dates associated with an individual extension event.
  */
@@ -4756,7 +4871,7 @@ export interface ExtensionEvent {
   adjustedExtendedTerminationDate?: Date;
   meta?: MetaFields;
 }
-  
+
 /**
  * Where the underlying is shares, defines market events affecting the issuer of those shares that may require the terms of the transaction to be adjusted.
  */
@@ -4778,7 +4893,7 @@ export interface ExtraordinaryEvents {
    */
   failureToDeliver?: boolean;
   /**
-   * 2002 ISDA Equity Derivatives Definitions: Adjustments to Indices | 
+   * 2002 ISDA Equity Derivatives Definitions: Adjustments to Indices |
    */
   indexAdjustmentEvents?: IndexAdjustmentEvents;
   /**
@@ -4795,7 +4910,7 @@ export interface ExtraordinaryEvents {
    */
   tenderOfferEvents?: EquityCorporateEvents;
 }
-  
+
 export interface FailureToPay {
   /**
    * Indicates whether the failure to pay provision is applicable.
@@ -4810,7 +4925,7 @@ export interface FailureToPay {
    */
   paymentRequirement?: Money;
 }
-  
+
 /**
  * The method, prioritised by the order it is listed in this element, to get a replacement rate for the disrupted settlement rate option.
  */
@@ -4832,7 +4947,7 @@ export interface FallbackReferencePrice {
    */
   valuationPostponement?: ValuationPostponement;
 }
-  
+
 /**
  * Payment made following trigger occurrence.
  */
@@ -4863,21 +4978,21 @@ export interface FeaturePayment {
    */
   time?: TimeTypeEnum;
 }
-  
+
 export interface FinInstrm {
   othr?: Othr;
 }
-  
+
 export interface FinInstrmGnlAttrbts {
   clssfctnTp?: string;
   fullNm?: string;
   ntnlCcy?: string;
 }
-  
+
 export interface FinInstrmRptgTxRpt {
   tx?: Tx;
 }
-  
+
 /**
  * A data to:  define business date convention adjustment to final payment period per leg.
  */
@@ -4889,20 +5004,22 @@ export interface FinalCalculationPeriodDateAdjustment {
   /**
    * Reference to the unadjusted cancellation effective dates.
    */
-  relevantUnderlyingDateReference?: ReferenceWithMeta<AdjustableOrRelativeDates>;
+  relevantUnderlyingDateReference?: ReferenceWithMeta<
+    AdjustableOrRelativeDates
+  >;
   /**
    * Reference to the leg, where date adjustments may apply.
    */
   swapStreamReference?: ReferenceWithMeta<InterestRatePayout>;
 }
-  
+
 /**
  * Data to specify a fixed interest rate price.
  */
 export interface FixedInterestRate {
   rate?: number;
 }
-  
+
 /**
  * Type defining the specification for a fixed rate.
  */
@@ -4914,7 +5031,7 @@ export interface FixedRateSpecification extends RateSpecificationBase {
   rateSchedule?: Schedule;
   assetIdentifier?: AssetIdentifier;
 }
-  
+
 /**
  * A class to specify the ISDA terms relating to the floating rate payment events and the implied additional fixed payments, applicable to the credit derivatives transactions on mortgage-backed securities with pay-as-you-go or physical settlement.
  */
@@ -4944,7 +5061,7 @@ export interface FloatingAmountEvents {
    */
   writedown?: boolean;
 }
-  
+
 export interface FloatingAmountProvisions {
   /**
    * As specified by the ISDA Standard Terms Supplement for use with trades on mortgage-backed securities. The presence of the element with value set to 'true' signifies that the provision is applicable. If applicable, the applicable step-up terms are specified as part of that ISDA Standard Terms Supplement. From a usage standpoint, this provision is typically applicable in the case of RMBS and not applicable in case of CMBS trades.
@@ -4955,7 +5072,7 @@ export interface FloatingAmountProvisions {
    */
   wacCapInterestProvision?: boolean;
 }
-  
+
 /**
  * Data to specify a floating interest rate price.
  */
@@ -4969,7 +5086,7 @@ export interface FloatingInterestRate {
   multiplier?: number;
   spread?: number;
 }
-  
+
 /**
  * A class defining a floating interest rate through the specification of the floating rate index, the tenor, the multiplier schedule, the spread, the qualification of whether a specific rate treatment and/or a cap or floor apply.
  */
@@ -4997,7 +5114,7 @@ export interface FloatingRate extends RateSpecificationBase {
   spreadSchedule?: SpreadSchedule[];
   assetIdentifier?: AssetIdentifier;
 }
-  
+
 /**
  * A data defining:  parameters associated with a floating rate reset. This data forms:  part of the cashflows representation of a stream.
  */
@@ -5027,7 +5144,7 @@ export interface FloatingRateDefinition {
    */
   spread?: number;
 }
-  
+
 /**
  * Specification of a floating rate option as a floating rate index and tenor.
  */
@@ -5041,7 +5158,7 @@ export interface FloatingRateOption {
    */
   indexTenor?: Period;
 }
-  
+
 /**
  * A class to specify the floating interest rate by extending the floating rate definition with a set of attributes that specify such rate: the initial value specified as part of the trade, the rounding convention, the averaging method and the negative interest rate treatment.
  */
@@ -5085,7 +5202,7 @@ export interface FloatingRateSpecification extends FloatingRate {
   spreadSchedule?: SpreadSchedule[];
   assetIdentifier?: AssetIdentifier;
 }
-  
+
 /**
  * From FpML: A type defining either a spot or forward FX transactions.
  */
@@ -5107,7 +5224,7 @@ export interface ForeignExchange {
    */
   tenorPeriod?: Period;
 }
-  
+
 /**
  * Representation of a forward settling payout. The 'Underlier' attribute captures the underlying payout, which is settled according to the 'SettlementTerms' attribute. Both FX Spot and FX Forward should use this componen, while distinction between the two will be handled via product qualification.
  */
@@ -5121,7 +5238,7 @@ export interface ForwardPayout {
    */
   underlier?: Underlier;
 }
-  
+
 /**
  * A class to specify party specific elections when a Collateral Transfer Agreement is governed by French Law.
  */
@@ -5135,7 +5252,7 @@ export interface FrenchLawAddendum {
    */
   partyElection?: FrenchLawAddendumElection[];
 }
-  
+
 /**
  * A class to specify party specific French Law Addendum language
  */
@@ -5153,7 +5270,7 @@ export interface FrenchLawAddendumElection {
    */
   party?: string;
 }
-  
+
 /**
  * A class for defining a date frequency, e.g. one day, three months, through the combination of an integer value and a standardized period value that is specified as part of an enumeration.
  */
@@ -5168,7 +5285,7 @@ export interface Frequency {
    */
   periodMultiplier?: number;
 }
-  
+
 /**
  * A class defining a currency and a future value date.
  */
@@ -5186,7 +5303,7 @@ export interface FutureValueAmount {
    */
   valueDate?: Date;
 }
-  
+
 /**
  * A class that is used for describing cash settlement of an option / non deliverable forward. It includes the currency to settle into together with the fixings required to calculate the currency amount.
  */
@@ -5205,7 +5322,7 @@ export interface FxCashSettlement {
    */
   settlementCurrency?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A type for defining FX Features.
  */
@@ -5227,7 +5344,7 @@ export interface FxFeature {
    */
   referenceCurrency?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class that specifies the source for and timing of a fixing of an exchange rate. This is used in the agreement of non-deliverable forward trades as well as various types of FX OTC options that require observations against a particular rate.
  */
@@ -5245,7 +5362,7 @@ export interface FxFixing {
    */
   quotedCurrencyPair?: QuotedCurrencyPair;
 }
-  
+
 /**
  * A data that:  is extending the Offset structure for providing the ability to specify an FX fixing date as an offset to dates specified somewhere else in the document.
  */
@@ -5281,7 +5398,7 @@ export interface FxFixingDate extends Offset {
    */
   periodMultiplier?: number;
 }
-  
+
 /**
  * A class to specify the reference currency for the purpose of specifying the FX Haircut relating to a posting obligation, as being either the Termination Currency or an FX Designated Currency.
  */
@@ -5295,7 +5412,7 @@ export interface FxHaircutCurrency {
    */
   isTerminationCurrency?: boolean;
 }
-  
+
 /**
  * Information source specific to Foreign Exchange products.
  */
@@ -5317,7 +5434,7 @@ export interface FxInformationSource extends InformationSource {
    */
   sourceProvider?: FieldWithMeta<InformationProviderEnum>;
 }
-  
+
 /**
  * A data to:  describe the cashflow representation for FX linked notionals.
  */
@@ -5339,7 +5456,7 @@ export interface FxLinkedNotionalAmount {
    */
   resetDate?: Date;
 }
-  
+
 /**
  * A data to:  describe a notional schedule where each notional that applies to a calculation period is calculated with reference to a notional amount or notional amount schedule in a different currency by means of a spot currency exchange rate which is normally observed at the beginning of each period.
  */
@@ -5365,7 +5482,7 @@ export interface FxLinkedNotionalSchedule {
    */
   varyingNotionalInterimExchangePaymentDates?: RelativeDateOffset;
 }
-  
+
 /**
  * A class describing the rate of a currency conversion: pair of currency, quotation mode and exchange rate.
  */
@@ -5379,7 +5496,7 @@ export interface FxRate {
    */
   rate?: number;
 }
-  
+
 /**
  * Describes a rate source to be fixed and the date the fixing occurs
  */
@@ -5390,7 +5507,7 @@ export interface FxRateSourceFixing {
   fixingDate?: AdjustableDate;
   settlementRateSource?: FxSettlementRateSource;
 }
-  
+
 /**
  * The source of the Foreign Exchange settlement rate.
  */
@@ -5404,7 +5521,7 @@ export interface FxSettlementRateSource {
    */
   settlementRateOption?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class defining the rate source and fixing time for an FX rate.
  */
@@ -5422,7 +5539,7 @@ export interface FxSpotRateSource {
    */
   secondaryRateSource?: InformationSource;
 }
-  
+
 /**
  * A class to specify the ISDA SIMM as the Method for all Covered Transactions with respect to all Regimes. ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (ee).
  */
@@ -5436,7 +5553,7 @@ export interface GeneralSimmElections {
    */
   simmVersion?: SimmVersion;
 }
-  
+
 /**
  *  A class specifying a set of non-monetary terms for the Credit Derivative Transaction, including the buyer and seller and selected items from the ISDA 2014 Credit Definition article II, such as the reference obligation and related terms. The CDM GeneralTerms class corresponds to the FpML GeneralTerms complex type, except that the effectiveDate and scheduledTerminationDate have been positioned as part of the InterestRatePayout class in the CDM instead of in GeneralTerms.
  */
@@ -5470,7 +5587,7 @@ export interface GeneralTerms {
    */
   substitution?: boolean;
 }
-  
+
 export interface GracePeriodExtension {
   /**
    * Indicates whether the grace period extension provision is applicable.
@@ -5481,7 +5598,7 @@ export interface GracePeriodExtension {
    */
   gracePeriod?: Offset;
 }
-  
+
 /**
  * A class to specify the elections for the holding and using of posted collateral by the respective parties to the Credit Support Annex for Variation Margin. ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (h): Holding and Using Posted Collateral (VM).
  */
@@ -5491,7 +5608,7 @@ export interface HoldingAndUsingPostedCollateral {
    */
   partyElection?: HoldingAndUsingPostedCollateralElection;
 }
-  
+
 /**
  * A class to specify the parties' elections related to the holding and using of posted collateral. ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (h): Holding and Using Posted Collateral (VM).
  */
@@ -5509,18 +5626,18 @@ export interface HoldingAndUsingPostedCollateralElection {
    */
   useOfPostedCollateral?: boolean;
 }
-  
+
 export interface Id {
   lei?: string;
 }
-  
+
 /**
  * An abstract class to specify a product which terms are abstracted through reference data.
  */
 export interface IdentifiedProduct {
   productIdentifier?: ProductIdentifier;
 }
-  
+
 /**
  * A class to specify a generic identifier, applicable to CDM artefacts such as executions, contracts, lifecycle events and legal documents. An issuer can be associated with the actual identifier value as a way to properly qualify it.
  */
@@ -5539,7 +5656,7 @@ export interface Identifier {
   issuerReference?: ReferenceWithMeta<Party>;
   meta?: MetaFields;
 }
-  
+
 /**
  * A class specifying the Independent Amount as the combination of a payer/receiver, a payment amount, a payment date and an associated payment calculation rule.
  */
@@ -5565,14 +5682,14 @@ export interface IndependentAmount extends PayerReceiver {
    */
   receiverPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A class to specify an index as having a product identifier. As a difference versus the FpML standard, the CDM structure of this class only includes the productIdentifier class, which consists of an identifier, productTaxonomy, and source of the identifier. The reason for this approach is to avoid the potential for conflicting information between the information associated with the contractual product and the reference information maintained by the relevant service provider.
  */
 export interface Index extends IdentifiedProduct {
   productIdentifier?: ProductIdentifier;
 }
-  
+
 /**
  * Defines the specification of the consequences of Index Events as defined by the 2002 ISDA Equity Derivatives Definitions.
  */
@@ -5590,7 +5707,7 @@ export interface IndexAdjustmentEvents {
    */
   indexModification?: IndexEventConsequenceEnum;
 }
-  
+
 /**
  * A class defining a Credit Default Swap Index.
  */
@@ -5633,11 +5750,11 @@ export interface IndexReferenceInformation {
    */
   tranche?: Tranche;
 }
-  
+
 export interface Indx {
   nm?: Nm;
 }
-  
+
 /**
  * A class to specify the parties to which the provisions of Paragraph 11(g) of the ISDA 2016 Credit Support Annex for Variation Margin will apply to. ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (c)(iii): Legally Ineligible Credit Support (VM).
  */
@@ -5647,7 +5764,7 @@ export interface IneligibleCreditSupport {
    */
   specifiedParty?: ReferenceWithMeta<Party>[];
 }
-  
+
 /**
  * A data to:  specify the inflation rate.
  */
@@ -5715,7 +5832,7 @@ export interface InflationRateSpecification extends FloatingRateSpecification {
   spreadSchedule?: SpreadSchedule[];
   assetIdentifier?: AssetIdentifier;
 }
-  
+
 /**
  * A class defining the source for a piece of information (e.g. a rate fix or an FX fixing). The attribute names have been adjusted from FpML to address the fact that the information is not limited to rates.
  */
@@ -5733,7 +5850,7 @@ export interface InformationSource {
    */
   sourceProvider?: FieldWithMeta<InformationProviderEnum>;
 }
-  
+
 /**
  * A CDM class which purpose is to specify the initial fixing date either alongside the FpML interest rate specification as an offset of another date, or alongside the credit derivative specification as an unadjusted date.
  */
@@ -5741,7 +5858,7 @@ export interface InitialFixingDate {
   initialFixingDate?: Date;
   relativeDateOffset?: RelativeDateOffset;
 }
-  
+
 /**
  *  Defines initial margin applied to a repo transaction. Initial margin is an agreed premium to the Purchase Price of a repo to determine the required Market Value of the collateral to be delivered on the Purchase Date. It reflects quality of the collateral. Its aim is to calculate the risk-adjusted or liquidation value of collateral.
  */
@@ -5763,7 +5880,7 @@ export interface InitialMargin {
    */
   minimumTransferAmount?: Money;
 }
-  
+
 /**
  *  Defines the initial margin calculation applicable to a single piece of collateral.
  */
@@ -5785,7 +5902,7 @@ export interface InitialMarginCalculation {
    */
   marginRatioThreshold?: number[];
 }
-  
+
 /**
  * Instruction to a function that will be used to perform a business event
  */
@@ -5803,7 +5920,7 @@ export interface Instruction {
    */
   instructionFunction?: string;
 }
-  
+
 /**
  * A class to specify whether the Interest Adjustment is applicable and what its periodicity is. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(ii).
  */
@@ -5817,7 +5934,7 @@ export interface InterestAdjustment {
    */
   periodicity?: InterestAdjustmentPeriodicity;
 }
-  
+
 /**
  * A class to specify the Interest Adjustment periodicity either through a standardized election or a custom one. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(ii).
  */
@@ -5831,7 +5948,7 @@ export interface InterestAdjustmentPeriodicity {
    */
   standardElection?: InterestAdjustmentPeriodicityEnum;
 }
-  
+
 /**
  * A class to specify the application of Interest Amount with respect to the Delivery Amount and the Return Amount. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(ii).
  */
@@ -5845,12 +5962,12 @@ export interface InterestAmount {
    */
   returnAmount?: ReturnAmount;
 }
-  
+
 export interface InterestRateCurve {
   floatingRateIndex?: FieldWithMeta<FloatingRateIndexEnum>;
   tenor?: Period;
 }
-  
+
 /**
  *  A class to specify all of the terms necessary to define and calculate a cash flow based on a fixed, a floating or an inflation index rate. The interest rate payout can be applied to interest rate swaps and FRA (which both have two associated interest rate payouts), credit default swaps (to represent the fee leg when subject to periodic payments) and equity swaps (to represent the funding leg). The associated globalKey denotes the ability to associate a hash value to the InterestRatePayout instantiations for the purpose of model cross-referencing, in support of functionality such as the event effect and the lineage.
  */
@@ -5925,7 +6042,7 @@ export interface InterestRatePayout extends PayoutBase {
    */
   payoutQuantity?: ResolvablePayoutQuantity;
 }
-  
+
 /**
  * A class to specify the interest shortfall floating rate payment event.
  */
@@ -5940,11 +6057,11 @@ export interface InterestShortFall {
    */
   rateSource?: FieldWithMeta<FloatingRateIndexEnum>;
 }
-  
+
 export interface InvstmtDcsnPrsn {
   prsn?: Prsn;
 }
-  
+
 /**
  * Criteria used to specify eligible collateral issuers.
  */
@@ -5974,7 +6091,7 @@ export interface IssuerCriteria {
    */
   sovereignAgencyRating?: AgencyRatingCriteria[];
 }
-  
+
 /**
  * A class for a two-parts identifier, such as a USI.
  */
@@ -5988,7 +6105,7 @@ export interface IssuerTradeId {
    */
   issuer?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class to specify Japanese Securities Provision elections.
  */
@@ -6014,7 +6131,7 @@ export interface JapaneseSecuritiesProvisions {
    */
   relevantProvisionsTerms?: string;
 }
-  
+
 /**
  * A class to specify terms jurisdiction related terms.
  */
@@ -6036,7 +6153,7 @@ export interface JurisdictionRelatedTerms {
    */
   juryWaiver?: boolean;
 }
-  
+
 /**
  * Knock In means option to exercise comes into existence. Knock Out means option to exercise goes out of existence.
  */
@@ -6050,7 +6167,7 @@ export interface Knock {
    */
   knockOut?: TriggerEvent;
 }
-  
+
 /**
  * A class which purpose is to provide the ability into the seemingly incompatible representations of the interest rate and equity last payment date.
  */
@@ -6064,7 +6181,7 @@ export interface LastRegularPaymentDate {
    */
   lastRegularPaymentDate?: Date;
 }
-  
+
 /**
  * A class to specify the elections and variables that characterize a legal agreement.
  */
@@ -6107,7 +6224,7 @@ export interface LegalAgreement extends LegalAgreementBase {
    */
   partyInformation?: Party[];
 }
-  
+
 /**
  * A class describing the legal agreement baseline information, other than the specialized elections: type of legal agreement, agreement date and effective date, parties to the agreement, ... The purpose of this abstract class is to provide the ability to associate a 'one of' feature to the LegalAgreement class as a way to enforce a systematic choice between its attributes.
  */
@@ -6145,7 +6262,7 @@ export interface LegalAgreementBase {
    */
   partyInformation?: Party[];
 }
-  
+
 /**
  * A class to specify the type of legal agreement, which is extended by each legal agreement instance, such as the ISDA 2016 CSA for Initial Margin.
  */
@@ -6167,7 +6284,7 @@ export interface LegalAgreementType {
    */
   vintage?: string;
 }
-  
+
 /**
  * A class to specify a legal entity, with a required name and an optional entity identifier (such as the LEI).
  */
@@ -6182,7 +6299,7 @@ export interface LegalEntity {
    */
   name?: FieldWithMeta<String>;
 }
-  
+
 export interface LimitApplicable {
   /**
    * The limit remaining for the limit level and limit type. This does not take into account any pending trades. While the attribute is of type integer in FpML and the CME schema, it has been specified to be of type number in the CDM to take into consideration java size limits as well as for consistency purposes with the way most monetary amounts are expressed.
@@ -6207,7 +6324,7 @@ export interface LimitApplicable {
   utilization?: CreditLimitUtilisation;
   velocity?: Velocity;
 }
-  
+
 /**
  * A class to represent the CDM attributes that are not part of the FpML standard. Once broader usage is confirmed, it is expected that those two classes can be collapsed.
  */
@@ -6247,7 +6364,7 @@ export interface LimitApplicableExtended extends LimitApplicable {
   utilization?: CreditLimitUtilisation;
   velocity?: Velocity;
 }
-  
+
 /**
  * A class to provide lineage information across lifecycle events through a pointer or set of pointers into the event(s), contract(s) and, possibly, payout components that the event is dependent on or relates to. As an example, if an contractFormation event is corrected, the correction event will have a lineage into the initial event, which takes the form of a globalKey into that initial contract formation event. Two referencing mechanisms are provided as part of the CDM: either the globalKey, which corresponds to the hash value of the CDM class which is referred to, or a reference qualifier which is meant to provide support for the ingestion of xml documents with id/href mechanisms. The CDM recommends the use of the globalKey and provides a default implementation which is accessible in the generated code through org.isda.cdm.globalKey.GlobalKeyHashCalculator. If implementers want to use an alternative hashing mechanism, the API in which they need to plug it is com.rosetta.model.lib.HashFunction.
  */
@@ -6297,7 +6414,7 @@ export interface Lineage {
    */
   transferReference?: ReferenceWithMeta<TransferPrimitive>[];
 }
-  
+
 export interface Loan extends IdentifiedProduct {
   /**
    * Specifies the borrower. There can be more than one borrower. It is meant to be used in the event that there is no Bloomberg Id or the Secured List isn't applicable.
@@ -6321,7 +6438,7 @@ export interface Loan extends IdentifiedProduct {
   tranche?: FieldWithMeta<String>;
   productIdentifier?: ProductIdentifier;
 }
-  
+
 /**
  * A class to specify loan with a participation agreement whereby the buyer is capable of creating, or procuring the creation of, a contractual right in favour of the seller that provides the seller with recourse to the participation seller for a specified share in any payments due under the relevant loan which are received by the participation seller. ISDA 2003 Term: Direct Loan Participation.
  */
@@ -6339,7 +6456,7 @@ export interface LoanParticipation extends PCDeliverableObligationCharac {
    */
   partialCashSettlement?: boolean;
 }
-  
+
 /**
  * A class to specify the amount to be paid by the buyer of the option if the option is exercised prior to the Early Call Date (typically applicable to the convertible bond options).
  */
@@ -6366,7 +6483,7 @@ export interface MakeWholeAmount extends SwapCurveValuation {
    */
   spread?: number;
 }
-  
+
 /**
  * A data to:  define an early termination provision for which exercise is mandatory.
  */
@@ -6389,7 +6506,7 @@ export interface MandatoryEarlyTermination {
   mandatoryEarlyTerminationDate?: AdjustableDate;
   meta?: MetaFields;
 }
-  
+
 /**
  * A data defining:  the adjusted dates associated with a mandatory early termination provision.
  */
@@ -6407,7 +6524,7 @@ export interface MandatoryEarlyTerminationAdjustedDates {
    */
   adjustedEarlyTerminationDate?: Date;
 }
-  
+
 /**
  * A class defining manual exercise, i.e. that the option buyer counterparty must give notice to the option seller of exercise.
  */
@@ -6421,14 +6538,14 @@ export interface ManualExercise {
    */
   fallbackExercise?: boolean;
 }
-  
+
 /**
  * A class for selection of Margin Approach.
  */
 export interface MarginApproach {
   marginApproach?: MarginApproachEnum;
 }
-  
+
 /**
  * A class for defining the agreement executed between the parties and intended to govern all OTC derivatives transactions between those parties.
  */
@@ -6450,7 +6567,7 @@ export interface MasterAgreement {
    */
   masterAgreementVersion?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class for defining the master confirmation agreement executed between the parties.
  */
@@ -6472,13 +6589,12 @@ export interface MasterConfirmation {
    */
   masterConfirmationType?: FieldWithMeta<MasterConfirmationTypeEnum>;
 }
-  
+
 /**
  * Legal agreement specification for General Terms and Elections that are applicable across multiple confirmations and are referenced by these confirmations.
  */
-export interface MasterConfirmationBase {
-}
-  
+export interface MasterConfirmationBase {}
+
 /**
  * This class corresponds to the components of the FpML MessageHeader.model.
  */
@@ -6500,7 +6616,7 @@ export interface MessageInformation {
    */
   sentTo?: FieldWithMeta<String>[];
 }
-  
+
 /**
  * A class to specify amount of exposure reached before collateral has to be posted or returned. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (c)(vi)(B): Minimum Transfer Amount. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (d)(vi)(B): Minimum Transfer Amount. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (c)(vi)(B): Minimum Transfer Amount.
  */
@@ -6510,7 +6626,7 @@ export interface MinimumTransferAmount {
    */
   partyElection?: ElectiveAmountElection[];
 }
-  
+
 /**
  *  A class to specify whether Amendment to Minimum Transfer Amount language is applicable or not
  */
@@ -6528,7 +6644,7 @@ export interface MinimumTransferAmountAmendment {
    */
   partyElections?: ElectiveAmountElection[];
 }
-  
+
 /**
  * A class defining a currency amount.
  */
@@ -6543,7 +6659,7 @@ export interface Money {
   currency?: FieldWithMeta<String>;
   meta?: MetaFields;
 }
-  
+
 export interface MortgageBackedSecurity extends ProductIdentifier {
   /**
    * The mortgage pool that is underneath the mortgage obligation.
@@ -6571,7 +6687,7 @@ export interface MortgageBackedSecurity extends ProductIdentifier {
    */
   source?: ProductIdSourceEnum;
 }
-  
+
 /**
  * A class to specify multiple credit notations alongside a conditional 'any' or 'all' qualifier.
  */
@@ -6587,7 +6703,7 @@ export interface MultipleCreditNotations {
   mismatchResolution?: CreditNotationMismatchResolutionEnum;
   referenceAgency?: CreditRatingAgencyEnum;
 }
-  
+
 /**
  * A class to specify multiple credit debt types alongside a conditional 'any' or 'all' qualifier.
  */
@@ -6601,7 +6717,7 @@ export interface MultipleDebtTypes {
    */
   debtType?: FieldWithMeta<String>[];
 }
-  
+
 /**
  * A class defining multiple exercises. As defined in the 2000 ISDA Definitions, Section 12.4. Multiple Exercise, the buyer of the option has the right to exercise all or less than all the unexercised notional amount of the underlying swap on one or more days in the exercise period, but on any such day may not exercise less than the minimum notional amount or more than the maximum notional amount, and if an integral multiple amount is specified, the notional exercised must be equal to or, be an integral multiple of, the integral multiple amount. In FpML, MultipleExercise is built upon the PartialExercise.model.
  */
@@ -6631,7 +6747,7 @@ export interface MultipleExercise extends PartialExercise {
    */
   notionaReference?: ReferenceWithMeta<Money>;
 }
-  
+
 export interface MultipleValuationDates extends SingleValuationDate {
   /**
    * The number of business days between successive valuation dates when multiple valuation dates are applicable for cash settlement. ISDA 2003 Term: Business Days thereafter.
@@ -6646,14 +6762,14 @@ export interface MultipleValuationDates extends SingleValuationDate {
    */
   businessDays?: number;
 }
-  
+
 /**
  * A class to specify a mutual fund as having a product identifier. As a difference versus the FpML standard, the CDM structure of this class only includes the productIdentifier class, which consists of an identifier, productTaxonomy, and source of the identifier. The reason for this approach is to avoid the potential for conflicting information between the information associated with the contractual product and the reference information maintained by the relevant service provider.
  */
 export interface MutualFund extends IdentifiedProduct {
   productIdentifier?: ProductIdentifier;
 }
-  
+
 /**
  * A class to represent the attributes that are specific to a natural person.
  */
@@ -6682,7 +6798,7 @@ export interface NaturalPerson {
    */
   surname?: string;
 }
-  
+
 /**
  * A class to specify the role(s) that natural person(s) may have in relation to the contract.
  */
@@ -6696,7 +6812,7 @@ export interface NaturalPersonRole {
    */
   role?: FieldWithMeta<NaturalPersonRoleEnum>;
 }
-  
+
 export interface New {
   addtlAttrbts?: AddtlAttrbts;
   buyr?: Buyr;
@@ -6711,12 +6827,12 @@ export interface New {
   tx?: Tx;
   txId?: string;
 }
-  
+
 export interface Nm {
   refRate?: RefRate;
   term?: Term;
 }
-  
+
 /**
  * A data defining:  the parameters used when the reference currency of the payout is non-deliverable.
  */
@@ -6742,13 +6858,13 @@ export interface NonDeliverableSettlement {
    */
   settlementRateOption?: FieldWithMeta<SettlementRateOptionEnum>;
 }
-  
+
 /**
  *  Class to specify a quantity as a non-negative number, which condition is enforced through a data rule that only applies to the extending class.
  */
 export interface NonNegativeQuantity extends Quantity {
   /**
-   * The amount to quantify 
+   * The amount to quantify
    */
   amount?: number;
   /**
@@ -6756,7 +6872,7 @@ export interface NonNegativeQuantity extends Quantity {
    */
   unit?: UnitEnum;
 }
-  
+
 /**
  * Class to specify a non-negative quantity schedule, which is used to define the quantity of a payout leg. This quantity cannot be negative, while direction is specified through a BuyerSeller or PayerReceiver attribute. The only available schedule implementation is a step schedule, specified as a set of date-value pairs. The non-negativity is enforced by using the non-negative quantity and step schedule classes.
  */
@@ -6770,7 +6886,7 @@ export interface NonNegativeQuantitySchedule {
    */
   stepSchedule?: NonNegativeStepSchedule;
 }
-  
+
 /**
  * A class defining a step date and non-negative step value pair. This step definitions are used to define varying rate or amount schedules, e.g. a notional amortisation or a step-up coupon schedule.
  */
@@ -6785,7 +6901,7 @@ export interface NonNegativeStep {
    */
   stepValue?: number;
 }
-  
+
 /**
  *  Class to specify a non-negative schedule as a schedule of steps, typically used to define a payout leg with variable quantity. This quantity cannot be negative, while direction is specified through a BuyerSeller or PayerReceiver attribute. The non-negativity is enforced by making use of the non-negative step class.
  */
@@ -6795,7 +6911,7 @@ export interface NonNegativeStepSchedule {
    */
   step?: NonNegativeStep[];
 }
-  
+
 /**
  * A class to specify the ISDA 2003 Term: Not Domestic Currency.
  */
@@ -6809,7 +6925,7 @@ export interface NotDomesticCurrency {
    */
   currency?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class to specify the time by which a demand for the Transfer of Eligible Credit Support (IM) or Posted Credit Support (IM) needs to be made in order for the transfer to take place in accordance with the Transfer Timing provisions. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (d)(iii): Notification Time. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (e)(iii): Notification Time. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (d)(iii): Notification Time.
  */
@@ -6827,7 +6943,7 @@ export interface NotificationTime {
    */
   transferTimingProviso?: boolean;
 }
-  
+
 /**
  * A class to specify the notification time election by the respective parties to the agreement. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (d)(iii): Notification Time. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (e)(iii): Notification Time. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (d)(iii): Notification Time.
  */
@@ -6845,12 +6961,12 @@ export interface NotificationTimeElection {
    */
   party?: string;
 }
-  
+
 export interface NotifyingParty {
   buyerPartyReference?: ReferenceWithMeta<Party>;
   sellerPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A class to specify the underlying obligations of the reference entity on which protection is purchased or sold through the Credit Default Swap.
  */
@@ -6928,7 +7044,7 @@ export interface Obligations {
    */
   specifiedCurrency?: SpecifiedCurrency;
 }
-  
+
 /**
  * A class to specify the primitive object to specify market observation events, which is applicable across all asset classes.
  */
@@ -6954,7 +7070,7 @@ export interface ObservationPrimitive {
    */
   time?: TimeZone;
 }
-  
+
 /**
  * The observation source can be composed of an curve and/or and information source.
  */
@@ -6962,7 +7078,7 @@ export interface ObservationSource {
   curve?: Curve;
   informationSource?: InformationSource;
 }
-  
+
 /**
  * A class defining an offset used in calculating a new date relative to a reference date, e.g. calendar days, business days, commodity Business days, etc.
  */
@@ -6981,7 +7097,7 @@ export interface Offset extends Period {
    */
   periodMultiplier?: number;
 }
-  
+
 /**
  * A class to specify whether One Way Provisions apply in relation to the ISDA CSA for Initial Margin and, if yes, to specify the Posting Party. ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles (aa): One Way Provisions.
  */
@@ -6995,7 +7111,7 @@ export interface OneWayProvisions {
    */
   postingParty?: string;
 }
-  
+
 /**
  * A data to:  define the cash settlement terms for a product where cash settlement is applicable.
  */
@@ -7042,7 +7158,7 @@ export interface OptionCashSettlement {
    */
   zeroCouponYieldAdjustedMethod?: YieldCurveMethod;
 }
-  
+
 /**
  * Class which corresponds to the FpML OptionDenomination.model group.
  */
@@ -7060,7 +7176,7 @@ export interface OptionDenomination {
    */
   optionEntitlement?: number;
 }
-  
+
 /**
  *  A class to represent the applicable terms to qualify an option exercise: the option style (e.g. American style option), the exercise procedure (e.g. manual exercise) and the settlement terms (e.g. physical vs. cash).
  */
@@ -7082,7 +7198,7 @@ export interface OptionExercise {
    */
   strike?: OptionStrike;
 }
-  
+
 /**
  * A class for defining option features.
  */
@@ -7112,7 +7228,7 @@ export interface OptionFeature {
    */
   strategyFeature?: StrategyFeature;
 }
-  
+
 /**
  *  The option payout specification terms. The associated globalKey denotes the ability to associate a hash value to the respective OptionPayout instantiation for the purpose of model cross-referencing, in support of functionality such as the event effect and the lineage.
  */
@@ -7144,7 +7260,7 @@ export interface OptionPayout extends PayoutBase {
    */
   payoutQuantity?: ResolvablePayoutQuantity;
 }
-  
+
 export interface OptionPhysicalSettlement {
   /**
    * Specifies whether the swap resulting from physical settlement of the swaption transaction will clear through a clearing house. The meaning of Cleared Physical Settlement is defined in the 2006 ISDA Definitions, Section 15.2 (published in Supplement number 28).
@@ -7155,7 +7271,7 @@ export interface OptionPhysicalSettlement {
    */
   predeterminedClearingOrganizationPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A class for defining option provisions.
  */
@@ -7169,7 +7285,7 @@ export interface OptionProvision {
    */
   extendibleProvision?: ExtendibleProvision;
 }
-  
+
 /**
  * The option settlement terms, which can either be cash, physical, or fx-based cash-settlement. This class can be used for both the settlement of options or forwards.
  */
@@ -7209,7 +7325,7 @@ export interface OptionSettlement extends SettlementTerms {
    */
   settlementCurrency?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class to specify the option strike.
  */
@@ -7239,7 +7355,7 @@ export interface OptionStrike {
    */
   strikeReference?: ReferenceWithMeta<FixedRateSpecification>;
 }
-  
+
 /**
  * The qualification of the option style: American, Bermuda or European. FpML implements those features as part of a substitution group.
  */
@@ -7248,7 +7364,7 @@ export interface OptionStyle {
   bermudaExercise?: BermudaExercise;
   europeanExercise?: EuropeanExercise;
 }
-  
+
 /**
  * A data defining:  an early termination provision where either or both parties have the right to exercise.
  */
@@ -7290,7 +7406,7 @@ export interface OptionalEarlyTermination {
    */
   singlePartyOption?: BuyerSeller;
 }
-  
+
 /**
  * A data defining:  the adjusted dates associated with an optional early termination provision.
  */
@@ -7300,11 +7416,11 @@ export interface OptionalEarlyTerminationAdjustedDates {
    */
   earlyTerminationEvent?: EarlyTerminationEvent[];
 }
-  
+
 export interface OrdrTrnsmssn {
   trnsmssnInd?: string;
 }
-  
+
 /**
  * A class for defining an agreement executed between parties.
  */
@@ -7326,7 +7442,7 @@ export interface OtherAgreement {
    */
   version?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class to specify a related legal agreement. ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (s): Other CSA and Japanese Law CSA (VM). | ISDA 2016 Credit Support Annex for Variation Margin, paragraph 13, (o): Other CSA.
  */
@@ -7340,7 +7456,7 @@ export interface OtherAgreements {
    */
   legalDocument?: string;
 }
-  
+
 /**
  * A class to specify the Other Eligible Support elections associated Initial and Variation margin agreements.
  */
@@ -7358,14 +7474,14 @@ export interface OtherEligibleAndPostedSupport {
    */
   otherEligibleSupport?: string;
 }
-  
+
 export interface Othr {
   derivInstrmAttrbts?: DerivInstrmAttrbts;
   finInstrmGnlAttrbts?: FinInstrmGnlAttrbts;
   id?: string;
   schmeNm?: SchmeNm;
 }
-  
+
 /**
  * A class to specify the Partial Cash Deliverable Obligation Characteristic.
  */
@@ -7379,7 +7495,7 @@ export interface PCDeliverableObligationCharac {
    */
   partialCashSettlement?: boolean;
 }
-  
+
 /**
  * A class defining additional information that may be recorded alongside a transaction package.
  */
@@ -7394,7 +7510,7 @@ export interface PackageInformation {
    */
   relatedParty?: RelatedParty[];
 }
-  
+
 /**
  * A class defining partial exercise. As defined in the 2000 ISDA Definitions, Section 12.3 Partial Exercise, the buyer of the option may exercise all or less than all the notional amount of the underlying swap but may not be less than the minimum notional amount (if specified) and must be an integral multiple of the integral multiple amount if specified.
  */
@@ -7416,9 +7532,9 @@ export interface PartialExercise {
    */
   notionaReference?: ReferenceWithMeta<Money>;
 }
-  
+
 /**
- * A class to specify a party, without a qualification as to whether this party is a legal entity or a natural person, although the model provides the ability to associate a person (or set of persons) to a party, which use case would imply that such party would be a legal entity (even if not formally specified as such). 
+ * A class to specify a party, without a qualification as to whether this party is a legal entity or a natural person, although the model provides the ability to associate a person (or set of persons) to a party, which use case would imply that such party would be a legal entity (even if not formally specified as such).
  */
 export interface Party {
   /**
@@ -7439,7 +7555,7 @@ export interface Party {
    */
   person?: NaturalPerson[];
 }
-  
+
 /**
  * A class defining a legal agreement identifier issued by the indicated party.
  */
@@ -7454,7 +7570,7 @@ export interface PartyAgreementIdentifier {
    */
   partyReference?: string;
 }
-  
+
 /**
  * A class to specify contact information within a party: address and, optionally, associated business unit and person. This class also supports the ISDA CSA representation as a single string, through the address attribute.
  */
@@ -7480,7 +7596,7 @@ export interface PartyContactInformation {
    */
   person?: NaturalPerson[];
 }
-  
+
 /**
  * A class defining party-specific additional information that may be recorded with respect to a contract.
  */
@@ -7503,7 +7619,7 @@ export interface PartyContractInformation {
   partyReference?: ReferenceWithMeta<Party>;
   relatedParty?: RelatedParty;
 }
-  
+
 /**
  * A class to specify a party-related, non-standardized data in a generic form.
  */
@@ -7521,7 +7637,7 @@ export interface PartyCustomisedWorkflow {
    */
   partyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A class to specify the role(s) that party(ies) may have in relation to the execution, contract or other legal agreement.
  */
@@ -7539,7 +7655,7 @@ export interface PartyRole {
    */
   role?: PartyRoleEnum;
 }
-  
+
 /**
  * Type which contains pass through payments.
  */
@@ -7549,7 +7665,7 @@ export interface PassThrough {
    */
   passThroughItem?: PassThroughItem[];
 }
-  
+
 /**
  * Class to represent a single pass through payment.
  */
@@ -7563,7 +7679,7 @@ export interface PassThroughItem {
    */
   payerReceiver?: PayerReceiver;
 }
-  
+
 /**
  * A class to represent the FpML PayerReceiver.model.
  */
@@ -7585,7 +7701,7 @@ export interface PayerReceiver {
    */
   receiverPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A data defining:  the adjusted payment date and associated calculation period parameters required to calculate the actual or projected payment amount. This data forms:  part of the cashflow representation of a swap stream.
  */
@@ -7620,7 +7736,7 @@ export interface PaymentCalculationPeriod {
    */
   unadjustedPaymentDate?: Date;
 }
-  
+
 /**
  * A class to specify the parameters to generate the payment date schedule, either through a parametric representation or by reference to other dates specified in the instance document (e.g. the reset dates or valuation dates). The CDM representation combines the FpML payment dates representation for interest rate and total return swap products by providing the ability to specify the payment dates as a function of some other dates specified in the instance document.
  */
@@ -7655,7 +7771,7 @@ export interface PaymentDates {
    */
   paymentFrequency?: Frequency;
 }
-  
+
 export interface PaymentDetail {
   meta?: MetaFields;
   /**
@@ -7668,7 +7784,7 @@ export interface PaymentDetail {
    */
   paymentRule?: PaymentRule;
 }
-  
+
 /**
  * This class corresponds to the FpML PaymentDiscounting.model group for representing the discounting elements that can be associated with a payment.
  */
@@ -7682,7 +7798,7 @@ export interface PaymentDiscounting {
    */
   presentValueAmount?: Money;
 }
-  
+
 /**
  * A class defining the payment calculation rule. As of FpML 5.10, percentage rule is the only calculation rule that has been specified as part of the standard.
  */
@@ -7692,7 +7808,7 @@ export interface PaymentRule {
    */
   percentageRule?: PercentageRule;
 }
-  
+
 /**
  *  A class to represent the set of future cashflow methodologies in the form of specific payout class(es) that can be associated for the purpose of specifying a financial product. For example, two interest rate payouts can be combined to specify an interest rate swap, or one interest rate payout can be combined with a credit default payout to specify a credit default swap.
  */
@@ -7723,7 +7839,7 @@ export interface Payout {
    */
   securityPayout?: SecurityPayout[];
 }
-  
+
 /**
  *  Base class that all payout types should extend. Use case is that some validation rules may need to apply across all payout types, for which the data rule can be written at the base class level
  */
@@ -7733,7 +7849,7 @@ export interface PayoutBase {
    */
   payoutQuantity?: ResolvablePayoutQuantity;
 }
-  
+
 /**
  * A class defining a content model for a calculation rule defined as percentage of the notional amount.
  */
@@ -7747,7 +7863,7 @@ export interface PercentageRule {
    */
   paymentPercent?: number;
 }
-  
+
 /**
  * A class to define recurring periods or time offsets.
  */
@@ -7762,7 +7878,7 @@ export interface Period {
    */
   periodMultiplier?: number;
 }
-  
+
 /**
  * The period bound is defined as a period and whether the bound is inclusive.
  */
@@ -7776,7 +7892,7 @@ export interface PeriodBound {
    */
   period?: Period;
 }
-  
+
 /**
  * The period range defined as either a lower and upper period bound, or both.
  */
@@ -7790,7 +7906,7 @@ export interface PeriodRange {
    */
   upperBound?: PeriodBound;
 }
-  
+
 /**
  * The physical exercise results into a financial product which is represented through the Product class, with an associated quantity and cashflow (e.g. a physical exercise of a bond option will result into a bond with a cash proceed which will be a function of the option strike price).
  */
@@ -7809,7 +7925,7 @@ export interface PhysicalExercise {
    */
   quantityNotation?: QuantityNotation[];
 }
-  
+
 export interface PhysicalSettlementPeriod {
   /**
    * A number of business days. Its precise meaning is dependant on the context in which this element is used. ISDA 2003 Term: Business Day.
@@ -7824,7 +7940,7 @@ export interface PhysicalSettlementPeriod {
    */
   maximumBusinessDays?: number;
 }
-  
+
 /**
  * In FpML, PhysicalSettlementTerms and CashSettlementTerms extend SettlementTerms.  In the CDM, this extension paradigm has not been used because SettlementTerms class has been used for purposes related to securities transactions, while it is not used as such in the FpML standard (i.e. only as an abstract construct.
  */
@@ -7851,7 +7967,7 @@ export interface PhysicalSettlementTerms extends SettlementBase {
    */
   settlementCurrency?: FieldWithMeta<String>;
 }
-  
+
 /**
  *  A Portfolio represents an aggregation of multiple Positions, by describing the parameters that this Portfolio should be aggregated based on. The resulting PortfolioState is calculated using these aggregation parameters as inputs, by aggregating all the Events that are relevant to this Portfolio. The concept of Portfolio works at all levels in the model: from the highest for a given LegalEntity for instance, to the lowest to account for security substitutions in a secutity financing transaction. As such, Portfolio can be used either above or below the Contract level.
  */
@@ -7865,7 +7981,7 @@ export interface Portfolio {
    */
   portfolioState?: PortfolioState;
 }
-  
+
 /**
  *  State-full representation of a Portfolio that describes all the positions held at a given time, in various states which can be either traded, settled, etc., with lineage information to the previous state
  */
@@ -7880,7 +7996,7 @@ export interface PortfolioState {
    */
   positions?: Position[];
 }
-  
+
 /**
  *  A Position describes how much of a given Product is being held and constitutes the atomic element of a Portfolio.
  */
@@ -7906,7 +8022,7 @@ export interface Position {
    */
   quantity?: Quantity;
 }
-  
+
 export interface PostContractFormationState extends ContractState {
   /**
    * Credit limit utilization information.
@@ -7926,7 +8042,7 @@ export interface PostContractFormationState extends ContractState {
    */
   updatedContract?: Contract;
 }
-  
+
 /**
  * Posted Credit Support item with corresponding Valuation Percentage, FX Haircut Percentage and any related disputed Posted Credit Support valuation.
  */
@@ -7948,7 +8064,7 @@ export interface PostedCreditSupportItem {
    */
   valuationPercentage?: number;
 }
-  
+
 /**
  * A class to specify the security provider(s) collateral posting obligations as specified under the terms of the New York Law ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (ii).
  */
@@ -7959,7 +8075,7 @@ export interface PostingObligations {
   partyElection?: PostingObligationsElection[];
   securityProvider?: string;
 }
-  
+
 /**
  * A class to specify the collateral posting obligations as specified under the terms of the ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (ii).
  */
@@ -7985,7 +8101,7 @@ export interface PostingObligationsElection {
    */
   party?: string;
 }
-  
+
 /**
  * This class corresponds to the FpML Premium.model group for representing the option premium when expressed in a way other than an amount.
  */
@@ -8003,12 +8119,12 @@ export interface PremiumExpression {
    */
   pricePerOption?: Money;
 }
-  
+
 export interface Pric {
   bsisPts?: string;
   pric?: Pric;
 }
-  
+
 /**
  * Generic description of the price concept applicable across product types, which can be expressed in a number of ways other than simply cash price
  */
@@ -8030,7 +8146,7 @@ export interface Price {
    */
   floatingInterestRate?: FloatingInterestRate;
 }
-  
+
 /**
  * Object to specify the price of a product as a single number, which can be negative in some cases, and asset identifier so that it can be positioned in the product. For some product cases, several price notations can be associated with a single product: e.g. for an Equity Swap, both the initial equity price and the rate spread can be specified, which allows factoring of the product definition.
  */
@@ -8044,7 +8160,7 @@ export interface PriceNotation {
    */
   price?: Price;
 }
-  
+
 export interface PriceReturnTerms {
   /**
    * 2018 ISDA CDM Equity Confirmation for Security Equity Swap: Final Price | Specifies the final valuation price of the underlier. This price can be expressed either as an actual amount/currency, as a determination method, or by reference to another value specified in the swap document.
@@ -8055,7 +8171,7 @@ export interface PriceReturnTerms {
    */
   valuationPriceInterim?: EquityValuation;
 }
-  
+
 /**
  * A data defining:  the parameters used to get a price quote to replace the settlement rate option that is disrupted.
  */
@@ -8065,7 +8181,7 @@ export interface PriceSourceDisruption {
    */
   fallbackReferencePrice?: FallbackReferencePrice;
 }
-  
+
 /**
  * A primitive event is defined by one and only one atomic change in state of a trade. An example of this is a contract formation where the legal terms of the contact are added to the trade. A Primitive event contains a before and after state where the before is a reference to another after state of a primitive event in order to preserve lineage.
  */
@@ -8080,7 +8196,7 @@ export interface PrimitiveEvent {
   termsChange?: TermsChangePrimitive;
   transfer?: TransferPrimitive;
 }
-  
+
 /**
  * A data for:  defining a principal exchange amount and adjusted exchange date. This data forms:  part of the cashflow representation of a swap stream.
  */
@@ -8107,7 +8223,7 @@ export interface PrincipalExchange {
    */
   unadjustedPrincipalExchangeDate?: Date;
 }
-  
+
 /**
  * A class defining which principal exchanges occur for the stream.
  */
@@ -8126,7 +8242,7 @@ export interface PrincipalExchanges {
   intermediateExchange?: boolean;
   meta?: MetaFields;
 }
-  
+
 /**
  * A class to specify the Process Agent that might be appointed by the parties as part of a Credit Support Annex/Deed or Collateral Transfer Agreement.
  */
@@ -8136,7 +8252,7 @@ export interface ProcessAgent {
    */
   partyElection?: ProcessAgentElection[];
 }
-  
+
 /**
  * A class to specify the parties' respective elections with respect to the Process Agent.
  */
@@ -8154,7 +8270,7 @@ export interface ProcessAgentElection {
    */
   specification?: string;
 }
-  
+
 /**
  *  A class to represent a financial product. With respect to contractual products, this class specifies the pre-execution product characteristics (the ContractualProduct class). This class is used as underlying for the option exercise representation, which makes use of the contractualProduct attribute to support the swaption use case, with the exercise into a swap. In a complete workflow, the swaption contract itself then needs to be superseded by a swap contract underpinned by the exercised swap as a contractualProduct.
  */
@@ -8166,7 +8282,7 @@ export interface Product {
   meta?: MetaFields;
   security?: Security;
 }
-  
+
 /**
  * Criteria used to specify eligible collateral assets.
  */
@@ -8208,7 +8324,7 @@ export interface ProductCriteria {
    */
   sinkable?: boolean;
 }
-  
+
 /**
  *  A class to combine the CDM product qualifier with other product qualifiers, such as the FpML ones. While the CDM product qualifier is derived by the CDM from the product payout features, the other product identification elements are assigned by some external sources and correspond to values specified by other data representation protocols.
  */
@@ -8234,7 +8350,7 @@ export interface ProductIdentification {
    */
   secondaryAssetdata?: FieldWithMeta<AssetClassEnum>[];
 }
-  
+
 /**
  * The product identifier, composed of an identifier, a source and a product taxonomy. The source is optional because it can be specified through the scheme that is associated with the identifier. As FpML doesn't specify a scheme as part of the standard, that scheme cannot be mapped to the CDM ProductIdSourceEnum. The associated globalKey denotes the ability to associate a hash value to the ProductIdentifier instantiations for the purpose of model cross-referencing, in support of functionality such as the event effect and the lineage.
  */
@@ -8253,7 +8369,7 @@ export interface ProductIdentifier {
    */
   source?: ProductIdSourceEnum;
 }
-  
+
 /**
  * The product taxonomy, which is composed of a taxonomy value and a taxonomy source.
  */
@@ -8267,7 +8383,7 @@ export interface ProductTaxonomy {
    */
   taxonomyValue?: string;
 }
-  
+
 /**
  * A class to specify the terms for calculating a payout to protect the buyer of the swap in the case of a qualified credit event. These terms include the notional amount, the applicable credit events, the reference obligation, and in the case of a CDS on mortgage-backed securities, the floatingAmountEvents.
  */
@@ -8290,12 +8406,12 @@ export interface ProtectionTerms extends PayoutBase {
    */
   payoutQuantity?: ResolvablePayoutQuantity;
 }
-  
+
 export interface Prsn {
   ctryOfBrnch?: string;
   othr?: Othr;
 }
-  
+
 export interface PubliclyAvailableInformation {
   /**
    * A public information source, e.g. a particular newspaper or electronic news service, that may publish relevant information used in the determination of whether or not a credit event has occurred. ISDA 2003 Term: Public Source.
@@ -8310,17 +8426,17 @@ export interface PubliclyAvailableInformation {
    */
   standardPublicSources?: boolean;
 }
-  
+
 export interface Qty {
   unit?: string;
 }
-  
+
 /**
  *  A class to specify an amount/number of securities or tangible assets such as a commodity product. The units qualifier is not used if the Quantity class is applied to securities.
  */
 export interface Quantity {
   /**
-   * The amount to quantify 
+   * The amount to quantify
    */
   amount?: number;
   /**
@@ -8328,7 +8444,7 @@ export interface Quantity {
    */
   unit?: UnitEnum;
 }
-  
+
 /**
  * The primitive event to represent a change in quantity or notional.
  */
@@ -8342,16 +8458,16 @@ export interface QuantityChangePrimitive {
    */
   before?: ReferenceWithMeta<Trade>;
 }
-  
+
 export interface QuantityGroup {
   amount?: number[];
   currency?: string;
 }
-  
+
 export interface QuantityGroups {
   quantityGroups?: QuantityGroup[];
 }
-  
+
 /**
  *  Class to specify a mechanism for a quantity to be set as a multiplier to another (reference) quantity, based on a price observation. At the moment this class only supports FX or Equity-linked notional and re-uses existing building blocks for those 2 cases, until such time when component can be made more generic. This captures the case of resetting cross-currency swaps and resetting equity swaps.
  */
@@ -8362,9 +8478,9 @@ export interface QuantityMultiplier {
   fxLinkedNotionalSchedule?: FxLinkedNotionalSchedule;
   multiplierValue?: number;
 }
-  
+
 /**
- * Specification of a product's quantity as a single, non-negative amount. The asset identifier qualifies the quantity being specified and can be used as a referencing mechanism in the underlying payout legs to 'resolve' the product, by fetching the actual amount from the appropriate quantity notation. For some product cases, several quantity notations can be associated with a single product: e.g. for an Equity Swap, both the notional and (optionally) the number of securities can be specified, with a validation to check that they are consistent in relation to the equity price. 
+ * Specification of a product's quantity as a single, non-negative amount. The asset identifier qualifies the quantity being specified and can be used as a referencing mechanism in the underlying payout legs to 'resolve' the product, by fetching the actual amount from the appropriate quantity notation. For some product cases, several quantity notations can be associated with a single product: e.g. for an Equity Swap, both the notional and (optionally) the number of securities can be specified, with a validation to check that they are consistent in relation to the equity price.
  */
 export interface QuantityNotation {
   /**
@@ -8376,7 +8492,7 @@ export interface QuantityNotation {
    */
   quantity?: NonNegativeQuantity;
 }
-  
+
 /**
  * Determines the currency rate that the seller of the equity amounts will apply at each valuation date for converting the respective amounts into a currency that is different from the currency denomination of the underlier.
  */
@@ -8390,7 +8506,7 @@ export interface Quanto {
    */
   fxSpotRateSource?: FxSpotRateSource;
 }
-  
+
 /**
  * A class to allow specification of different types of Quasi Government collateral.
  */
@@ -8404,7 +8520,7 @@ export interface QuasiGovernmentIssuerType {
    */
   sovereignRecourse?: boolean;
 }
-  
+
 /**
  * A class that describes the composition of a rate that has been quoted or is to be quoted. This includes the two currencies and the quotation relationship between the two currencies and is used as a building block throughout the FX specification.
  */
@@ -8422,7 +8538,7 @@ export interface QuotedCurrencyPair {
    */
   quoteBasis?: QuoteBasisEnum;
 }
-  
+
 /**
  * A class defining parameters associated with an individual observation or fixing. This class forms part of the cashflow representation of a stream.
  */
@@ -8461,7 +8577,7 @@ export interface RateObservation {
    */
   treatedRate?: number;
 }
-  
+
 /**
  *  A class to specify the fixed interest rate, floating interest rate or inflation rate.
  */
@@ -8479,11 +8595,11 @@ export interface RateSpecification {
    */
   inflationRate?: InflationRateSpecification;
 }
-  
+
 export interface RateSpecificationBase {
   assetIdentifier?: AssetIdentifier;
 }
-  
+
 /**
  * A class to specify terms for Recalculation of the Market Value of Posted Collateral when a dispute has been failed to be resolved by Resolution Time.
  */
@@ -8493,7 +8609,7 @@ export interface RecalculationOfValue {
    */
   partyElection?: RecalculationOfValueElection[];
 }
-  
+
 /**
  * A class to specify Recalculation of Value terms that will be applicable
  */
@@ -8511,12 +8627,12 @@ export interface RecalculationOfValueElection {
    */
   recalculationOfValueTerms?: string;
 }
-  
+
 export interface RefRate {
   indx?: string;
   nm?: string;
 }
-  
+
 /**
  * A class to describe an institution (party) identified by means of a coding scheme and an optional name.
  */
@@ -8530,7 +8646,7 @@ export interface ReferenceBank {
    */
   referenceBankName?: string;
 }
-  
+
 /**
  * A class specifying the Credit Default Swap Reference Information.
  */
@@ -8568,7 +8684,7 @@ export interface ReferenceInformation {
    */
   unknownReferenceObligation?: boolean;
 }
-  
+
 /**
  * A class to specify the reference obligation that is associated with a credit derivative instrument.
  */
@@ -8610,7 +8726,7 @@ export interface ReferenceObligation {
    */
   standardReferenceObligation?: boolean;
 }
-  
+
 export interface ReferencePair {
   /**
    * Defines the reference entity types corresponding to a list of types in the ISDA First to Default documentation.
@@ -8629,7 +8745,7 @@ export interface ReferencePair {
    */
   referenceObligation?: ReferenceObligation;
 }
-  
+
 /**
  * This type contains all the reference pool items to define the reference entity and reference obligation(s) in the basket.
  */
@@ -8639,7 +8755,7 @@ export interface ReferencePool {
    */
   referencePoolItem?: ReferencePoolItem[];
 }
-  
+
 /**
  * This type contains all the constituent weight and reference information.
  */
@@ -8662,7 +8778,7 @@ export interface ReferencePoolItem {
   protectionTermsReference?: ReferenceWithMeta<ProtectionTerms>;
   referencePair?: ReferencePair;
 }
-  
+
 /**
  * A complex type used to specify the option and convertible bond option strike when expressed in reference to a swap curve.
  */
@@ -8673,7 +8789,7 @@ export interface ReferenceSwapCurve {
   makeWholeAmount?: MakeWholeAmount;
   swapUnwindValue?: SwapCurveValuation;
 }
-  
+
 /**
  * A class to specify one or more regimes that may be specified as relevant to a legal agreement. 2016/2018 ISDA Credit Support Annex for Initial Margin: Regime.
  */
@@ -8691,7 +8807,7 @@ export interface Regime {
    */
   fallbackToMandatoryMethodDays?: number;
 }
-  
+
 /**
  * A class that is used by the ApplicableRegime and the AdditionalRegime classes to specify the regulatory regime terms which are referred to as part of certain legal agreements, such as such as the ISDA 2016 and 2018 CSA for Initial Margin.
  */
@@ -8717,7 +8833,7 @@ export interface RegimeTerms {
    */
   simmException?: SimmException;
 }
-  
+
 /**
  * A class to allow specification of different type of Regional government collateral.
  */
@@ -8727,7 +8843,7 @@ export interface RegionalGovernmentIssuerType {
    */
   sovereignRecourse?: boolean;
 }
-  
+
 /**
  * A class for specifying the legal agreements that govern the contract, either as a reference to such agreements when specified as part of the CDM, or through identification of some of the key terms of those documents, such as the type of document, the document identifier, the publisher, the document vintage and the agreement date.
  */
@@ -8741,7 +8857,7 @@ export interface RelatedAgreement {
    */
   legalAgreement?: LegalAgreement;
 }
-  
+
 export interface RelatedParty {
   /**
    * Reference to an account.
@@ -8756,7 +8872,7 @@ export interface RelatedParty {
    */
   role?: PartyRoleEnum;
 }
-  
+
 /**
  * A class defining a date (referred to as the derived date) as a relative offset from another date (referred to as the anchor date). If the anchor date is itself an adjustable date then the offset is assumed to be calculated from the adjusted anchor date. A number of different scenarios can be supported, namely; 1) the derived date may simply be a number of calendar periods (days, weeks, months or years) preceding or following the anchor date; 2) the unadjusted derived date may be a number of calendar periods (days, weeks, months or years) preceding or following the anchor date with the resulting unadjusted derived date subject to adjustment in accordance with a specified business day convention, i.e. the derived date must fall on a good business day; 3) the derived date may be a number of business days preceding or following the anchor date. Note that the businessDayConvention specifies any required adjustment to the unadjusted derived date. A negative or positive value in the periodMultiplier indicates whether the unadjusted derived precedes or follows the anchor date. The businessDayConvention should contain a value NONE if the day type element contains a value of Business (since specifying a negative or positive business days offset would already guarantee that the derived date would fall on a good business day in the specified business centers).
  */
@@ -8792,7 +8908,7 @@ export interface RelativeDateOffset extends Offset {
    */
   periodMultiplier?: number;
 }
-  
+
 /**
  * A class describing a set of dates defined as relative to another set of dates.
  */
@@ -8836,7 +8952,7 @@ export interface RelativeDates extends RelativeDateOffset {
    */
   periodMultiplier?: number;
 }
-  
+
 /**
  *  Bond price relative to a benchmark, as in a convertible bond.
  */
@@ -8850,7 +8966,7 @@ export interface RelativePrice {
    */
   spread?: number;
 }
-  
+
 export interface Representations {
   /**
    * If true, then additional acknowledgements are applicable.
@@ -8869,7 +8985,7 @@ export interface Representations {
    */
   nonReliance?: boolean;
 }
-  
+
 /**
  * A data defining:  the parameters used to generate the reset dates schedule and associated fixing dates. The reset dates are the dates on which the new index value (which is observed on the fixing date) is applied for each period and on which the interest rate hence begins to accrue.
  */
@@ -8908,7 +9024,7 @@ export interface ResetDates {
    */
   resetRelativeTo?: ResetRelativeToEnum;
 }
-  
+
 /**
  * A class defining the reset frequency. In the case of a weekly reset, also specifies the day of the week that the reset occurs. If the reset frequency is greater than the calculation period frequency the this implies that more or more reset dates is established for each calculation period and some form of rate averaging is applicable. The specific averaging method of calculation is specified in FloatingRateCalculation. In case the reset frequency is of value T (term), the period is defined by the swap/swapStream/calculationPerioDates/effectiveDate and the swap/swapStream/calculationPerioDates/terminationDate.
  */
@@ -8927,7 +9043,7 @@ export interface ResetFrequency extends Frequency {
    */
   periodMultiplier?: number;
 }
-  
+
 /**
  * The primitive event to represent a reset.
  */
@@ -8941,7 +9057,7 @@ export interface ResetPrimitive {
    */
   before?: ReferenceWithMeta<ContractState>;
 }
-  
+
 /**
  * Generic class to specify the quantity for different payout legs in a contractual product, when that quantity can vary across payout legs or across time. A resolvable quantity can always be resolved into a single quantity from the quantity notation which has a corresponding asset identifier. In addition to the base case, where quantity is directly specified as a number as part of the quantity notation, the other use cases are: (i) quantity based on some pre-defined schedule (eg amortising notional), (ii) quantity based on some pre-defined events (eg resetting cross-currency notional), or quantity set as reference to another quantity (eg equity notional as no. securities x price).
  */
@@ -8976,7 +9092,7 @@ export interface ResolvablePayoutQuantity {
    */
   resolvedQuantity?: NonNegativeQuantity;
 }
-  
+
 /**
  * Describes the resource that contains the media representation of a business event (i.e used for stating the Publicly Available Information). For example, can describe a file or a URL that represents the event. This type is an extended version of a type defined by RIXML (www.rixml.org).  Rosetta restricts the FpML implementation by not providing the ability to associated a document in hexadecimalBinary or base64Binary until such time that actual use cases will come up.
  */
@@ -9022,7 +9138,7 @@ export interface Resource {
    */
   url?: string;
 }
-  
+
 /**
  * A class to indicate the length of the resource.
  */
@@ -9036,7 +9152,7 @@ export interface ResourceLength {
    */
   lengthValue?: number;
 }
-  
+
 export interface Restructuring {
   /**
    * Indicates whether the restructuring provision is applicable.
@@ -9055,7 +9171,7 @@ export interface Restructuring {
    */
   restructuringType?: FieldWithMeta<RestructuringEnum>;
 }
-  
+
 /**
  * A class to specify the retrospective effect exception to the regulatory regime clause of Initial Margin documents as either a normalized value specified as part of an enumeration or a customized value specified of type string.
  */
@@ -9069,7 +9185,7 @@ export interface RetrospectiveEffect {
    */
   standardisedException?: ExceptionEnum;
 }
-  
+
 /**
  * A class to specify the application of Interest Amount with respect the Return Amount. ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (n)(ii).
  */
@@ -9083,7 +9199,7 @@ export interface ReturnAmount {
    */
   includesDefaultLanguage?: boolean;
 }
-  
+
 /**
  * A class to specify the rights of Security Taker and/or Security Provider when an Early Termination or Access Condition event has occurred.
  */
@@ -9109,7 +9225,7 @@ export interface RightsEvents {
    */
   securityTakerRightsEvent?: SecuredPartyRightsEvent;
 }
-  
+
 /**
  * A class defining a rounding direction and precision to be used in the rounding of a rate.
  */
@@ -9123,7 +9239,7 @@ export interface Rounding {
    */
   roundingDirection?: RoundingDirectionEnum;
 }
-  
+
 /**
  * A class defining a schedule of rates or amounts in terms of an initial value and then a series of step date and value pairs. On each step date the rate or amount changes to the new step value. The series of step date and value pairs are optional. If not specified, this implies that the initial value remains unchanged over time.
  */
@@ -9137,11 +9253,11 @@ export interface Schedule {
    */
   step?: Step[];
 }
-  
+
 export interface SchmeNm {
   prtry?: string;
 }
-  
+
 /**
  * A class to specify Secured Party Rights Event language
  */
@@ -9156,7 +9272,7 @@ export interface SecuredPartyRightsEvent {
   failureToPayEarlyTermination?: boolean;
   securedPartyRightsEventElection?: SecuredPartyRightsEventElection[];
 }
-  
+
 /**
  * A class to specify party specific Secured Party Rights Event language
  */
@@ -9170,7 +9286,7 @@ export interface SecuredPartyRightsEventElection {
    */
   rightsEvent?: boolean;
 }
-  
+
 export interface Security {
   bond?: Bond;
   convertibleBond?: ConvertibleBond;
@@ -9180,7 +9296,7 @@ export interface Security {
   mutualFund?: MutualFund;
   warrant?: Warrant;
 }
-  
+
 /**
  * The set of elections which specify a Security Agremeent
  */
@@ -9226,7 +9342,7 @@ export interface SecurityAgreementElections {
    */
   processAgent?: ProcessAgent;
 }
-  
+
 /**
  *  Terms defining a security leg in a securities financing transaction, which can either be the near leg or the far leg and is closely modelled onto the nearLeg and farLeg types in FpML
  */
@@ -9261,7 +9377,7 @@ export interface SecurityLeg {
    */
   settlementDate?: AdjustableOrRelativeDate;
 }
-  
+
 /**
  *  Security payout specification in case the product payout involves some form of security collateral, as in a securities financing transaction.
  */
@@ -9284,7 +9400,7 @@ export interface SecurityPayout {
    */
   securityValuation?: SecurityValuation[];
 }
-  
+
 /**
  * A class to specify the Pledgor/Obligor/Chargor Rights Event election. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (j): Chargor Rights Event. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (j): Obligor Rights Event. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (j): Pledgor Rights Event.
  */
@@ -9307,7 +9423,7 @@ export interface SecurityProviderRightsEvent {
   includeCoolingOffLanguage?: boolean;
   partyElection?: SecurityProviderRightsEventElection[];
 }
-  
+
 /**
  * A class to specify party specific Secured Party Rights Event language.
  */
@@ -9318,7 +9434,7 @@ export interface SecurityProviderRightsEventElection {
   party?: string;
   rightsEvent?: boolean;
 }
-  
+
 export interface SecurityTransferBreakdown {
   quantity?: number;
   /**
@@ -9330,7 +9446,7 @@ export interface SecurityTransferBreakdown {
    */
   transferorTransferee?: TransferorTransferee;
 }
-  
+
 export interface SecurityTransferComponent extends TransferBase {
   assetTransferType?: AssetTransferTypeEnum;
   /**
@@ -9355,7 +9471,7 @@ export interface SecurityTransferComponent extends TransferBase {
    */
   transferCalculation?: TransferCalculation;
 }
-  
+
 /**
  *  Terms defining the security valuation method as part of a security leg in a securities fianncing transaction and closely modelled onto the CollateralValuation type in FpML.
  */
@@ -9369,7 +9485,7 @@ export interface SecurityValuation {
    */
   underlier?: Security;
 }
-  
+
 /**
  *  The security valuation model choice, which can either be based on nominal amount as for a bond, or on the number of contract units as for equity.
  */
@@ -9383,11 +9499,11 @@ export interface SecurityValuationModel {
    */
   unitContractValuationModel?: UnitContractValuationModel;
 }
-  
+
 export interface Sellr {
   acctOwnr?: AcctOwnr;
 }
-  
+
 /**
  * A class to specificy methodologies to compute sensitivities specific to the agreement.
  */
@@ -9401,7 +9517,7 @@ export interface SensitivityMethodologies {
    */
   sensitivityToEquity?: SensitivityMethodology;
 }
-  
+
 /**
  * A class to specify the methodology according to which sensitivities to (i) equity indices, funds and ETFs, and (ii) commodity indices are computed. This specification is done either through a normalized election as part of the specifiedMethodology, or through a custom election via the customMethodology attribute. ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (gg)(2).
  */
@@ -9415,7 +9531,7 @@ export interface SensitivityMethodology {
    */
   specifiedMethodology?: SensitivitiesEnum;
 }
-  
+
 /**
  * A class to specify the Relevant Settled Entity Matrix.
  */
@@ -9429,7 +9545,7 @@ export interface SettledEntityMatrix {
    */
   publicationDate?: Date;
 }
-  
+
 /**
  * A base class to be extended by the SettlementTerms, CashSettlementTerms and PhysicalSettlementTerms classes.
  */
@@ -9440,7 +9556,7 @@ export interface SettlementBase {
    */
   settlementCurrency?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A data defining:  the specification of settlement terms, occurring when the settlement currency is different to the notional currency of the trade.
  */
@@ -9454,7 +9570,7 @@ export interface SettlementProvision {
    */
   settlementCurrency?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class describing the method for obtaining a settlement rate.
  */
@@ -9468,7 +9584,7 @@ export interface SettlementRateSource {
    */
   informationSource?: InformationSource;
 }
-  
+
 /**
  * A class to specify the settlement terms. This class reflects the FpML OptionSettlement.model, although with no option reference.
  */
@@ -9496,7 +9612,7 @@ export interface SettlementTerms extends SettlementBase {
    */
   settlementCurrency?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class to specify the SIMM Calculation Currency elections by each party to the agreement.
  */
@@ -9506,7 +9622,7 @@ export interface SimmCalculationCurrency {
    */
   partyElection?: CalculationCurrencyElection[];
 }
-  
+
 /**
  * A class to specify the SIMM exception to the regulatory regime clause of the ISDA 2016 and 2018 CSA for Initial Margin as either a normalized value specified as part of an enumeration or a customized value specified of type string. ISDA 2016 Credit Support Annex for Initial Margin paragraph 13, Regime: SIMM Exception.
  */
@@ -9524,7 +9640,7 @@ export interface SimmException {
    */
   standardisedException?: ExceptionEnum;
 }
-  
+
 /**
  * A class to specify the ISDA SIMM version that applies to the ISDA 2018 CSA for Initial Margin. According to the ISDA 2018 CSA for Initial Margin, Paragraph 13, General Principles (ee) (1) provisions, the SIMM version is either not specified, or references a version used by one of the parties to the agreement.
  */
@@ -9542,7 +9658,7 @@ export interface SimmVersion {
    */
   partyVersion?: ReferenceWithMeta<String>;
 }
-  
+
 /**
  * A class to specified payments in a simpler fashion than the Payment type. This construct should be used from the FpML version 4.3 onwards.
  */
@@ -9573,7 +9689,7 @@ export interface SimplePayment extends PayerReceiver {
    */
   receiverPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * A class to specify the number of business days after satisfaction of all conditions to settlement.
  */
@@ -9583,12 +9699,12 @@ export interface SingleValuationDate {
    */
   businessDays?: number;
 }
-  
+
 export interface Sngl {
   indx?: Indx;
   isin?: string;
 }
-  
+
 /**
  * A class to allow specification of different types of special purpose vehicle (SPV) collateral.
  */
@@ -9598,7 +9714,7 @@ export interface SpecialPurposeVehicleIssuerType {
    */
   creditRisk?: CreditRiskEnum;
 }
-  
+
 export interface SpecifiedCurrency {
   /**
    * Indicates whether the specified currency provision is applicable.
@@ -9609,7 +9725,7 @@ export interface SpecifiedCurrency {
    */
   currency?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class to specify the allocated outcome as the combination of the previous Trade, which is either an execution or a contract and which state is specified as 'Allocated', and a set of Trade(s) of the same execution or contract type as before allocation. The allocation to one single trade is deemed appropriate: e.g. the trade could be effectively allocated from the fund manager doing the execution to a single fund entity.
  */
@@ -9617,7 +9733,7 @@ export interface SplitOutcome {
   originalTrade?: Trade;
   splitTrades?: Trade[];
 }
-  
+
 /**
  * The primitive event to represent a split/allocation of a trade. As part of this primitive event the type of trade, either an execution or a contract, does not get altered. In the case of an execution, the further transformation of each split execution into a contract will be the purpose of the ContractFormation primitive.
  */
@@ -9631,7 +9747,7 @@ export interface SplitPrimitive {
    */
   before?: ReferenceWithMeta<Trade>;
 }
-  
+
 /**
  * Adds an optional spread type element to the Schedule to identify a long or short spread value.
  */
@@ -9649,7 +9765,7 @@ export interface SpreadSchedule extends Schedule {
    */
   step?: Step[];
 }
-  
+
 /**
  * A class defining a step date and step value pair. This step definitions are used to define varying rate or amount schedules, e.g. a notional amortisation or a step-up coupon schedule.
  */
@@ -9664,7 +9780,7 @@ export interface Step {
    */
   stepValue?: number;
 }
-  
+
 /**
  * Data required to perform a stock split business event.
  */
@@ -9682,7 +9798,7 @@ export interface StockSplitInstruction {
    */
   trade?: Trade;
 }
-  
+
 /**
  * A class for defining option strategy features.
  */
@@ -9696,7 +9812,7 @@ export interface StrategyFeature {
    */
   strikeSpread?: StrikeSpread;
 }
-  
+
 /**
  * A class describing a single cap or floor rate.
  */
@@ -9715,7 +9831,7 @@ export interface Strike {
    */
   strikeRate?: number;
 }
-  
+
 /**
  * A class describing a schedule of cap or floor rates.
  */
@@ -9737,7 +9853,7 @@ export interface StrikeSchedule extends Schedule {
    */
   step?: Step[];
 }
-  
+
 /**
  * A class for defining a strike spread feature.
  */
@@ -9751,7 +9867,7 @@ export interface StrikeSpread {
    */
   upperStrikeNumberOfOptions?: number;
 }
-  
+
 /**
  * A data defining:  how the initial or final stub calculation period amounts is calculated. For example, the rate to be applied to the initial or final stub calculation period may be the linear interpolation of two different tenors for the floating rate index specified in the calculation period amount component, e.g. A two month stub period may used the linear interpolation of a one month and three month floating rate. The different rate tenors would be specified in this component. Note that a maximum of two rate tenors can be specified. If a stub period uses a single index tenor and this is the same as that specified in the calculation period amount component then the initial stub or final stub component, as the case may be, must not be included.
  */
@@ -9769,7 +9885,7 @@ export interface StubCalculationPeriodAmount {
    */
   initialStub?: StubValue;
 }
-  
+
 /**
  * A class defining a floating rate.
  */
@@ -9803,7 +9919,7 @@ export interface StubFloatingRate {
    */
   spreadSchedule?: SpreadSchedule[];
 }
-  
+
 /**
  *  A class defining how the initial or final stub calculation period amounts is calculated. For example, the rate to be applied to the initial or final stub calculation period may be the linear interpolation of two different tenors for the floating rate index specified in the calculation period amount component, e.g. A two month stub period may used the linear interpolation of a one month and three month floating rate. The different rate tenors would be specified in this component. Note that a maximum of two rate tenors can be specified. If a stub period uses a single index tenor and this is the same as that specified in the calculation period amount component then the initial stub or final stub component, as the case may be, must not be included.
  */
@@ -9821,7 +9937,7 @@ export interface StubPeriod {
    */
   initialStub?: StubValue;
 }
-  
+
 /**
  * A type defining how a stub calculation period amount is calculated. A single floating rate tenor different to that used for the regular part of the calculation periods schedule may be specified, or two floating rate tenors many be specified. If two floating rate tenors are specified then Linear Interpolation (in accordance with the 2000 ISDA Definitions, Section 8.3 Interpolation) is assumed to apply. Alternatively, an actual known stub rate or stub amount may be specified.
  */
@@ -9839,7 +9955,7 @@ export interface StubValue {
    */
   stubRate?: number;
 }
-  
+
 /**
  * A class to specify each party's election with respect to the Substituted Regimes that will be applicable...
  */
@@ -9849,7 +9965,7 @@ export interface SubstitutedRegime {
    */
   partyElection?: SubstitutedRegimeElection[];
 }
-  
+
 /**
  * A class to specify the Substituted Regimes that will be deemed applicable...
  */
@@ -9869,7 +9985,7 @@ export interface SubstitutedRegimeElection {
   singapore?: boolean;
   switzerland?: boolean;
 }
-  
+
 /**
  * A class to specify the conditions under which the Security Provider can substitute posted collateral.
  */
@@ -9883,7 +9999,7 @@ export interface Substitution {
    */
   specificConsentLanguage?: string;
 }
-  
+
 /**
  * A class to specify a valuation swap curve, which is used as part of the strike construct for the bond and convertible bond options.
  */
@@ -9902,20 +10018,20 @@ export interface SwapCurveValuation {
    */
   spread?: number;
 }
-  
+
 export interface Swp {
   swpIn?: SwpIn;
   swpOut?: SwpOut;
 }
-  
+
 export interface SwpIn {
   sngl?: Sngl;
 }
-  
+
 export interface SwpOut {
   sngl?: Sngl;
 }
-  
+
 /**
  * A class to specify a telephone number as a type of phone number (e.g. work, personal, ...) alongside with the actual number.
  */
@@ -9929,12 +10045,12 @@ export interface TelephoneNumber {
    */
   telephoneNumberType?: TelephoneTypeEnum;
 }
-  
+
 export interface Term {
   unit?: string;
   val?: string;
 }
-  
+
 /**
  * A class to specify the Amendment to Termination Currency elections by the parties to the agreement. ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (t): Amendment to Termination Currency.
  */
@@ -9952,7 +10068,7 @@ export interface TerminationCurrencyAmendment {
    */
   partyElection?: TerminationCurrencyElection[];
 }
-  
+
 /**
  * A class to specify the Amendment to Termination Currency election by the parties to the agreement. ISDA 2016 Credit Support Annex for Initial Margin, paragraph 13, General Principles, (t) (A) & (B).
  */
@@ -9970,7 +10086,7 @@ export interface TerminationCurrencyElection {
    */
   party?: string;
 }
-  
+
 /**
  * The primitive event to represent change(s) to the contractual terms and the clearing submission and acceptance process.
  */
@@ -9978,7 +10094,7 @@ export interface TermsChangePrimitive {
   after?: Trade;
   before?: ReferenceWithMeta<Trade>;
 }
-  
+
 /**
  * A class to specify the unsecured credit exposure that each party to the agreement is prepared to accept before asking for collateral. This threshold is specified either as an amount or as a custom election. ISDA 2016 English Law Credit Support Deed for Initial Margin, paragraph 13, General Principles, (c)(vi)(A): Threshold. | ISDA 2016 Japanese Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (d)(vi)(A): Threshold. | ISDA 2016 New York Law Credit Support Annex for Initial Margin, paragraph 13, General Principles, (c)(vi)(A): Threshold.
  */
@@ -9988,7 +10104,7 @@ export interface Threshold {
    */
   partyElection?: ElectiveAmountElection[];
 }
-  
+
 /**
  * The time alongside with the timezone location information. This class makes use of the FpML TimezoneLocation construct.
  */
@@ -10002,7 +10118,7 @@ export interface TimeZone {
    */
   time?: string;
 }
-  
+
 /**
  * Definition of a product as ready to be traded, i.e. included in an execution or contract, by associating a specific price and quantity to this product plus an (optional) mechanism for any potential future quantity adjustment.
  */
@@ -10024,13 +10140,13 @@ export interface TradableProduct {
    */
   quantityNotation?: QuantityNotation[];
 }
-  
+
 /**
  * A class to represent the general trade concept, which can either be an execution or a contract. The execution consists essentially in the economic terms which are agreed between the parties. The contract will further qualify those with the legal entities (think of the allocation case, which execution state can involve the investment adviser rather not the actual funds) while not specify the master agreement or collateral terms which might be associated with the subsequent contract.
  */
 export interface Trade {
   /**
-   * The contract differs from the execution by the fact that its legal terms are fully specified. This includes the legal entities that are associated to it as well as any associated legal agreement, e.g. master agreement, credit and collateral terms, ... 
+   * The contract differs from the execution by the fact that its legal terms are fully specified. This includes the legal entities that are associated to it as well as any associated legal agreement, e.g. master agreement, credit and collateral terms, ...
    */
   contract?: Contract;
   /**
@@ -10039,7 +10155,7 @@ export interface Trade {
   execution?: Execution;
   meta?: MetaFields;
 }
-  
+
 /**
  * A class to specify the contract's trade date alongside an identifier.
  */
@@ -10050,7 +10166,7 @@ export interface TradeDate {
   date?: Date;
   meta?: MetaFields;
 }
-  
+
 /**
  * A class to specify trade warehouse workflow information: the identity of the trade warehouse, the contract status at the warehouse and party-specific workflow information.
  */
@@ -10062,7 +10178,7 @@ export interface TradeWarehouseWorkflow {
   warehouseIdentity?: WarehouseIdentityEnum;
   warehouseStatus?: WorkflowStatusEnum;
 }
-  
+
 /**
  * The class to represent a CDS Tranche.
  */
@@ -10080,7 +10196,7 @@ export interface Tranche {
    */
   incurredRecoveryApplicable?: boolean;
 }
-  
+
 /**
  *  A class to represent the transacted price attributes that are positioned as part of the FpML FeeLeg.
  */
@@ -10102,13 +10218,12 @@ export interface TransactedPrice {
    */
   quotationStyle?: QuotationStyleEnum;
 }
-  
+
 /**
  * See existing Contract type
  */
-export interface TransactionConfirmation {
-}
-  
+export interface TransactionConfirmation {}
+
 export interface TransferBase {
   /**
    * The identifier that can be associated with each of the transfer components
@@ -10119,7 +10234,7 @@ export interface TransferBase {
    */
   transferCalculation?: TransferCalculation;
 }
-  
+
 export interface TransferBreakdown extends TransferBase {
   /**
    * The lineage into the transfer components that might be associated with each of the transfer components.
@@ -10134,7 +10249,7 @@ export interface TransferBreakdown extends TransferBase {
    */
   transferCalculation?: TransferCalculation;
 }
-  
+
 export interface TransferCalculation {
   /**
    * This is a conceptual placeholder for providing the breakdown into the cashflow calculation components, leveraging the fact that the CDM provides calculation components, starting with the FixedAmount and the FloatingAmount. Further evaluation of expected usage needs to take place to confirm and prioritize such implementation.
@@ -10149,7 +10264,7 @@ export interface TransferCalculation {
    */
   period?: CalculationPeriodBase;
 }
-  
+
 /**
  * A class to specify the transfer of assets between parties, those assets being either cash, securities or physical assets. This class combines components that are cross-assets (settlement date, settlement type, status, ...) and some other which are specialized by asset class (e.g. the payer/receiver amount and cashflow type for a cash transfer, the transferor/transferee, security indication, quantity, and asset transfer type qualification for the case of a security). The associated globalKey denotes the ability to associate a hash value to the respective Execution instantiations for the purpose of model cross-referencing, in support of functionality such as the event effect and the lineage.
  */
@@ -10182,7 +10297,7 @@ export interface TransferPrimitive {
    */
   status?: TransferStatusEnum;
 }
-  
+
 /**
  * A class mimicking the PayerReceiver, which is itself derived from the FpML PayerReceiver.model, to represent the transferee and transferor party information in relation to the transfer of security or commodities.
  */
@@ -10204,7 +10319,7 @@ export interface TransferorTransferee {
    */
   transferorPartyReference?: ReferenceWithMeta<Party>;
 }
-  
+
 /**
  * Trigger point at which feature is effective.
  */
@@ -10228,7 +10343,7 @@ export interface Trigger {
    */
   triggerType?: TriggerTypeEnum;
 }
-  
+
 /**
  * Observation point for trigger.
  */
@@ -10250,7 +10365,7 @@ export interface TriggerEvent {
    */
   triggerDates?: DateList;
 }
-  
+
 export interface Tx {
   ctryOfBrnch?: string;
   newTx?: New;
@@ -10260,7 +10375,7 @@ export interface Tx {
   tradVn?: string;
   tradgCpcty?: string;
 }
-  
+
 /**
  * A class to specify a set of legal entities which are part of a legal agreement beyond the two contracting parties to that agreement. This data representation reflects the ISDA Create representation.
  */
@@ -10278,7 +10393,7 @@ export interface UmbrellaAgreement {
    */
   parties?: UmbrellaAgreementEntity[];
 }
-  
+
 /**
  * A class to specify the legal entities that are part of the umbrella agreement.
  */
@@ -10297,7 +10412,7 @@ export interface UmbrellaAgreementEntity extends LegalEntity {
    */
   name?: FieldWithMeta<String>;
 }
-  
+
 /**
  * A class describing the whole set of possible underliers: single underliers or multiple underliers, each of these having either security or index components.
  */
@@ -10307,11 +10422,11 @@ export interface Underlier {
    */
   underlyingProduct?: Product;
 }
-  
+
 export interface UndrlygInstrm {
   swp?: Swp;
 }
-  
+
 /**
  *  Unit contract model for security valuation, e.g. for equity, modelled onto UnitContract.model in FpML.
  */
@@ -10325,7 +10440,7 @@ export interface UnitContractValuationModel {
    */
   unitPrice?: Money;
 }
-  
+
 export interface ValuationDate {
   /**
    * Where multiple valuation dates are specified as being applicable for cash settlement, this element specifies (a) the number of applicable valuation dates, and (b) the number of business days after satisfaction of all conditions to settlement when the first such valuation date occurs, and (c) the number of business days thereafter of each successive valuation date. ISDA 2003 Term: Multiple Valuation Dates.
@@ -10336,7 +10451,7 @@ export interface ValuationDate {
    */
   singleValuationDate?: SingleValuationDate;
 }
-  
+
 /**
  * Specifies how long to wait to get a quote from a settlement rate option upon a price source disruption.
  */
@@ -10346,19 +10461,19 @@ export interface ValuationPostponement {
    */
   maximumDaysOfPostponement?: number;
 }
-  
+
 export interface Velocity {
   period?: PeriodTimeEnum;
   periodMultiplier?: number;
 }
-  
+
 /**
  * A class to specify a warrant as having a product identifier. As a difference versus the FpML standard, the CDM structure of this class only includes the productIdentifier class, which consists of an identifier, productTaxonomy, and source of the identifier. The reason for this approach is to avoid the potential for conflicting information between the information associated with the contractual product and the reference information maintained by the relevant service provider.
  */
 export interface Warrant extends IdentifiedProduct {
   productIdentifier?: ProductIdentifier;
 }
-  
+
 /**
  * A single weighted averaging observation.
  */
@@ -10376,14 +10491,14 @@ export interface WeightedAveragingObservation {
    */
   weight?: number;
 }
-  
+
 /**
  * A collection of workflow steps which together makeup an entire workflow sequence.
  */
 export interface Workflow {
   steps?: WorkflowStep[];
 }
-  
+
 /**
  * A workflow step represents the state of a business event. The workflow step contains a reference to a previous WorkflowStep in order to preserve lineage. A workflow step is accepted if it contains a business event, proposed if proposedInstruction is present and is rejected if the rejected flag is set.
  */
@@ -10409,7 +10524,7 @@ export interface WorkflowStep {
    */
   lineage?: Lineage;
   /**
-   * Contains all information pertaining the FpML messaging header 
+   * Contains all information pertaining the FpML messaging header
    */
   messageInformation?: MessageInformation;
   meta?: MetaFields;
@@ -10434,7 +10549,7 @@ export interface WorkflowStep {
    */
   timestamp?: EventTimestamp[];
 }
-  
+
 /**
  * A class to specify workflow information, which is conceptually applicable to all lifecycle events.
  */
@@ -10452,7 +10567,7 @@ export interface WorkflowStepState {
    */
   workflowStatus?: WorkflowStatusEnum[];
 }
-  
+
 /**
  * A data defining:  the parameters required for each of the ISDA defined yield curve methods for cash settlement.
  */
@@ -10466,4 +10581,3 @@ export interface YieldCurveMethod {
    */
   settlementRateSource?: SettlementRateSource;
 }
-  

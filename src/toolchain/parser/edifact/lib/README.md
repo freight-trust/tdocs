@@ -1,8 +1,9 @@
 # UN/EDIFACT module
 
 An API to parse and create UN/EDIFACT and other EDI data
-* Abstract classes are maintained in this file.
-* See other files in edi4r/ for specific EDI syntax standards.
+
+- Abstract classes are maintained in this file.
+- See other files in edi4r/ for specific EDI syntax standards.
 
 $Id: edi4r.rb,v 1.6 2006/08/01 11:12:39 werntges Exp $
 
@@ -12,15 +13,15 @@ $Id: edi4r.rb,v 1.6 2006/08/01 11:12:39 werntges Exp $
 
 We anticipate to support several EDI syntax standards with this module:
 
-C  Name		Description
-===========================================================================
-A  ANSI ASC X.12	the U.S. EDI standard; a precursor of UN/EDIFACT
-E  UN/EDIFACT 		the global EDI standard under the auspices of the UNO
-G  GENCOD		an early French EDI standard, consumer goods branch
-I  SAP IDoc		not an EDI standard, but a very popular in-house format
-S  SEDAS		an early Austrian/German EDI standard, see GENCOD
-T  Tradacoms		the British EDI standard; a precursor of UN/EDIFACT
-X  XML			(DTDs / Schemas still to be supplied)
+# C Name Description
+
+A ANSI ASC X.12 the U.S. EDI standard; a precursor of UN/EDIFACT
+E UN/EDIFACT the global EDI standard under the auspices of the UNO
+G GENCOD an early French EDI standard, consumer goods branch
+I SAP IDoc not an EDI standard, but a very popular in-house format
+S SEDAS an early Austrian/German EDI standard, see GENCOD
+T Tradacoms the British EDI standard; a precursor of UN/EDIFACT
+X XML (DTDs / Schemas still to be supplied)
 
 Our focus will be on UN/EDIFACT, the only global EDI standard we have
 that is independent of industry branches.
@@ -76,14 +77,14 @@ which may or may not apply or be required.
 You can build a valid EDIFACT interchange simply by adding
 messages and segments - just follow your specifications.
 
-However, if you want this Ruby module to *validate* your result,
+However, if you want this Ruby module to _validate_ your result,
 the metadata are required. Similarly, in order to map from EDIFACT to
 other formats, accessing inbound segments though their hierarchical
 representation is much more convenient than processing them linearly.
 
 ## EDI Class hierarchy (overview)
 
-EDI_Object::    Collection, DE
-Collection::    Collection_HT, Collection_S
+EDI_Object:: Collection, DE
+Collection:: Collection_HT, Collection_S
 Collection_HT:: Interchange, MsgGroup, Message
-Collection_S::  Segment, CDE
+Collection_S:: Segment, CDE

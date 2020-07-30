@@ -12,7 +12,7 @@ export interface ReferenceWithMeta<T> {
   externalReference: String;
   value: T;
 }
-    
+
 export interface MetaFields {
   reference?: string;
   id?: string;
@@ -20,4 +20,3 @@ export interface MetaFields {
   globalKey?: String;
   externalKey?: String;
 }
-
