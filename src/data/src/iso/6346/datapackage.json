@@ -40,9 +40,7 @@
     {
       "bytes": 22768,
       "datahub": {
-        "derivedFrom": [
-          "iso-container-codes"
-        ],
+        "derivedFrom": ["iso-container-codes"],
         "type": "derived/csv"
       },
       "dialect": {
@@ -104,9 +102,7 @@
     {
       "bytes": 767,
       "datahub": {
-        "derivedFrom": [
-          "iso-container-groups"
-        ],
+        "derivedFrom": ["iso-container-groups"],
         "type": "derived/csv"
       },
       "dialect": {
@@ -147,9 +143,7 @@
     {
       "bytes": 69887,
       "datahub": {
-        "derivedFrom": [
-          "iso-container-codes"
-        ],
+        "derivedFrom": ["iso-container-codes"],
         "type": "derived/json"
       },
       "dpp:streamedFrom": "https://s3.amazonaws.com/rawstore.datahub.io/3d5f65b5e0b5d4950ea2cb28f7f2ffb9.csv",
@@ -200,9 +194,7 @@
     {
       "bytes": 1562,
       "datahub": {
-        "derivedFrom": [
-          "iso-container-groups"
-        ],
+        "derivedFrom": ["iso-container-groups"],
         "type": "derived/json"
       },
       "dpp:streamedFrom": "https://s3.amazonaws.com/rawstore.datahub.io/8894276d7939856e1600f1ec7b4d3736.csv",
@@ -345,9 +337,7 @@
         "type": "preview"
       },
       "name": "datahub-preview-iso-container-codes_csv_preview",
-      "resources": [
-        "iso-container-codes"
-      ],
+      "resources": ["iso-container-codes"],
       "specType": "table",
       "transform": {
         "limit": 2000
@@ -358,9 +348,7 @@
         "type": "preview"
       },
       "name": "datahub-preview-iso-container-groups_csv_preview",
-      "resources": [
-        "iso-container-groups"
-      ],
+      "resources": ["iso-container-groups"],
       "specType": "table",
       "transform": {
         "limit": 2000

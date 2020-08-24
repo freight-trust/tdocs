@@ -1,25 +1,24 @@
-require "simplecov"
-SimpleCov.start do
-  add_filter "/spec/"
-end
+require 'simplecov'
+SimpleCov.start { add_filter '/spec/' }
 
-require "bundler/setup"
-require "asciidoctor"
-require "metanorma-tdoc"
-require "asciidoctor/tdoc"
-require "isodoc/tdoc/html_convert"
-require "isodoc/tdoc/word_convert"
-require "asciidoctor/standoc/converter"
-require "rspec/matchers"
-require "equivalent-xml"
-require "htmlentities"
-require "metanorma"
-require "metanorma/tdoc"
-require "rexml/document"
+require 'bundler/setup'
+require 'asciidoctor'
+require 'metanorma-tdoc'
+require 'asciidoctor/tdoc'
+require 'isodoc/tdoc/html_convert'
+require 'isodoc/tdoc/word_convert'
+require 'asciidoctor/standoc/converter'
+require 'rspec/matchers'
+require 'equivalent-xml'
+require 'htmlentities'
+require 'metanorma'
+require 'metanorma/tdoc'
+require 'rexml/document'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
-  config.example_status_persistence_file_path = ".rspec_status"
+  config.example_status_persistence_file_path =
+    '.rspec_status'
 
   # Disable RSpec exposing methods globally on `Module` and `main`
   config.disable_monkey_patching!
@@ -30,20 +29,24 @@ RSpec.configure do |config|
 end
 
 def strip_guid(x)
-  x.gsub(%r{ id="_[^"]+"}, ' id="_"').gsub(%r{ target="_[^"]+"}, ' target="_"')
+  x.gsub(/ id="_[^"]+"/, ' id="_"').gsub(/ target="_[^"]+"/, ' target="_"')
 end
 
 def htmlencode(x)
-  HTMLEntities.new.encode(x, :hexadecimal).gsub(/&#x3e;/, ">").gsub(/&#xa;/, "\n").
-    gsub(/&#x22;/, '"').gsub(/&#x3c;/, "<").gsub(/&#x26;/, '&').gsub(/&#x27;/, "'").
-    gsub(/\\u(....)/) { |s| "&#x#{$1.downcase};" }
+  HTMLEntities.new.encode(x, :hexadecimal).gsub(/&#x3e;/, '>').gsub(
+    /&#xa;/,
+    "\n"
+  ).gsub(/&#x22;/, '"').gsub(/&#x3c;/, '<').gsub(/&#x26;/, '&').gsub(
+    /&#x27;/,
+    "'"
+  ).gsub(/\\u(....)/) { |s| "&#x#{$1.downcase};" }
 end
 
 def xmlpp(x)
-  s = ""
+  s = ''
   f = REXML::Formatters::Pretty.new(2)
   f.compact = true
-  f.write(REXML::Document.new(x),s)
+  f.write(REXML::Document.new(x), s)
   s
 end
 
@@ -66,11 +69,22 @@ HDR
 
 BOILERPLATE =
   HTMLEntities.new.decode(
-  File.read(File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "tdoc", "boilerplate.xml"), encoding: "utf-8").
-  gsub(/\{\{ docyear \}\}/, Date.today.year.to_s).
-  gsub(/<p>/, '<p id="_">').
-  gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, "").
-  gsub(/\{% if ip_notice_received %\}\{% else %\}not\{% endif %\}/m, ""))
+    File.read(
+      File.join(
+        File.dirname(__FILE__),
+        '..',
+        'lib',
+        'asciidoctor',
+        'tdoc',
+        'boilerplate.xml'
+      ),
+      encoding: 'utf-8'
+    ).gsub(/\{\{ docyear \}\}/, Date.today.year.to_s).gsub(/<p>/, '<p id="_">')
+      .gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, '').gsub(
+      /\{% if ip_notice_received %\}\{% else %\}not\{% endif %\}/m,
+      ''
+    )
+  )
 
 LICENSE_BOILERPLATE = <<~END
 <license-statement>
@@ -135,5 +149,3 @@ HTML_HDR = <<~"HDR"
            <br/>
            <div class="main-section">
 HDR
-
-

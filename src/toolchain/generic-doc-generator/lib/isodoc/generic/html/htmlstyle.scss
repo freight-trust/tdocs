@@ -7,17 +7,19 @@
    License: none (public domain)
 */
 
-@import 'base_style/all';
+@import "base_style/all";
 
 body {
   @include bodyStyle1(15px, 1.4em, #1d1d1d, #ffffff, 300);
   // @include sidebarNavContainer(323px);
 }
 
-main {margin: 0 3em 0 6em;}
+main {
+  margin: 0 3em 0 6em;
+}
 
 #toc {
-  @include toc(#485094, #1661AD, #485094);
+  @include toc(#485094, #1661ad, #485094);
   @include sidebarToc();
   .toc-active a {
     color: white;
@@ -38,14 +40,14 @@ nav {
 }
 
 #toggle {
-  @include sidebarNavToggle(white, #1661AD)
+  @include sidebarNavToggle(white, #1661ad);
 }
 
 #myBtn {
   @include toTopBtn(white, #1f8ca0);
   text-transform: uppercase;
   a.anchorjs-link {
-    @include anchorLink(#485094)
+    @include anchorLink(#485094);
   }
 }
 
@@ -55,20 +57,20 @@ nav {
 
 @media screen and (min-width: 768px) {
   .container {
-      padding-left: 360px;
+    padding-left: 360px;
   }
 
   .rule.toc {
-      display: none;
+    display: none;
   }
 
   h1.toc-contents {
-      margin-top: 1em;
+    margin-top: 1em;
   }
 
   ul#toc-list {
-      padding:0;
-      margin:0;
+    padding: 0;
+    margin: 0;
   }
 }
 
@@ -94,15 +96,15 @@ p.document-stage {
 }
 
 #governance-band p.document-type {
-  height: 230px!important;
+  height: 230px !important;
 }
 
 p.document-stage {
   font-weight: 300;
-  height:160px;
+  height: 160px;
 }
 
-#standard-band p{
+#standard-band p {
   height: 270px;
 }
 
@@ -110,72 +112,78 @@ p.document-stage {
   height: 150px;
 }
 
-#standard-band,  #published-band {
-    background-color: #9ABD48;
+#standard-band,
+#published-band {
+  background-color: #9abd48;
 }
 
-#standard, #published {
-    border-bottom: solid 3px #9ABD48;
+#standard,
+#published {
+  border-bottom: solid 3px #9abd48;
 }
 
-#governance, #policy-and-procedures {
-    border-bottom: solid 3px #750697;
+#governance,
+#policy-and-procedures {
+  border-bottom: solid 3px #750697;
 }
 
-#governance-band, #policy-and-procedures-band {
-    background-color: #750697;
+#governance-band,
+#policy-and-procedures-band {
+  background-color: #750697;
 }
 
 #guide {
-    border-bottom: solid 3px #48a0e7;
+  border-bottom: solid 3px #48a0e7;
 }
 
 #guide-band {
-    background-color: #48a0e7;
+  background-color: #48a0e7;
 }
 
 .coverpage-maturity {
   @include coverpageStageBlock();
 }
 
-#working-draft, #proposal {
-    border-bottom: solid 3px #F7803C;
+#working-draft,
+#proposal {
+  border-bottom: solid 3px #f7803c;
 }
 
-#working-draft-band, #proposal-band {
-    background-color: #F7803C;
+#working-draft-band,
+#proposal-band {
+  background-color: #f7803c;
 }
 
 #committee-draft {
-    border-bottom: solid 3px #fd06fd;
+  border-bottom: solid 3px #fd06fd;
 }
 
 #committee-draft-band {
-    background-color: #fd06fd;
+  background-color: #fd06fd;
 }
 
 #draft-standard {
-    border-bottom: solid 3px #fdf906;
+  border-bottom: solid 3px #fdf906;
 }
 
 #draft-standard-band {
-    background-color: #fdf906;
+  background-color: #fdf906;
 }
 
 #standard {
-    border-bottom: solid 3px #9ABD48;
+  border-bottom: solid 3px #9abd48;
 }
 
 #standard-band {
-    background-color: #9ABD48;
+  background-color: #9abd48;
 }
 
 #obsolete {
-    border-bottom: solid 3px #7e0d13;
+  border-bottom: solid 3px #7e0d13;
 }
 
 #obsolete-band {
-    background-color: #7e0d13;
+  background-color: #7e0d13;
 }
 
 /*
@@ -186,9 +194,14 @@ p.document-stage {
     3.1 Titles
 */
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $headerfont;
-  color: #1661AD;
+  color: #1661ad;
   font-weight: 300;
   margin-top: 1.6em;
   margin-bottom: 0.3em;
@@ -201,7 +214,7 @@ h1 {
 }
 
 h1#content {
-    margin-top: 2em;
+  margin-top: 2em;
 }
 
 h2 {
@@ -216,8 +229,10 @@ h3 {
   font-weight: 100;
 }
 
-.TermNum, .Terms, .AltTerms {
-  color: #1661AD;
+.TermNum,
+.Terms,
+.AltTerms {
+  color: #1661ad;
   font-weight: 100;
 }
 
@@ -240,30 +255,34 @@ p.AltTerms {
 }
 
 .contact-info a:hover {
-    color: #485094;
-    text-decoration: underline;
-    background: none;
-    box-shadow: 0 0 0 0;
+  color: #485094;
+  text-decoration: underline;
+  background: none;
+  box-shadow: 0 0 0 0;
 }
 
 /*
   3.2 Links
 */
-@include elementStyles(#485094, #1661AD, white);
+@include elementStyles(#485094, #1661ad, white);
 
 /*
     3.3 Lists
 */
 
-ul, ol {margin-left: 1.2em;}
+ul,
+ol {
+  margin-left: 1.2em;
+}
 
-ul  li {
- list-style: none;
+ul li {
+  list-style: none;
 }
 
 ul > li:before {
   content: "\2014";
-  display: inline-block; width: 1em;
+  display: inline-block;
+  width: 1em;
   margin-left: -1.2em;
 }
 
@@ -293,35 +312,39 @@ ul > li:first-child {
 */
 
 .rule {
-  @include rule(1px, #0e1a85)
+  @include rule(1px, #0e1a85);
 }
 
 /*
     3.5 Bibliograhy
 */
 
-p.Biblio, p.NormRef {
-    margin-top: 1em;
-    margin-left: 2em;
+p.Biblio,
+p.NormRef {
+  margin-top: 1em;
+  margin-left: 2em;
 }
 
 /*
     3.6 Source Code + figures
 */
 
-.figure, pre, .pseudocode {
+.figure,
+pre,
+.pseudocode {
   @include pseudocodeBlock(#f7f7f7);
 }
 
 pre {
-  @include monospaceBlockStyle()
+  @include monospaceBlockStyle();
 }
 
 @include admonitionBlock();
 @include recommendationBlock();
 
-.FigureTitle, .SourceTitle {
-  @include blockTitle()
+.FigureTitle,
+.SourceTitle {
+  @include blockTitle();
 }
 
 /*
@@ -329,25 +352,25 @@ pre {
 */
 
 .Note {
-    background-color: #fff495;
-    color: #47430c;
-    padding: 1.2em;
-    margin: 1em 0 1em 0;
+  background-color: #fff495;
+  color: #47430c;
+  padding: 1.2em;
+  margin: 1em 0 1em 0;
 
-    p {
-        margin: 0;
-    }
+  p {
+    margin: 0;
+  }
 }
 
 .Admonition {
-    background-color: #ffcccc;
-    color: #47430c;
-    padding: 1.2em;
-    margin: 1em 0 1em 0;
+  background-color: #ffcccc;
+  color: #47430c;
+  padding: 1.2em;
+  margin: 1em 0 1em 0;
 
-    p {
-        margin: 0;
-    }
+  p {
+    margin: 0;
+  }
 }
 
 /*
@@ -386,12 +409,12 @@ p.TableTitle {
 */
 
 a.footnote-number {
-    vertical-align: super;
-    font-size: 0.8em;
+  vertical-align: super;
+  font-size: 0.8em;
 }
 
 .footnote {
-    font-size: 0.9em;
+  font-size: 0.9em;
 }
 
 /*
@@ -407,7 +430,7 @@ a.footnote-number {
 */
 
 .formula {
-  @include formulaBlock(#f7f7f7)
+  @include formulaBlock(#f7f7f7);
 }
 /*
     3.13 Contact Info
@@ -419,32 +442,32 @@ a.footnote-number {
   width: 250px;
 
   text-align: left;
-  border: #1661AD solid 2px;
-  color: #1661AD!important;
+  border: #1661ad solid 2px;
+  color: #1661ad !important;
   border-radius: 25px;
-
 }
 
 .contact-info a,
 .contact-info a:hover {
-  color: #1661AD;
+  color: #1661ad;
 }
 
-.contact-info p, .contact-info a {
+.contact-info p,
+.contact-info a {
   @include monospaceBlockStyle();
   font-weight: 400;
 }
 
 .contact-info .name {
-    font-weight: 700;
-    font-size: 1.2em;
-    margin-bottom:0;
+  font-weight: 700;
+  font-size: 1.2em;
+  margin-bottom: 0;
 }
 
 .contact-info .address {
-    font-size: 1em;
-    line-height: 1.3em;
-    margin-top:0;
+  font-size: 1em;
+  line-height: 1.3em;
+  margin-top: 0;
 }
 
 /*
@@ -452,7 +475,7 @@ a.footnote-number {
 */
 
 span.keyword {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 /*
@@ -460,14 +483,13 @@ span.keyword {
 */
 
 p {
-    margin-top: 1em;
-    margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 h2 p {
   display: inline;
 }
-
 
 /*
     4.0 Page header
@@ -483,7 +505,7 @@ h2 p {
 }
 
 .wrapper-top {
-  background: linear-gradient(200deg, #0f365e, #1661AD);
+  background: linear-gradient(200deg, #0f365e, #1661ad);
   color: #ffffff;
   padding: 2em 0;
   width: 100%;
@@ -492,123 +514,118 @@ h2 p {
 .wrapper-top-bottom {
   width: 0;
   height: 0;
-  border-top: 100px solid #1661AD;
+  border-top: 100px solid #1661ad;
   border-right: 100px solid transparent;
   position: absolute;
 }
 
-  .doc-number {
-      font-size: 0.5em;
-      font-family: $bodyfont;
-  }
+.doc-number {
+  font-size: 0.5em;
+  font-family: $bodyfont;
+}
 
-  .coverpage-title {
-      padding-bottom: 0.5em;
-      font-family: $headerfont;
-      font-size: 1.2em;
-      line-height: 1.5em;
+.coverpage-title {
+  padding-bottom: 0.5em;
+  font-family: $headerfont;
+  font-size: 1.2em;
+  line-height: 1.5em;
   font-weight: 100;
   padding-left: 1em;
   padding-right: 1em;
   text-transform: uppercase;
-  }
+}
 
-  .WordSection11 {
-    padding: 0 2em 0 3em;
-  }
+.WordSection11 {
+  padding: 0 2em 0 3em;
+}
 
- .info-section {
-    padding: 0 2em 0 5em; }
+.info-section {
+  padding: 0 2em 0 5em;
+}
 
-  .prefatory-section {
-    padding: 0 3em 0 6em;
-  }
+.prefatory-section {
+  padding: 0 3em 0 6em;
+}
 
+.zzSTDTitle1,
+.MsoCommentText {
+  display: none;
+}
 
-  .zzSTDTitle1, .MsoCommentText {
-    display: none;
-  }
+.coverpage {
+  text-align: center;
+  padding-left: 1.5em;
+}
 
+.coverpage-logo span,
+.coverpage-tc-name span {
+  font-family: $bodyfont;
+  text-transform: none;
+  font-weight: 300;
+}
 
-  .coverpage {
-    text-align: center;
-    padding-left: 1.5em;
-  }
-
-  .coverpage-logo span, .coverpage-tc-name span {
-    font-family: $bodyfont;
-      text-transform: none;
-      font-weight: 300;
-  }
-
-  .coverpage-tc-name {
-    font-size: 1.2em;
-    line-height: 1.2em;
-    margin: 0.25em 0;
-  }
+.coverpage-tc-name {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  margin: 0.25em 0;
+}
 
 /*
     4.2 Document Identity
 */
 
-  .coverpage-doc-identity {
-    font-size: 2em;
-    line-height: 2em;
-  }
+.coverpage-doc-identity {
+  font-size: 2em;
+  line-height: 2em;
+}
 
-  .coverpage-title .title-second {
-    display: none;
-  }
+.coverpage-title .title-second {
+  display: none;
+}
 
-  .coverpage-stage-block {
-    font-family: $bodyfont;
-    font-weight: 600;
-    font-size: 1.25em;
-    margin: 2em 0em 2em 0em;
-    text-transform: uppercase;
-  }
+.coverpage-stage-block {
+  font-family: $bodyfont;
+  font-weight: 600;
+  font-size: 1.25em;
+  margin: 2em 0em 2em 0em;
+  text-transform: uppercase;
+}
 
 /*
     4.3 Draft Warning
 */
 
-  .coverpage-warning {
-    border: #f36f36 solid 2px;
-  color: #f36f36!important;
+.coverpage-warning {
+  border: #f36f36 solid 2px;
+  color: #f36f36 !important;
   margin: 1em 2em;
   color: #485094;
   padding: 2em 1em 1em 1em;
   border-radius: 25px;
-  }
+}
 
-  .coverpage-warning .title {
-    font-family: $headerfont;
-    font-weight: 300;
-    text-transform: uppercase;
-    font-size: 1.2em;
-  }
-
+.coverpage-warning .title {
+  font-family: $headerfont;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 1.2em;
+}
 
 /*
     4.4 Copyright
 */
 
-  .copyright {
-    padding: 1em;
-    font-size: 0.9em;
-    text-align: left;
-  }
-
+.copyright {
+  padding: 1em;
+  font-size: 0.9em;
+  text-align: left;
+}
 
 /*  .copyright .name, .copyright .address {color: #485094;} */
-
-
 
 /*
     5.0 Other styles
 */
-
-
 
 /*
 To top button
@@ -619,22 +636,29 @@ To top button
 }
 
 @media print {
-
-
-  .document-info,  nav, .copyright {
-      page-break-before: always;
+  .document-info,
+  nav,
+  .copyright {
+    page-break-before: always;
   }
 
   nav {
     page-break-after: always;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     page-break-after: avoid;
     margin-top: 1.2em;
   }
 
-  .note, .figure, pre, .pseudocode, table {
+  .note,
+  .figure,
+  pre,
+  .pseudocode,
+  table {
     page-break-inside: avoid;
   }
 
@@ -643,7 +667,7 @@ To top button
   }
 
   .coverpage {
-      height: 23cm;
+    height: 23cm;
   }
 
   .wrapper-top {
@@ -661,50 +685,50 @@ To top button
   }
 
   .container {
-      padding-left: 0;
+    padding-left: 0;
   }
 
-    h1.content {
-      margin-top: 2em;
-      line-height: 2.5em;
-    }
+  h1.content {
+    margin-top: 2em;
+    line-height: 2.5em;
+  }
 
-    h1 {
-      font-size: 1.5em;
-      line-height: 1.5;
-    }
+  h1 {
+    font-size: 1.5em;
+    line-height: 1.5;
+  }
 
-    h2 {
-      font-size: 1.2em
-    }
+  h2 {
+    font-size: 1.2em;
+  }
 
-    h3 {
-      font-size: 1em;
-    }
+  h3 {
+    font-size: 1em;
+  }
 
-    .Note {
-        background-color: #fff495;
-        color: #47430c;
-        padding: 5px;
-        margin: 2em 0 1em 0; }
+  .Note {
+    background-color: #fff495;
+    color: #47430c;
+    padding: 5px;
+    margin: 2em 0 1em 0;
+  }
 
-    .Note p {
-      padding: 0 5px 0 5px;
-    }
+  .Note p {
+    padding: 0 5px 0 5px;
+  }
 
-    .Admonition {
-        background-color: #ffcccc;
-        color: #47430c;
-        padding: 5px;
-        margin: 2em 0 1em 0; }
+  .Admonition {
+    background-color: #ffcccc;
+    color: #47430c;
+    padding: 5px;
+    margin: 2em 0 1em 0;
+  }
 
-    .Admonition p {
-      padding: 0 5px 0 5px;
-    }
+  .Admonition p {
+    padding: 0 5px 0 5px;
+  }
 
-    .wrapper-top-bottom {
-      display: none;
-    }
-
+  .wrapper-top-bottom {
+    display: none;
+  }
 }
-

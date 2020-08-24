@@ -2,7 +2,7 @@ name: windows
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
     paths-ignore:
       - .github/workflows/macos.yml
@@ -16,10 +16,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: [ '2.6', '2.5', '2.4' ]
+        ruby: ["2.6", "2.5", "2.4"]
         experimental: [false]
         include:
-          - ruby: '2.7'
+          - ruby: "2.7"
             experimental: true
     steps:
       - uses: actions/checkout@master
@@ -36,7 +36,7 @@ jobs:
       - name: Use Node
         uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: "12"
       - name: Install Puppeteer
         run: |
           npm install -g puppeteer@3.0.1

@@ -12,7 +12,7 @@
     },
     {
       "name": "Extension",
-      "superClass": [ "Base" ],
+      "superClass": ["Base"],
       "properties": [
         { "name": "value", "type": "String" },
         { "name": "id", "type": "Integer", "replaces": "Base#id", "isId": true }

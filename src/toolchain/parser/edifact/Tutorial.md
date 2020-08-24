@@ -12,7 +12,6 @@
      require "edi4r"         # Try require_gem if this fails on your site
      require "edi4r/edifact"
 
-
 ## Creating an (outbound) UN/EDIFACT interchange
 
 ### An empty interchange
@@ -39,10 +38,9 @@ message from any UN/TDID by passing the corresponding parameters
 as hash components:
 
      msg = ic.new_message( :msg_type=>'ORDERS', :version=>'D', :release=>'96A',
-			:resp_agency=>'UN' )
+    		:resp_agency=>'UN' )
 
 Hash components which you do not specify are taken from a set of defaults.
-
 
 ### Filling an interchange
 
@@ -53,7 +51,7 @@ You may add messages to the interchange any time by calling method add():
 When adding new messages to an interchange, they get appended to the
 current interchange content. There is no method to insert a message
 at any other location. If you need to do that, hold your messages
-in an array, sort them any way you like, and finally add them 
+in an array, sort them any way you like, and finally add them
 to the interchange in the desired sequence.
 
 Note that each messag gets validated by default when you add it to
@@ -74,7 +72,7 @@ Here, we derived a BGM segment from the current context,
 i.e. an UN/TDID like D.96A which we specified when creating the message given.
 
 Note that <tt>new_segment()</tt> accepts all segment tags available in the
-whole TDID's  segment directory - not just those usable within
+whole TDID's segment directory - not just those usable within
 this message type.
 
 Add content to the segment (see below) and add it to the message:
@@ -89,7 +87,6 @@ guideline (MIG) handy in order to comply.
 It is possible to add empty or partially filled segments to a message.
 Just keep a reference to them and fill in their required data elements later.
 
-
 ## Accessing Composites and Data Elements
 
 ### Background
@@ -97,7 +94,7 @@ Just keep a reference to them and fill in their required data elements later.
 While interchanges and messages are basically empty when created,
 segments are not: They come equipped with the composites (CDE, composite
 data elements ) and data elements (DE) they comprise in their current
-context. Likewise, CDEs come equipped with the sequence of DEs 
+context. Likewise, CDEs come equipped with the sequence of DEs
 which they contain according to the underlying TDID.
 
 Segments and CDEs are basically sequences (arrays) of their component
@@ -128,7 +125,7 @@ internal organization of DE objects. All we need is access
 to their <em>values</em>.
 
 Similarly to CDE getters, we build a DE getter by prepending
-a 'd' to the DE name. The result is a method that returns 
+a 'd' to the DE name. The result is a method that returns
 the current value of this DE (nil if unassigned), not the
 DE object itself:
 
@@ -155,10 +152,10 @@ is still what we later want to see in the interchange file.
 There is no such thing! A CDE should always be derived
 from its proper context and must not be changed thereafter.
 Likewise, a segment's content is nothing a user should
-interfere with. 
+interfere with.
 
-Does that sound like dictatorship? Well, there *are* ways
-to manipulate CDEs and segments, but that's an advanced 
+Does that sound like dictatorship? Well, there _are_ ways
+to manipulate CDEs and segments, but that's an advanced
 and rarely used topic well out of scope of this tutorial ...
 
 ### DE and CDE arrays
@@ -167,7 +164,7 @@ Sometimes, a DE occurs multiple times within a segment or CDE,
 and a CDE may occur multiple times within a segment.
 
 Before syntax version 4, EDIFACT does not really employ
-the concept of an array. Instead, there are multiple 
+the concept of an array. Instead, there are multiple
 occurrences of a particular DE or CDE listed in a row.
 
 In such a case, the corresponding getters and setters
@@ -175,18 +172,18 @@ won't work. Actually, they raise a TypeError to make sure
 that you don't accidentally overlook that there is more
 than one instance of the given (C)DE.
 
-We obtain a whole array of *all* matching (C)DE instead
+We obtain a whole array of _all_ matching (C)DE instead
 and indicate this with a prefix 'a':
 
       seg = msg.new_segment('PIA')
       cde_list = seg.aC212
-    
+
       cde_list[0].d7140 = '54321'
       cde_list[0].d7143 = 'SA'
       cde_list[0].d3055 = 91
-    
+
       cde_list[1].d7140 = ... # etc
-    
+
       seg = msg.new_segment('NAD')
       seg.cC080.a3036[0].value = 'E. X. Ample'
       seg.cC080.a3036[1].value = 'Sales dept.'
@@ -198,10 +195,9 @@ new values to those DE objects.
 Sometimes, a CDE or segment contains the same DE more than once
 even if both instances are separated by a different element,
 like DE 3055 and 1131 in C088 of segment FII, which you may
-find in invoices. In that case the same concept holds: cde.a1131 
+find in invoices. In that case the same concept holds: cde.a1131
 would fetch all instances, no matter if some other elements
 occur in between or not.
-
 
 ## Building it all together
 
@@ -229,7 +225,7 @@ and updates the corresponding DE in UNT and UNZ, respectively.
 If we really need to access data there,
 that's possible anytime through getters <tt>header</tt> and
 <tt>trailer</tt>. From then on, we just use the usual DE and
-CDE getters and setters. E.g., setting the UNB sender ID 
+CDE getters and setters. E.g., setting the UNB sender ID
 works like this:
 
      ic.header.cS002.d0004 = '1234567'
@@ -240,7 +236,7 @@ Setting the test indicator may look like this:
 
 ### UNA handling
 
-The pseudo segment UNA commonly introduces an UN/EDIFACT 
+The pseudo segment UNA commonly introduces an UN/EDIFACT
 interchange. It is shown there by default, which is a good
 idea in most cases. If you really have to switch it off, use:
 
@@ -265,13 +261,13 @@ Here is the list of corresponding getter methods:
 
 Corresponding setters allow you to change all of them.
 Remember to pass ASCII values, not strings. Example:
-    
-    pri.cC509.d5118 = 30.1
-    pri.to_s      --> "PRI+AAA:30.1::LIU"
-    ic.una.decimal_sign = ?,
-    pri.to_s      --> "PRI+AAA:30,1::LIU"
-    ic.una.ce_sep = ?/
-    pri.to_s      --> "PRI+AAA/30,1//LIU"
+  
+ pri.cC509.d5118 = 30.1
+pri.to_s --> "PRI+AAA:30.1::LIU"
+ic.una.decimal_sign = ?,
+pri.to_s --> "PRI+AAA:30,1::LIU"
+ic.una.ce_sep = ?/
+pri.to_s --> "PRI+AAA/30,1//LIU"
 
 ### Validation
 
@@ -281,7 +277,7 @@ validate your interchange, just call
      ic.validate
 
 This method will return the number of (recoverable) issues found.
-Error messages and warnings are written to $stderr. There are
+Error messages and warnings are written to \$stderr. There are
 a few non-recoverable errors which raise exceptions.
 
 Actually, you may apply method validate() to almost all of the
@@ -295,12 +291,11 @@ Actually, that's very simple: Output it e.g. to stdout or to a file
 by just printing it! This works nicely, because our EDI objects are
 all equipped with reasonable methods "to_s()".
 
-
 ## Processing (inbound) interchanges
 
 ### Building the interchange object
 
-We build a whole interchange with a single call by passing 
+We build a whole interchange with a single call by passing
 its character representation as a String or IO object to class method
 parse():
 
@@ -331,7 +326,6 @@ Examples:
     second_msg = ic[1]
     last_msg = ic.last
 
-
 ### Awaiting segments of a message
 
 Similarly, we iterate through the segments of a message. The following
@@ -340,7 +334,7 @@ construction lets you select segments in their proper context
 
     def map_message( msg )
       # do your initialization here, then
-  
+
       msg.each do |seg|
         seg_name = seg.name
         seg_name += ' ' + seg.sg_name if seg.sg_name
@@ -351,7 +345,7 @@ construction lets you select segments in their proper context
           # do that ...
         when 'NAD SG2'
           # react only if NAD occurs in segment group 2
-  
+
         # ... etc., finally:
         default
           raise "Segment #{seg_name}: Not accounted for!"
@@ -383,7 +377,7 @@ T-shaped "joints". Thus, segments of a segment group are mere
 descendants of their trigger segment in the branching diagram.
 
 Here are some helpful methods to select segments of a group:
- 
+
     # ...
     when 'NAD SG2'
       map_nad_sg2( seg.children_and_self ) # skip segment COM...
@@ -401,9 +395,8 @@ are inspired by XPath axes. They return an array of segments
 which depend on the given (trigger) segment as their common
 ancestor.
 
-Using these selectors, writing modular mapping code 
+Using these selectors, writing modular mapping code
 now becomes an easy task.
-
 
 ## Peeking into interchanges
 
@@ -415,7 +408,7 @@ is UN/EDIFACT, who sent it to whom, or just to see if the
 UNB test indicator is set.
 
 We could of course apply EDI::E::Interchange.parse() and access
-the header of the resulting interchange object when we know that 
+the header of the resulting interchange object when we know that
 a given file contains UN/EDIFACT data. However, that would be
 a big waste of resources, especially for large interchanges.
 
@@ -447,15 +440,15 @@ Applying "gzip" to EDIFACT data easily shrinks them to
 So far, so good. Later though, you may need to extract
 a specific file from the archive, e.g. the interchange
 with control reference "ref3456" from a customer
-with sender id "xyz". Well, you do not need to maintain 
-a separate index or decompress all files in the archive 
+with sender id "xyz". Well, you do not need to maintain
+a separate index or decompress all files in the archive
 in order to find it. There is a generic class method
 "Interchange.peek()" that does all this for you.
 Consider the following code fragment that assumes
 that ARGV contains the list of files to search:
 
     require 'zlib'
-  
+
     found = ARGV.find do |fname|
               ic = EDI::Interchange.peek(File.open(fname))
               h = ic.header
@@ -465,8 +458,7 @@ that ARGV contains the list of files to search:
     # ...
 
 Note that this code will work with both zipped and
-unzipped data, and with UN/EDIFACT as well as other content. 
-
+unzipped data, and with UN/EDIFACT as well as other content.
 
 ## XML representation
 
@@ -474,8 +466,8 @@ unzipped data, and with UN/EDIFACT as well as other content.
 
 EDI interchanges may be regarded as abstract objects which need
 some representation when stored or exchanged. E.g., UN/EDIFACT
-interchanges may be expressed (represented) by syntax version 1-4 
-and a choice of separator and termination characters 
+interchanges may be expressed (represented) by syntax version 1-4
+and a choice of separator and termination characters
 without changing their identity. Likewise, interchanges
 may be represented by some suitable XML document type.
 
@@ -490,7 +482,7 @@ into a XML-driven architecture.
 There are (too) many ways to do this, and attempts have been made
 to standardize them. In particular, DIN 16557-4
 (http://www.beuth.de/cmd?workflowname=CSVList&websource=&artid=43768898)
-describes a way how to represent UN/EDIFACT interchanges as XML documents 
+describes a way how to represent UN/EDIFACT interchanges as XML documents
 and how to describe them with DTDs.
 
 The DIN approach however focuses only on UN/EDIFACT and does not represent
@@ -522,11 +514,11 @@ optional EDI4R modules, then use method "to_xml()" like this:
     # Other require statements, finally:
     require "edi4r/rexml"
     require "edi4r/rexml"
-  
+
     # Generate your interchange "ic", then:
     xdoc = REXML::Document.new   # Empty REXML document
     ic.to_xml( xdoc )            # Fill it
-  
+
     # The rest is standard REXML handling. Here, we write the xdoc to a file.
     # (See REXML::Document.write() for details on indenting)
     xdoc.write( File.open( 'mydata.xml','w'), 0 )
@@ -539,10 +531,10 @@ Just make sure that you have loaded the corresponding module(s):
 
     # Other require statements, finally:
     require "edi4r/rexml"
-  
+
     ic = EDI::Interchange.parse( File.open('mydata.xml') )
 
-Yes, that's right: It's the same statement that would 
+Yes, that's right: It's the same statement that would
 also load UN/EDIFACT data!
 
 If you know already what to expect, you might bypass EDI4R's
@@ -560,26 +552,26 @@ mentioned above. Example:
 
     $ edi2xml.rb foo.edi > foo.xml
     $ xml2edi.rb foo.xml > bar.edi
-    $ diff foo.edi bar.edi   # There should be no differences 
+    $ diff foo.edi bar.edi   # There should be no differences
 
 ## Tools
 
 ### editool.rb
 
-Use this command-line tool e.g. when you want to 
-* <b>list</b> UN/EDIFACT data in a readable way (one segment per line,
-  optionally indented according to segment level), 
-* <b>validate</b> your EDI data
-* <b>analyze</b> the data more thoroughly through method "inspect()"
-* <b>report</b> header data quickly, one line per file 
+Use this command-line tool e.g. when you want to
+
+- <b>list</b> UN/EDIFACT data in a readable way (one segment per line,
+  optionally indented according to segment level),
+- <b>validate</b> your EDI data
+- <b>analyze</b> the data more thoroughly through method "inspect()"
+- <b>report</b> header data quickly, one line per file
 
 Called without option, it just builds an internal memory model
 of the passed file(s) and raises an exception upon parsing errors.
 Thorough validation can be requested optionally. Example:
 
-  $ editool.rb -l foo.edi bar.edi
-  $ editool.rb -p *.edi *.xml
-
+$ editool.rb -l foo.edi bar.edi
+  $ editool.rb -p _.edi _.xml
 
 ## Further reading
 
@@ -587,31 +579,30 @@ A pair of full-blown mappings (inhouse-to-EANCOM, EANCOM-to-inhouse)
 shows in much more detail how to do outbound and inbound mapping.
 See the source codes in the "test" folder!
 
-
 ## Misc topics
 
 To be supplied later; currently just a room to collect keywords to cover.
 
 ### Debugging and viewing
 
-  :linebreak, :indented
-  inspect()
-  Exception classes
-  Segments: T-nodes, ordinal number, index, occurrence, max. occurrence
-  empty?, required?
+:linebreak, :indented
+inspect()
+Exception classes
+Segments: T-nodes, ordinal number, index, occurrence, max. occurrence
+empty?, required?
 
 ### More advances features
 
-  Validation: warnings and exceptions (logging?)
-  Add-ons to class Time
-  Consistency of references common to headers and trailers
-  Inheriting settings from parent: UNH from UNG, UNG from UNB
-  Low-level access to Collection contents
+Validation: warnings and exceptions (logging?)
+Add-ons to class Time
+Consistency of references common to headers and trailers
+Inheriting settings from parent: UNH from UNG, UNG from UNB
+Low-level access to Collection contents
 
 Enjoy,
 
-  -- Heinz
+-- Heinz
 
 Editor,
 
-  -- Richard
+-- Richard

@@ -14,9 +14,7 @@
     },
     {
       "name": "Own",
-      "properties": [
-        { "name": "count", "type": "Integer", "isAttr": true }
-      ]
+      "properties": [{ "name": "count", "type": "Integer", "isAttr": true }]
     }
   ]
 }

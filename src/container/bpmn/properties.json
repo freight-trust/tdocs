@@ -11,35 +11,36 @@
     },
     {
       "name": "ComplexAttrs",
-      "superClass": [ "Complex" ],
+      "superClass": ["Complex"],
       "properties": [
         { "name": "attrs", "type": "Attributes", "serialize": "xsi:type" }
       ]
     },
     {
       "name": "ComplexAttrsCol",
-      "superClass": [ "Complex" ],
+      "superClass": ["Complex"],
       "properties": [
-        { "name": "attrs", "type": "Attributes", "isMany": true, "serialize": "xsi:type" }
+        {
+          "name": "attrs",
+          "type": "Attributes",
+          "isMany": true,
+          "serialize": "xsi:type"
+        }
       ]
     },
     {
       "name": "ComplexCount",
-      "superClass": [ "Complex" ],
-      "properties": [
-        { "name": "count", "type": "Integer", "isAttr": true }
-      ]
+      "superClass": ["Complex"],
+      "properties": [{ "name": "count", "type": "Integer", "isAttr": true }]
     },
     {
       "name": "ComplexNesting",
-      "superClass": [ "Complex" ],
-      "properties": [
-        { "name": "nested", "type": "Complex", "isMany": true }
-      ]
+      "superClass": ["Complex"],
+      "properties": [{ "name": "nested", "type": "Complex", "isMany": true }]
     },
     {
       "name": "SimpleBody",
-      "superClass": [ "Base" ],
+      "superClass": ["Base"],
       "properties": [
         {
           "name": "body",
@@ -50,7 +51,7 @@
     },
     {
       "name": "SimpleBodyProperties",
-      "superClass": [ "Base" ],
+      "superClass": ["Base"],
       "properties": [
         {
           "name": "intValue",
@@ -72,21 +73,27 @@
     },
     {
       "name": "BaseWithId",
-      "superClass": [ "Base" ],
+      "superClass": ["Base"],
       "properties": [
         { "name": "id", "type": "String", "isAttr": true, "isId": true }
       ]
     },
     {
       "name": "BaseWithNumericId",
-      "superClass": [ "BaseWithId" ],
+      "superClass": ["BaseWithId"],
       "properties": [
-        { "name": "idNumeric", "type": "Integer", "isAttr": true, "redefines": "BaseWithId#id", "isId": true }
+        {
+          "name": "idNumeric",
+          "type": "Integer",
+          "isAttr": true,
+          "redefines": "BaseWithId#id",
+          "isId": true
+        }
       ]
     },
     {
       "name": "Attributes",
-      "superClass": [ "BaseWithId" ],
+      "superClass": ["BaseWithId"],
       "properties": [
         {
           "name": "realValue",
@@ -113,7 +120,7 @@
     },
     {
       "name": "SubAttributes",
-      "superClass": [ "Attributes" ]
+      "superClass": ["Attributes"]
     },
     {
       "name": "Root",
@@ -127,7 +134,7 @@
     },
     {
       "name": "Embedding",
-      "superClass": [ "BaseWithId" ],
+      "superClass": ["BaseWithId"],
       "properties": [
         {
           "name": "embeddedComplex",
@@ -137,7 +144,7 @@
     },
     {
       "name": "ReferencingSingle",
-      "superClass": [ "BaseWithId" ],
+      "superClass": ["BaseWithId"],
       "properties": [
         {
           "name": "referencedComplex",
@@ -149,7 +156,7 @@
     },
     {
       "name": "ReferencingCollection",
-      "superClass": [ "BaseWithId" ],
+      "superClass": ["BaseWithId"],
       "properties": [
         {
           "name": "references",
@@ -161,7 +168,7 @@
     },
     {
       "name": "ContainedCollection",
-      "superClass": [ "BaseWithId" ],
+      "superClass": ["BaseWithId"],
       "properties": [
         {
           "name": "children",

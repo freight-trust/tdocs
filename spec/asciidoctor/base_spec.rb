@@ -1,26 +1,33 @@
-require "spec_helper"
-require "fileutils"
+require 'spec_helper'
+require 'fileutils'
 
-RSpec.describe Asciidoctor::tdoc do
-  it "has a version number" do
-    expect(Metanorma::tdoc::VERSION).not_to be nil
+RSpec.describe Asciidoctor.tdoc do
+  it 'has a version number' do
+    expect(Metanorma.tdoc::VERSION).not_to be nil
   end
 
-  it "processes a blank document" do
+  it 'processes a blank document' do
     input = <<~"INPUT"
     #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output =
+      xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </tdoc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :tdoc, header_footer: true)))).to be_equivalent_to output
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
+        )
+      )
+    ).to be_equivalent_to output
   end
 
-  it "converts a blank document" do
+  it 'converts a blank document' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -29,18 +36,25 @@ RSpec.describe Asciidoctor::tdoc do
       :no-pdf:
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output =
+      xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </tdoc-standard>
     OUTPUT
 
-    FileUtils.rm_f "test.html"
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :tdoc, header_footer: true)))).to be_equivalent_to output
-    expect(File.exist?("test.html")).to be true
+    FileUtils.rm_f 'test.html'
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
+        )
+      )
+    ).to be_equivalent_to output
+    expect(File.exist?('test.html')).to be true
   end
 
-  it "processes default metadata" do
+  it 'processes default metadata' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -75,7 +89,8 @@ RSpec.describe Asciidoctor::tdoc do
       
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output =
+      xmlpp(<<~"OUTPUT")
     <?xml version="1.0" encoding="UTF-8"?>
 <tdoc-standard xmlns="https://www.tradedocs.org/namespace/tdoc">
 <bibdata type="standard">
@@ -123,16 +138,33 @@ RSpec.describe Asciidoctor::tdoc do
   <recipient>admin@freighttrust.com</recipient>
   </ext>
 </bibdata>
-        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement").sub(/Freight Trust and Clearing Corporation\. #{Time.new.year}/, "Freight Trust and Clearing")}
+        #{
+        BOILERPLATE.sub(
+          /<legal-statement/,
+          "#{LICENSE_BOILERPLATE}\n<legal-statement"
+        ).sub(
+          /Freight Trust and Clearing Corporation\. #{Time.new.year}/,
+          'Freight Trust and Clearing'
+        )
+      }
 <sections/>
 </tdoc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :tdoc, header_footer: true)))).to be_equivalent_to output
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
+        )
+      )
+    ).to be_equivalent_to output
   end
 
-    it "processes committee-draft" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :tdoc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it 'processes committee-draft' do
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(<<~"INPUT", backend: :tdoc, header_footer: true)
       = Document title
       Author
       :docfile: test.adoc
@@ -148,6 +180,9 @@ RSpec.describe Asciidoctor::tdoc do
       :language: en
       :title: Main Title
     INPUT
+        )
+      )
+    ).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <tdoc-standard xmlns="https://www.tradedocs.org/namespace/tdoc">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
@@ -177,7 +212,9 @@ RSpec.describe Asciidoctor::tdoc do
     <iteration>4</iteration>
   </status>
   <copyright>
-    <from>#{Date.today.year}</from>
+    <from>#{
+                       Date.today.year
+                     }</from>
     <owner>
       <organization>
         <name>Freight Trust and Clearing</name>
@@ -188,14 +225,22 @@ RSpec.describe Asciidoctor::tdoc do
   <doctype>standard</doctype>
   </ext>
 </bibdata>
-        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement")}
+        #{
+                       BOILERPLATE.sub(
+                         /<legal-statement/,
+                         "#{LICENSE_BOILERPLATE}\n<legal-statement"
+                       )
+                     }
 <sections/>
 </tdoc-standard>
         OUTPUT
-    end
+  end
 
-            it "processes draft-standard" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :tdoc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it 'processes draft-standard' do
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(<<~"INPUT", backend: :tdoc, header_footer: true)
       = Document title
       Author
       :docfile: test.adoc
@@ -211,6 +256,9 @@ RSpec.describe Asciidoctor::tdoc do
       :language: en
       :title: Main Title
     INPUT
+        )
+      )
+    ).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <tdoc-standard xmlns="https://www.metanorma.org/ns/tdoc">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
@@ -240,7 +288,9 @@ RSpec.describe Asciidoctor::tdoc do
     <iteration>3</iteration>
   </status>
   <copyright>
-    <from>#{Date.today.year}</from>
+    <from>#{
+                       Date.today.year
+                     }</from>
     <owner>
       <organization>
         <name>Freight Trust and Clearing</name>
@@ -251,14 +301,19 @@ RSpec.describe Asciidoctor::tdoc do
   <doctype>standard</doctype>
   </ext>
 </bibdata>
-        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement")}
+        #{
+                       BOILERPLATE.sub(
+                         /<legal-statement/,
+                         "#{LICENSE_BOILERPLATE}\n<legal-statement"
+                       )
+                     }
 <sections/>
 </tdoc-standard>
 OUTPUT
-        end
+  end
 
-    it "ignores unrecognised status" do
-      input = <<~"INPUT"
+  it 'ignores unrecognised status' do
+    input = <<~"INPUT"
         = Document title
         Author
         :docfile: test.adoc
@@ -276,7 +331,7 @@ OUTPUT
         :title: Main Title
       INPUT
 
-      output = <<~"OUTPUT"
+    output = <<~"OUTPUT"
        <tdoc-standard xmlns='https://www.tradedocs.org/namespace/tdoc'>
          <bibdata type='standard'>
            <title language='en' format='text/plain'>Main Title</title>
@@ -319,15 +374,29 @@ OUTPUT
          </bibdata>
 
 
-        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement").sub(/Freight Trust and Clearing Corporation\. #{Time.new.year}/, "Freight Trust and Clearing")}
+        #{
+      BOILERPLATE.sub(
+        /<legal-statement/,
+        "#{LICENSE_BOILERPLATE}\n<legal-statement"
+      ).sub(
+        /Freight Trust and Clearing Corporation\. #{Time.new.year}/,
+        'Freight Trust and Clearing'
+      )
+    }
         <sections/>
         </tdoc-standard>
       OUTPUT
 
-      expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :tdoc, header_footer: true)))).to(be_equivalent_to(output))
-    end
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
+        )
+      )
+    ).to(be_equivalent_to(output))
+  end
 
-  it "strips inline header" do
+  it 'strips inline header' do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
       This is a preamble
@@ -335,8 +404,11 @@ OUTPUT
       == Section 1
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
-    #{BLANK_HDR}
+    output =
+      xmlpp(<<~"OUTPUT")
+    #{
+        BLANK_HDR
+      }
              <preface><foreword id="_" obligation="informative">
          <title>Foreword</title>
          <p id="_">This is a preamble</p>
@@ -347,10 +419,16 @@ OUTPUT
        </tdoc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :tdoc, header_footer: true)))).to be_equivalent_to output
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
+        )
+      )
+    ).to be_equivalent_to output
   end
 
-  it "uses default fonts" do
+  it 'uses default fonts' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -359,16 +437,22 @@ OUTPUT
       :no-pdf:
     INPUT
 
-    FileUtils.rm_f "test.html"
+    FileUtils.rm_f 'test.html'
     Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
 
-    html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Source Code Pro", monospace;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Source Sans Pro", sans-serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Source Sans Pro", sans-serif;]m)
+    html = File.read('test.html', encoding: 'utf-8')
+    expect(html).to match(
+      /\bpre[^{]+\{[^}]+font-family: "Source Code Pro", monospace;/m
+    )
+    expect(html).to match(
+      / div[^{]+\{[^}]+font-family: "Source Sans Pro", sans-serif;/m
+    )
+    expect(html).to match(
+      /h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Source Sans Pro", sans-serif;/m
+    )
   end
 
-  it "uses Chinese fonts" do
+  it 'uses Chinese fonts' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -378,16 +462,20 @@ OUTPUT
       :no-pdf:
     INPUT
 
-    FileUtils.rm_f "test.html"
+    FileUtils.rm_f 'test.html'
     Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
 
-    html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Source Code Pro", monospace;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "SimSun", serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "SimHei", sans-serif;]m)
+    html = File.read('test.html', encoding: 'utf-8')
+    expect(html).to match(
+      /\bpre[^{]+\{[^}]+font-family: "Source Code Pro", monospace;/m
+    )
+    expect(html).to match(/ div[^{]+\{[^}]+font-family: "SimSun", serif;/m)
+    expect(html).to match(
+      /h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "SimHei", sans-serif;/m
+    )
   end
 
-  it "uses specified fonts" do
+  it 'uses specified fonts' do
     input = <<~"INPUT"
       = Document title
       Author
@@ -400,16 +488,18 @@ OUTPUT
       :no-pdf:
     INPUT
 
-    FileUtils.rm_f "test.html"
+    FileUtils.rm_f 'test.html'
     Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
 
-    html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\bpre[^{]+\{[^{]+font-family: Andale Mono;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: Zapf Chancery;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;]m)
+    html = File.read('test.html', encoding: 'utf-8')
+    expect(html).to match(/\bpre[^{]+\{[^{]+font-family: Andale Mono;/m)
+    expect(html).to match(/ div[^{]+\{[^}]+font-family: Zapf Chancery;/m)
+    expect(html).to match(
+      /h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;/m
+    )
   end
 
-  it "processes inline_quoted formatting" do
+  it 'processes inline_quoted formatting' do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
       _emphasis_
@@ -426,8 +516,11 @@ OUTPUT
       [smallcap]#smallcap#
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
-            #{BLANK_HDR}
+    output =
+      xmlpp(<<~"OUTPUT")
+            #{
+        BLANK_HDR
+      }
        <sections>
         <p id="_"><em>emphasis</em>
        <strong>strong</strong>
@@ -445,11 +538,17 @@ OUTPUT
        </tdoc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :tdoc, header_footer: true)))).to be_equivalent_to output
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
+        )
+      )
+    ).to be_equivalent_to output
   end
 
-    it "processes executive summaries" do
-      input = <<~"INPUT"
+  it 'processes executive summaries' do
+    input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
 
       Foreword
@@ -469,8 +568,14 @@ OUTPUT
       Prefatory
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
-    #{BLANK_HDR.sub(/<status>/, "<abstract> <p>Abstract</p> </abstract> <status>")}
+    output =
+      xmlpp(<<~"OUTPUT")
+    #{
+        BLANK_HDR.sub(
+          /<status>/,
+          '<abstract> <p>Abstract</p> </abstract> <status>'
+        )
+      }
        <preface>
   <abstract id='_'>
     <p id='_'>Abstract</p>
@@ -496,8 +601,12 @@ OUTPUT
 </tdoc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :tdoc, header_footer: true)))).to be_equivalent_to output
-
-    end
-
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
+        )
+      )
+    ).to be_equivalent_to output
+  end
 end

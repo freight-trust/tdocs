@@ -47,18 +47,17 @@
 
 module EDI
   module Dir
-
-    DE_Properties = Struct.new( :name, :format, :status, :dummy, :description)
+    DE_Properties = Struct.new(:name, :format, :status, :dummy, :description)
 
     # Common structure of B)ranch (of a msg), C)DE, D)E, S)egment
     #
-    BCDS_entry = Struct.new( :item_no, :name, :status, :maxrep)
+    BCDS_entry = Struct.new(:item_no, :name, :status, :maxrep)
 
     # Named_list:
     #
     # A simplified Array to represent objects of EDI classes CDE, Segment, and
     # Message (branches) as lists of their constituting sub-units, augmented
-    # by the common properties +name+ and +desc+ (description). 
+    # by the common properties +name+ and +desc+ (description).
     #
     class Named_list
       attr_accessor :name, :desc
@@ -71,8 +70,8 @@ module EDI
         @store << obj
       end
 
-      def each( &b )
-        @store.each( &b )
+      def each(&b)
+        @store.each(&b)
       end
 
       def size
@@ -84,14 +83,10 @@ module EDI
       end
     end
 
-
     # A Directory object is currently a set of hashes representing
     # all the entries for data elements, composites, segments, and messages.
     #
-    class Directory
-      #
-      # Some ingredients for Directory caching:
-      #
+    class Directory # # Some ingredients for Directory caching: #
       @@cache = {}
       @@caching = true
       private_class_method :new
@@ -127,8 +122,7 @@ module EDI
         @@cache = {}
       end
 
-
-      # Creates (and caches) a new directory. Returns reference to 
+      # Creates (and caches) a new directory. Returns reference to
       # existing directory when already in cache.
       #
       # std:: The syntax standard key. Currently supported:
@@ -151,69 +145,64 @@ module EDI
       # Interactive EDI (only limited supported so far):
       # is_iedi:: Flag, +true+ or +false+. Assumed +false+ if missing.
       #
-      def Directory.create( std, params )
-
+      def Directory.create(std, params)
         case std
         when 'E' # UN/EDIFACT
-          par = {:d0051 => '', 
-                 :d0057 => '',
-                 :is_iedi => false }.update( params )
+          par = { d0051: '', d0057: '', is_iedi: false }.update(params)
         when 'I' # SAP IDocs
-          par = { }.update( params )
+          par = {}.update(params)
         else
           raise "Unsupported syntax standard: #{std}"
         end
 
         if Directory.caching?
-
           # Use param set as key for caching
           #
-          key = par.sort {|a,b| a.to_s <=> b.to_s}.hash
+          key = par.sort { |a, b| a.to_s <=> b.to_s }.hash
           obj = @@cache[key]
           return obj unless obj.nil?
 
-          obj = new( std, par )
+          obj = new(std, par)
           @@cache[key] = obj # cache & return it
-
         else
-          new( std, par )
+          new(std, par)
         end
       end
 
       #
       # Helper method: Derive path fragments of CSV files from parameters
       #
-      def Directory.prefix_ext_finder( std, par )
+      def Directory.prefix_ext_finder(std, par)
         ext = ''
         case std
-
         when 'I' # SAP IDocs
           prefix = '/sap'
           if par[:IDOCTYPE]
-            prefix += '/idocs'+par[:SAPTYPE]+'/'+par[:IDOCTYPE]+'/'
+            prefix += '/idocs' + par[:SAPTYPE] + '/' + par[:IDOCTYPE] + '/'
             if par[:EXTENSION].is_a? String and not par[:EXTENSION].empty?
-              if par[:EXTENSION] =~ /\/(.*\/)([^\/]+)/
+              if par[:EXTENSION] =~ %r{\/(.*\/)([^\/]+)}
                 prefix += $1 + 'ED'
                 ext = $2 + '.csv'
               else
                 prefix += 'ED'
                 ext = par[:EXTENSION] + '.csv'
-              end              
+              end
             else
               prefix += 'ED'
               ext = '.csv'
-            end              
+            end
           else
             case par[:SAPTYPE]
-            when '40'; ext = '04000'
-            else ; raise "Unsupported SAP Type: #{par[:SAPTYPE]}"
+            when '40'
+              ext = '04000'
+            else
+              raise "Unsupported SAP Type: #{par[:SAPTYPE]}"
             end
             prefix += '/controls/SD'
             ext += '.csv'
           end
-
         when 'E' # UN/EDIFACT
-          prefix = '/edifact' 
+          prefix = '/edifact'
           if par[:d0002] # ISO9735 requested?
             case par[:d0002]
             when 1
@@ -221,22 +210,19 @@ module EDI
             when 2
               ext = '20000'
             when 3
-              ext = '30000'
+              ext = '30000' # Revise when SV 4-2 arrives!
             when 4
-              # Assume that any setting of d0076 implies SV 4-1
-              # Revise when SV 4-2 arrives!
               ext = (par[:d0076] == nil) ? '40000' : '40100'
             else
               raise "Invalid syntax version: #{par[:d0002]}"
             end
             prefix += '/iso9735/SD'
             ext += '.csv'
-
-          else		# UN/TDID requested?
+          else
+            # UN/TDID requested?
             prefix += par[:is_iedi] ? '/untdid/ID' : '/untdid/ED'
-            ext = (par[:d0052]+par[:d0054]).downcase + '.csv'
+            ext = (par[:d0052] + par[:d0054]).downcase + '.csv'
           end
-
         else
           raise "Unsupported syntax standard: #{std}"
         end
@@ -244,13 +230,12 @@ module EDI
         return prefix, ext
       end
 
-
       #
       # Helper method: Determine path of requested csv file
-      # 
+      #
       # Will be generalized to a lookup scheme!
       #
-      def Directory.path_finder( prefix, ext, selector )
+      def Directory.path_finder(prefix, ext, selector)
         filename = prefix + selector + '.' + ext
         searchpath = ENV['EDI_NDB_PATH']
 
@@ -258,84 +243,90 @@ module EDI
           path = datadir + filename
           return path if File.readable? path
         end
-        raise "No readable file '." + filename + "' found below any dir on '" + searchpath + "'"
+        raise "No readable file '." + filename + "' found below any dir on '" +
+                searchpath + "'"
       end
 
       #
       # see Directory.create
       #
-      def initialize ( std, par ) # :nodoc:
+      def initialize(std, par)
+        # :nodoc:
 
-        prefix, ext = Directory.prefix_ext_finder( std, par )
+        prefix, ext = Directory.prefix_ext_finder(std, par)
 
         # Build DE directory
 
         prefix_ed = prefix.sub(/ID$/, 'ED') # There is no IDED.*.csv!
-        csvFileName = Directory.path_finder(prefix_ed, ext, 'ED' )
+        csvFileName = Directory.path_finder(prefix_ed, ext, 'ED')
         @de_dir = Hash.new
         IO.foreach(csvFileName) do |line|
           d = DE_Properties.new
           d.name, d.format, d.dummy, d.description = line.strip.split(/;/)
-          $stderr.puts "ERR DE line", line if d.description.nil?
-          @de_dir[d.name] = d 
+          $stderr.puts 'ERR DE line', line if d.description.nil?
+          @de_dir[d.name] = d
         end
 
         # Build CDE directory
 
-        csvFileName = Directory.path_finder(prefix, ext, 'CD' )
+        csvFileName = Directory.path_finder(prefix, ext, 'CD')
         @cde_dir = Hash.new
         IO.foreach(csvFileName) do |line|
           c = Named_list.new
           c.name, c.desc, list = line.split(/;/, 3)
-          $stderr.puts "ERR CDE line", line if list.nil?
-          list.sub(/;\s*$/,'').split(/;/).each_slice(4) do |item, code, status, fmt|
-            $stderr.puts "ERR CDE list", line if fmt.nil?
-            c << BCDS_entry.new( item, code, status, 1 )
+          $stderr.puts 'ERR CDE line', line if list.nil?
+          list.sub(/;\s*$/, '').split(/;/).each_slice(
+            4
+          ) do |item, code, status, fmt|
+            $stderr.puts 'ERR CDE list', line if fmt.nil?
+            c << BCDS_entry.new(item, code, status, 1)
           end
           @cde_dir[c.name] = c
         end
 
         # Build Segment directory
 
-        csvFileName = Directory.path_finder(prefix, ext, 'SD' )
+        csvFileName = Directory.path_finder(prefix, ext, 'SD')
         @seg_dir = Hash.new
         IO.foreach(csvFileName) do |line|
           c = Named_list.new
           c.name, c.desc, list = line.split(/;/, 3)
-          $stderr.puts "ERR SEG line", line if list.nil?
-          list.sub(/;\s*$/,'').split(/;/).each_slice(4) do |item, code, status, maxrep|
-            $stderr.puts "ERR SEG list", line if maxrep.nil?
-            c << BCDS_entry.new( item, code, status, maxrep.to_i )
+          $stderr.puts 'ERR SEG line', line if list.nil?
+          list.sub(/;\s*$/, '').split(/;/).each_slice(
+            4
+          ) do |item, code, status, maxrep|
+            $stderr.puts 'ERR SEG list', line if maxrep.nil?
+            c << BCDS_entry.new(item, code, status, maxrep.to_i)
           end
           @seg_dir[c.name] = c
         end
 
         # Build Message directory
-        
-        csvFileName = Directory.path_finder(prefix, ext, 'MD' )
+
+        csvFileName = Directory.path_finder(prefix, ext, 'MD')
         @msg_dir = Hash.new
-        re = if par[:d0065] and par[:d0065] =~ /([A-Z]{6})/ 
-             then Regexp.new($1) else nil end
+        re = par[:d0065] and par[:d0065] =~ /([A-Z]{6})/ ? Regexp.new($1) : nil
         IO.foreach(csvFileName) do |line|
           next if re and line !~ re # Only lines matching message type if given
           c = Named_list.new
           c.name, c.desc, list = line.split(/;/, 3)
-          $stderr.puts "ERR MSG line", line if list.nil?
-          list.sub(/;\s*$/,'').split(/;/).each_slice(3) do |code, status, maxrep|
-            $stderr.puts "ERR MSG list", line if maxrep.nil?
-            c << BCDS_entry.new( "0000", code, status, maxrep.to_i )
+          $stderr.puts 'ERR MSG line', line if list.nil?
+          list.sub(/;\s*$/, '').split(/;/).each_slice(
+            3
+          ) do |code, status, maxrep|
+            $stderr.puts 'ERR MSG list', line if maxrep.nil?
+            c << BCDS_entry.new('0000', code, status, maxrep.to_i)
           end
           @msg_dir[c.name] = c
         end
       end # initialize
 
-
       # Returns CSV line for DE called +name+.
       # If +name+ is a Regexp, returns the first match or +nil+.
       #
-      def de( name )
+      def de(name)
         if name.is_a? Regexp
-          @de_dir[ @de_dir.keys.find {|key| key =~ name} ]
+          @de_dir[@de_dir.keys.find { |key| key =~ name }]
         else
           @de_dir[name]
         end
@@ -347,10 +338,9 @@ module EDI
         @de_dir.keys.sort
       end
 
-
       # Returns CSV line for CDE called +name+.
       #
-      def cde( name )
+      def cde(name)
         @cde_dir[name]
       end
 
@@ -360,13 +350,12 @@ module EDI
         @cde_dir.keys.sort
       end
 
-
       # Returns CSV line for segment called +name+.
       # If +name+ is a Regexp, returns the first match or +nil+.
       #
-      def segment( name )
+      def segment(name)
         if name.is_a? Regexp
-          @seg_dir[ @seg_dir.keys.find {|key| key =~ name} ]
+          @seg_dir[@seg_dir.keys.find { |key| key =~ name }]
         else
           @seg_dir[name]
         end
@@ -378,11 +367,11 @@ module EDI
         @seg_dir.keys.sort
       end
 
-
       # Returns CSV line of top branch for message called +name+.
       #
-      def message( name ) # Actually, only one branch!
-#        $stderr.puts name
+      def message(name)
+        # Actually, only one branch!
+        #        $stderr.puts name
         @msg_dir[name]
       end
 
@@ -392,104 +381,90 @@ module EDI
         @msg_dir.keys.sort
       end
 
-
       # Iterates over each branch (message), composite, data element,
       # or segment found (hence: BCDS) that is matched by +id+.
       #
-      # +id+ is a string. The object type requested by this string is not 
+      # +id+ is a string. The object type requested by this string is not
       # obvious. This method determines it through a naming convention.
       # See source for details.
       #
       # Fails with EDI::EDILookupError when nothing found.
 
-      def each_BCDS( id, &b )
+      def each_BCDS(id, &b)
         list = nil
         case id
-        when /^[CES]\d{3}$/	# C)omposite
+        when /^[CES]\d{3}$/ # C)omposite
           list = cde(id)
-          
-        when /^\d{4}$/		# Simple D)E
+        when /^\d{4}$/ # Simple D)E
           list = de(id)
-
-        when /^[A-Z]{3}$/	# S)egment
+        when /^[A-Z]{3}$/ # S)egment
           list = segment(id)
-
-        when /^[A-Z]{6}:$/	# Message B)ranch
+        when /^[A-Z]{6}:$/ # Message B)ranch
           list = message(id)
 
-          # Workaround for the IDoc case: 
+          # Workaround for the IDoc case:
           # We identify entry type by a (intermediate) prefix
           #
-        when /^d(.*)$/		# Simple D)E
+        when /^d(.*)$/ # Simple D)E
           list = de($1)
-
-        when /^s(.*)$/		# S)egment, SAP IDOC
+        when /^s(.*)$/ # S)egment, SAP IDOC
           list = segment($1)
-
-        when /^m(.*)$/		# Message B)ranch
+        when /^m(.*)$/ # Message B)ranch
           list = message($1)
-
-        else			# Should never occur
+        else
+          # Should never occur
           raise IndexError, "Not a legal BCDS entry id: '#{id}'"
         end
 
         raise EDILookupError, "#{id} not in directory!" if list.nil?
-        list.each( &b )
+        list.each(&b)
       end
-
     end # Directory
-
   end # module Dir
 
   # Special Exception class that sometimes gets rescued
   #
-  class EDILookupError < IndexError
-  end
-
+  class EDILookupError < IndexError; end
 end # module EDI
 
-
 # :enddoc:
-if __FILE__ == $0
-  # Test code
-
+if __FILE__ == $0 # Test code
   require 'enumerator'
   require 'pathname'
 
   # Make this file standalone during testing:
-  ENV['EDI_NDB_PATH'] = 
-    Pathname.new(__FILE__).parent.parent.parent.to_s+'/data'
+  ENV['EDI_NDB_PATH'] =
+    Pathname.new(__FILE__).parent.parent.parent.to_s + '/data'
 
   # EDIFACT tests
 
-  d = EDI::Dir::Directory.create('E',
-                                 :d0065 => 'ORDERS', 
-                                 :d0052 =>'D', 
-                                 :d0054 =>'96A')
-  i = EDI::Dir::Directory.create('E', :d0002 => 2)
+  d = EDI::Dir::Directory.create('E', d0065: 'ORDERS', d0052: 'D', d0054: '96A')
+  i = EDI::Dir::Directory.create('E', d0002: 2)
 
-  puts i.de_names; gets
-  puts i.cde_names; gets
-  puts d.message_names; gets
-  puts d.de('4457'); gets
+  puts i.de_names
+  gets
+  gets
+  puts i.cde_names
+  puts d.message_names
+  gets
+  gets
+  puts d.de('4457')
 
   # EDIFACT bulk tests
 
-  d = EDI::Dir::Directory.create('E',
-                                 :d0052 =>'D', 
-                                 :d0054 =>'96A')
+  d = EDI::Dir::Directory.create('E', d0052: 'D', d0054: '96A')
 
-  puts d.message_names; gets
+  puts d.message_names
+  gets
 
   # SAP IDOC tests (should fail now!)
 
-  s = EDI::Dir::Directory.create('I', 
-                                 :SAPTYPE => '40', 
-                                 :IDOCTYPE => 'ORDERS04')
-  t = EDI::Dir::Directory.create('I',
-                                 :SAPTYPE => '40', 
-                                 :IDOCTYPE => 'ORDERS05', 
-                                 :EXTENSION => '/GIL/EPG_ORDERS05')
+  s = EDI::Dir::Directory.create('I', SAPTYPE: '40', IDOCTYPE: 'ORDERS04')
+  t =
+    EDI::Dir::Directory.create(
+      'I',
+      SAPTYPE: '40', IDOCTYPE: 'ORDERS05', EXTENSION: '/GIL/EPG_ORDERS05'
+    )
   puts s.de_names
   puts t.de_names
 end

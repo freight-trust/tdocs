@@ -1,11 +1,22 @@
-require "spec_helper"
+require 'spec_helper'
 
-logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "isodoc", "tdoc", "html"))
+logoloc =
+  File.expand_path(
+    File.join(
+      File.dirname(__FILE__),
+      '..',
+      '..',
+      '..',
+      'lib',
+      'isodoc',
+      'tdoc',
+      'html'
+    )
+  )
 
-RSpec.describe IsoDoc::tdoc do
-
-  it "processes default metadata" do
-    csdc = IsoDoc::tdoc::HtmlConvert.new({})
+RSpec.describe IsoDoc.tdoc do
+  it 'processes default metadata' do
+    csdc = IsoDoc.tdoc::HtmlConvert.new({})
     input = <<~"INPUT"
 <tdoc-standard xmlns="https://www.tradedocs.org/namespace/standards/tdoc">
 <bibdata type="standard">
@@ -72,7 +83,7 @@ RSpec.describe IsoDoc::tdoc do
 :implementeddate=>"XXX",
 :issueddate=>"XXX",
 :keywords=>[],
-:logo=>"#{File.join(logoloc, "logo.png")}",
+:logo=>"#{File.join(logoloc, 'logo.png')}",
 :obsoleteddate=>"XXX",
 :publisheddate=>"XXX",
 :publisher=>"TradeDoc",
@@ -92,11 +103,13 @@ RSpec.describe IsoDoc::tdoc do
 :vote_starteddate=>"XXX"}
     OUTPUT
 
-    docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
+    docxml, filename, dir = csdc.convert_init(input, 'test', true)
+    expect(
+      htmlencode(Hash[csdc.info(docxml, nil).sort].to_s).gsub(/, :/, ",\n:")
+    ).to be_equivalent_to output
   end
 
-  it "processes pre" do
+  it 'processes pre' do
     input = <<~"INPUT"
 <tdoc-standard xmlns="https://www.tradedocs.org/namespace/standards/tdoc">
 <preface><foreword>
@@ -105,8 +118,11 @@ RSpec.describe IsoDoc::tdoc do
 </tdoc-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
-    #{HTML_HDR}
+    output =
+      xmlpp(<<~"OUTPUT")
+    #{
+        HTML_HDR
+      }
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
@@ -117,15 +133,17 @@ RSpec.describe IsoDoc::tdoc do
          </body>
     OUTPUT
 
-    expect(xmlpp(
-      IsoDoc::tdoc::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    )).to be_equivalent_to output
+    expect(
+      xmlpp(
+        IsoDoc.tdoc::HtmlConvert.new({}).convert('test', input, true).gsub(
+          /^.*<body/m,
+          '<body'
+        ).gsub(%r{</body>.*}m, '</body>')
+      )
+    ).to be_equivalent_to output
   end
 
-  it "processes keyword" do
+  it 'processes keyword' do
     input = <<~"INPUT"
 <tdoc-standard xmlns="https://www.tradedocs.org/namespace/standards/tdoc">
 <preface><foreword>
@@ -134,8 +152,11 @@ RSpec.describe IsoDoc::tdoc do
 </tdoc-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
-        #{HTML_HDR}
+    output =
+      xmlpp(<<~"OUTPUT")
+        #{
+        HTML_HDR
+      }
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
@@ -146,15 +167,17 @@ RSpec.describe IsoDoc::tdoc do
          </body>
     OUTPUT
 
-    expect(xmlpp(
-      IsoDoc::tdoc::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    )).to be_equivalent_to output
+    expect(
+      xmlpp(
+        IsoDoc.tdoc::HtmlConvert.new({}).convert('test', input, true).gsub(
+          /^.*<body/m,
+          '<body'
+        ).gsub(%r{</body>.*}m, '</body>')
+      )
+    ).to be_equivalent_to output
   end
 
-  it "processes section names" do
+  it 'processes section names' do
     input = <<~"INPUT"
     <tdoc-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
@@ -219,8 +242,11 @@ RSpec.describe IsoDoc::tdoc do
        </tdoc-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
-        #{HTML_HDR}
+    output =
+      xmlpp(<<~"OUTPUT")
+        #{
+        HTML_HDR
+      }
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
@@ -293,15 +319,18 @@ RSpec.describe IsoDoc::tdoc do
          </body>
     OUTPUT
 
-    expect(xmlpp(
-      IsoDoc::tdoc::HtmlConvert.new({}).convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    )).to be_equivalent_to output
+    expect(
+      xmlpp(
+        IsoDoc.tdoc::HtmlConvert.new({}).convert('test', input, true).gsub(
+          /^.*<body/m,
+          '<body'
+        ).gsub(%r{</body>.*}m, '</body>')
+      )
+    ).to be_equivalent_to output
   end
 
-  it "injects JS into blank html" do
-    system "rm -f test.html"
+  it 'injects JS into blank html' do
+    system 'rm -f test.html'
     input = <<~"INPUT"
       = Document title
       Author
@@ -310,20 +339,29 @@ RSpec.describe IsoDoc::tdoc do
       :no-pdf:
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output =
+      xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </tdoc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :tdoc, header_footer: true)))).to be_equivalent_to output
-    html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r{jquery\.min\.js})
-    expect(html).to match(%r{Source Sans Pro})
+    expect(
+      xmlpp(
+        strip_guid(
+          Asciidoctor.convert(input, backend: :tdoc, header_footer: true)
+        )
+      )
+    ).to be_equivalent_to output
+    html = File.read('test.html', encoding: 'utf-8')
+    expect(html).to match(/jquery\.min\.js/)
+    expect(html).to match(/Source Sans Pro/)
   end
 
-    it "cross-references sections" do
-      expect(xmlpp(IsoDoc::tdoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it 'cross-references sections' do
+    expect(
+      xmlpp(
+        IsoDoc.tdoc::HtmlConvert.new({}).convert('test', <<~"INPUT", true)
       <tdoc-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <foreword obligation="informative">
@@ -404,7 +442,12 @@ RSpec.describe IsoDoc::tdoc do
        </bibliography>
        </tdoc-standard>
     INPUT
-            #{HTML_HDR}
+          .gsub(/^.*<body/m, '<body').gsub(%r{</body>.*}m, '</body>')
+      )
+    ).to be_equivalent_to xmlpp(<<~"OUTPUT")
+            #{
+                       HTML_HDR
+                     }
       <br/>
       <div>
         <h1 class='ForewordTitle'>Foreword</h1>
@@ -517,6 +560,4 @@ RSpec.describe IsoDoc::tdoc do
   </body>
     OUTPUT
   end
-
-
 end

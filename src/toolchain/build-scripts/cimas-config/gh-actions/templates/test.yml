@@ -2,7 +2,7 @@ name: test
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
 
 jobs:
@@ -12,17 +12,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
-        ruby: [ '2.6', '2.5', '2.4' ]
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        ruby: ["2.6", "2.5", "2.4"]
         experimental: [false]
         include:
-          - ruby: '2.7'
+          - ruby: "2.7"
             os: macos-latest
             experimental: true
-          - ruby: '2.7'
+          - ruby: "2.7"
             os: ubuntu-latest
             experimental: true
-          - ruby: '2.7'
+          - ruby: "2.7"
             os: windows-latest
             experimental: true
     runs-on: ${{ matrix.os }}
@@ -46,7 +46,7 @@ jobs:
       - name: Use Node
         uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: "12"
       - name: Puppeteer prerequisties
         if: matrix.os == 'ubuntu-latest'
         run: |
@@ -58,8 +58,8 @@ jobs:
       - name: Use Python
         uses: actions/setup-python@v1
         with:
-          python-version: '3.6'
-          architecture: 'x64'
+          python-version: "3.6"
+          architecture: "x64"
       - name: Install xml2rfc
         run: |
           pip install xml2rfc

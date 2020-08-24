@@ -1,18 +1,17 @@
-require "asciidoctor"
-require "asciidoctor/standoc/converter"
-require "fileutils"
+require 'asciidoctor'
+require 'asciidoctor/standoc/converter'
+require 'fileutils'
 
 module Asciidoctor
   module Generic
-
     # A {Converter} implementation that generates RSD output, and a document
     # schema encapsulation of the document for validation
     #
     class Converter < Standoc::Converter
-      XML_ROOT_TAG = "generic-standard".freeze
-      XML_NAMESPACE = "https://www.metanorma.org/ns/generic".freeze
+      XML_ROOT_TAG = 'generic-standard'.freeze
+      XML_NAMESPACE = 'https://www.metanorma.org/ns/generic'.freeze
 
-      register_for "generic"
+      register_for 'generic'
 
       def xml_root_tag
         configuration.xml_root_tag || XML_ROOT_TAG
@@ -22,39 +21,43 @@ module Asciidoctor
         configuration.document_namespace || XML_NAMESPACE
       end
 
-       def baselocation(loc)
+      def baselocation(loc)
         return nil if loc.nil?
-        File.expand_path(File.join(File.dirname(self.class::_file || __FILE__), "..", "..", "..", loc))
+        File.expand_path(
+          File.join(
+            File.dirname(self.class._file || __FILE__),
+            '..',
+            '..',
+            '..',
+            loc
+          )
+        )
       end
 
       def metadata_author(node, xml)
         xml.contributor do |c|
-          c.role **{ type: "author" }
-          c.organization do |a|
-            a.name configuration.organization_name_long
-          end
+          c.role **{ type: 'author' }
+          c.organization { |a| a.name configuration.organization_name_long }
         end
         personal_author(node, xml)
       end
 
       def metadata_publisher(node, xml)
         xml.contributor do |c|
-          c.role **{ type: "publisher" }
-          c.organization do |a|
-            a.name configuration.organization_name_long
-          end
+          c.role **{ type: 'publisher' }
+          c.organization { |a| a.name configuration.organization_name_long }
         end
       end
 
       def metadata_committee(node, xml)
-        return unless node.attr("committee")
+        return unless node.attr('committee')
         xml.editorialgroup do |a|
-          a.committee node.attr("committee"),
-            **attr_code(type: node.attr("committee-type"))
+          a.committee node.attr('committee'),
+                      **attr_code(type: node.attr('committee-type'))
           i = 2
-          while node.attr("committee_#{i}") do
+          while node.attr("committee_#{i}")
             a.committee node.attr("committee_#{i}"),
-              **attr_code(type: node.attr("committee-type_#{i}"))
+                        **attr_code(type: node.attr("committee-type_#{i}"))
             i += 1
           end
         end
@@ -62,31 +65,35 @@ module Asciidoctor
 
       def metadata_status(node, xml)
         xml.status do |s|
-          s.stage ( node.attr("status") || node.attr("docstage") ||
-                   configuration.default_stage || "published" )
-          x = node.attr("substage") and s.substage x
-          x = node.attr("iteration") and s.iteration x
+          s.stage (
+                    node.attr('status') || node.attr('docstage') ||
+                      configuration.default_stage || 'published'
+                  )
+          x = node.attr('substage') and s.substage x
+          x = node.attr('iteration') and s.iteration x
         end
       end
 
       def docidentifier_cleanup(xmldoc)
-        template = configuration.docid_template ||
-          "{{ organization_name_short }} {{ docnumeric }}"
-        docid = xmldoc.at("//bibdata/docidentifier")
+        template =
+          configuration.docid_template ||
+            '{{ organization_name_short }} {{ docnumeric }}'
+        docid = xmldoc.at('//bibdata/docidentifier')
         id = boilerplate_isodoc(xmldoc).populate_template(template, nil)
         id.empty? and docid.remove or docid.children = id
       end
 
       def metadata_id(node, xml)
-        xml.docidentifier **{ type:
-                              configuration.organization_name_short } do |i|
-          i << "DUMMY"
+        xml.docidentifier **{
+                            type: configuration.organization_name_short
+                          } do |i|
+          i << 'DUMMY'
         end
-        xml.docnumber { |i| i << node.attr("docnumber") }
+        xml.docnumber { |i| i << node.attr('docnumber') }
       end
 
       def metadata_copyright(node, xml)
-        from = node.attr("copyright-year") || Date.today.year
+        from = node.attr('copyright-year') || Date.today.year
         xml.copyright do |c|
           c.from from
           c.owner do |owner|
@@ -105,60 +112,68 @@ module Asciidoctor
       end
 
       def doctype(node)
-        d = node.attr("doctype")
-        configuration.doctypes or return d == "article" ? "standard" : d
-        default = configuration.default_doctype || Array(configuration.doctypes).dig(0) ||
-          "standard"
+        d = node.attr('doctype')
+        configuration.doctypes or return d == 'article' ? 'standard' : d
+        default =
+          configuration.default_doctype ||
+            Array(configuration.doctypes).dig(0) || 'standard'
         unless Array(configuration.doctypes).include? d
-          @log.add("Document Attributes", nil,
-                   "#{d} is not a legal document type: reverting to '#{default}'")
+          @log.add(
+            'Document Attributes',
+            nil,
+            "#{d} is not a legal document type: reverting to '#{default}'"
+          )
           d = default
         end
         d
       end
 
       def read_config_file(path_to_config_file)
-        Metanorma::Generic.configuration.
-          set_default_values_from_yaml_file(path_to_config_file)
+        Metanorma::Generic.configuration.set_default_values_from_yaml_file(
+          path_to_config_file
+        )
       end
 
       def sectiontype_streamline(ret)
         if configuration.termsdefs_titles.map(&:downcase).include? (ret)
-          "terms and definitions"
+          'terms and definitions'
         elsif configuration.symbols_titles.map(&:downcase).include? (ret)
-          "symbols and abbreviated terms"
+          'symbols and abbreviated terms'
         elsif configuration.normref_titles.map(&:downcase).include? (ret)
-          "normative references"
+          'normative references'
         elsif configuration.bibliography_titles.map(&:downcase).include? (ret)
-          "bibliography"
+          'bibliography'
         else
           ret
         end
       end
 
       def document(node)
-        read_config_file(node.attr("customize")) if node.attr("customize")
+        read_config_file(node.attr('customize')) if node.attr('customize')
         init(node)
         ret1 = makexml(node)
         ret = ret1.to_xml(indent: 2)
-        unless node.attr("nodoc") || !node.attr("docfile")
-          filename = node.attr("docfile").gsub(/\.adoc/, ".xml").
-            gsub(%r{^.*/}, "")
-          File.open(filename, "w") { |f| f.write(ret) }
-          html_converter(node).convert filename unless node.attr("nodoc")
-          word_converter(node).convert filename unless node.attr("nodoc")
-          pdf_converter(node)&.convert filename unless node.attr("nodoc")
+
+        unless node.attr('nodoc') || !node.attr('docfile')
+          filename =
+            node.attr('docfile').gsub(/\.adoc/, '.xml').gsub(%r{^.*/}, '')
+          File.open(filename, 'w') { |f| f.write(ret) }
+          html_converter(node).convert filename unless node.attr('nodoc')
+          word_converter(node).convert filename unless node.attr('nodoc')
+          pdf_converter(node)&.convert filename unless node.attr('nodoc')
         end
-        @log.write(@localdir + @filename + ".err") unless @novalid
+        @log.write(@localdir + @filename + '.err') unless @novalid
         @files_to_delete.each { |f| FileUtils.rm f }
         ret
       end
 
       def validate(doc)
         content_validate(doc)
-        schema_validate(formattedstr_strip(doc.dup),
-                        baselocation(configuration.validate_rng_file) ||
-                        File.join(File.dirname(__FILE__), "generic.rng"))
+        schema_validate(
+          formattedstr_strip(doc.dup),
+          baselocation(configuration.validate_rng_file) ||
+            File.join(File.dirname(__FILE__), 'generic.rng')
+        )
       end
 
       def content_validate(doc)
@@ -173,16 +188,18 @@ module Asciidoctor
       def stage_validate(xmldoc)
         stages = configuration&.stage_abbreviations&.keys || return
         stages.empty? and return
-        stage = xmldoc&.at("//bibdata/status/stage")&.text
+        stage = xmldoc&.at('//bibdata/status/stage')&.text
         stages.include? stage or
-          @log.add("Document Attributes", nil, "#{stage} is not a recognised status")
+          @log.add(
+            'Document Attributes',
+            nil,
+            "#{stage} is not a recognised status"
+          )
       end
 
       def sections_cleanup(x)
         super
-        x.xpath("//*[@inline-header]").each do |h|
-          h.delete("inline-header")
-        end
+        x.xpath('//*[@inline-header]').each { |h| h.delete('inline-header') }
       end
 
       def blank_method(*args); end
